@@ -1,0 +1,163 @@
+.appBar{
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    top: 0px;
+    background-color:maroon ;
+    display: flex;
+    flex-direction: row;
+}
+.heading{
+    font-size: 22px;
+    color: mintcream;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-right:8% ;
+    
+}
+.searchBarContener{
+    flex-grow: 4;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+
+
+.searchBody{
+    width: 65%;
+    height: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color :mintcream;
+    border-radius: 4px;
+}
+.searchIcon{
+    padding-left: 2%;
+    opacity: 0.61;
+}
+.inputBox{
+    width: 100%;
+    font-size: smaller;
+}
+
+}
+.cartContainer{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: mintcream;;
+    .cart{
+        padding: 4%;
+       
+    }
+
+}
+.body{
+    display: flex;
+    justify-content: center;
+    padding-top: 65px;
+    flex-direction: column;
+    align-items: center;
+}
+.bookscount{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3%;
+    padding-bottom: 2%;
+}
+.headingcount{
+    font-size: 24px;
+    font-weight: 500;
+}
+.booksBodyContainer{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.bookcell{
+    width: 230px;
+    height: 310px;
+    border: 1px groove rgb(233, 228, 228);
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+}
+.bookcell{
+    &:hover {
+        
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    }
+}
+@mixin btn {
+    background-color: maroon;
+    color:mintcream;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    font-size: small;
+}
+.Addbag{
+    @include btn;
+    
+}
+.wishlist{
+   font-size: small;
+    color: black;
+    border: 1px solid black;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 12px;
+    padding-left: 12px;
+    cursor: pointer;
+}
+.imageContainer{
+  width: 100%;
+  height: 56%;
+  background-color: rgb(241, 241, 241);
+}
+.bookNameContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.bookDiscription{
+    padding:17px;
+    display: flex;
+    flex-direction: column;
+}
+.buttonCotainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.bookname{
+    font-size: 16px;
+    display: flex;
+    font-weight: 500;
+    font-family: revert;
+
+}
+.Auther{
+    display: flex;
+    font-size: 11px;
+    color: lightslategrey;
+    font-family: revert;
+}
+
+.price{
+    display: flex;
+    padding-top: 4px;
+    padding-bottom: 12px;
+    font-size: 13px;
+    font-family: revert;
+    font-weight: 700;
+}

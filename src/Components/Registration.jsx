@@ -149,16 +149,19 @@ export default class Registration extends React.Component {
                 <div className="bodyContainer">
                     <div className="registrationContainer">
                         <div className="fundoofont" >
-                            <span class="f">F</span>
-                            <span class="u">u</span>
-                            <span class="n">n</span>
-                            <span class="d">d</span>
-                            <span class="o">o</span>
-                            <span class="oo">o</span>
+                            <span class="f">B</span>
+                            <span class="u">o</span>
+                            <span class="n">o</span>
+                            <span class="d">k</span>
+                            <span class="o">s</span>
+                            <span class="oo">t</span>
+                            <span class="u">o</span>
+                            <span class="n">r</span>
+                            <span class="d">e</span>
                         </div>
 
                         <div className="textFieldBody">
-                            <p className="p1">Create your Fundoo Account</p> <br />
+                            <p className="p1">Create your BookStore Account</p> <br />
                             <form onSubmit={this.handleSubmit} noValidate>
                                 <div className="text">
                                     <div className="text1">
