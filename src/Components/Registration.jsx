@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
+import  AdminService from "../Services/adminServices";
+let service=new AdminService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
@@ -99,33 +101,33 @@ export default class Registration extends React.Component {
     }
 
     
-    // submitUserSignInForm = () => {
-    //     const user = {
-    //         firstName: this.state.firstName,
-    //         lastName: this.state.lastName,
-    //         email: this.state.email,
-    //         password: this.state.password,
-    //         service: "advance"
-    //     };
-    //     if( this.state.password === this.state.confirmPassword)
-    //     {
-    //         service.Registration(user)
-    //         .then((json) => {
-    //             console.log("responce data==>", json);
-    //             if (json.status === 200) {
-    //                 this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
+    submitUserSignInForm = () => {
+        const name= this.state.firstName + this.state.lastName;
+        const user = {
+            adminName: name,
+            adminEmailId: this.state.email,
+            password: this.state.password,
+            gender: "male"
+        };
+        if( this.state.password === this.state.confirmPassword)
+        {
+            service.Registration(user)
+            .then((json) => {
+                console.log("responce data==>", json);
+                if (json.status === 200) {
+                    this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         
-    //     }
-    //     else{
-    //         this.setState({ SnackbarOpen: true, SnackbarMessage: 'password not match !!' })
-    //     }
+        }
+        else{
+            this.setState({ SnackbarOpen: true, SnackbarMessage: 'password not match !!' })
+        }
         
-    // };
+    };
 
 
 

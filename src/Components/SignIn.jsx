@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-
+import  AdminService from "../Services/adminServices";
+let service=new AdminService();
 
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -37,9 +38,7 @@ export default class Registration extends React.Component {
         };
     }
 
-    SnackbarClose = (event) => {
-        this.setState({ SnackbarOpen: false });
-    }
+   
    
 
     handleChange = (event) => {
@@ -79,31 +78,31 @@ export default class Registration extends React.Component {
             console.error('Invalid Form')
         }
     }
-    // submitUserSignInForm = () => {
-    //     const user = {
+    submitUserSignInForm = () => {
+        const user = {
            
-    //         email: this.state.email,
-    //         password: this.state.password,
+            email: this.state.email,
+            password: this.state.password,
            
-    //       }; 
+          }; 
 
-    //       service.Login(user)
-    //         .then((json) => {
-    //           console.log("responce data==>", json.data.id);
-    //           //taking token Id of user
-    //           localStorage.setItem('token', json.data.id);
-    //           if (json.status === 200) {
-    //             this.setState({ SnackbarOpen: true, SnackbarMessage: 'Login Sucessfull !!' })
+          service.Login(user)
+            .then((json) => {
+              console.log("responce data==>", json.data.id);
+            //   //taking token Id of user
+            //   localStorage.setItem('token', json.data.id);
+              if (json.status === 200) {
+                this.setState({ SnackbarOpen: true, SnackbarMessage: 'Login Sucessfull !!' })
 
-    //             auth.login(()=>{
-    //                 this.props.history.push("/home/notes");
-    //             })
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //         });
-    // };
+                // auth.login(()=>{
+                //     this.props.history.push("/home/notes");
+                // })
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+    };
 
 
 
@@ -114,17 +113,7 @@ export default class Registration extends React.Component {
         const { errors } = this.state;
         return (
             <div className="smainContainer ">
-                <Snackbar
-                anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-                open={this.state.SnackbarOpen}
-                autoHideDuration={3000}
-                onClose={this.SnackbarClose}
-                message={<span id="message-id">{this.state.SnackbarMessage}</span>}
-                action={[
-                    <IconButton key="close" aria-label="close"
-                        color="inherit" onClick={this.SnackbarClose}>x</IconButton>
-                ]}
-            />
+                
                 <div className="sloginContainer">
                     <div className="fundoofont1" align="center">
                     <span class="f">B</span>
