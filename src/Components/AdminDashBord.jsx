@@ -1,6 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,13 +6,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
 import "../SCSS/adminDashBord.scss";
 import { StylesProvider } from "@material-ui/core/styles";
-// import historyService from '../Services/Service'
-// //object of  historyService
-// let service = new historyService();
+import ToolBar from "./ToolBar";
+import AdminService from "../Services/adminServices";
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import IconButton from '@material-ui/core/IconButton';
+let service = new AdminService();
 
 
 export default class AdminDashBord extends React.Component {
@@ -23,91 +22,86 @@ export default class AdminDashBord extends React.Component {
         super(props);
         this.state = {
             getAllBooks: [],
-            SnackbarOpen: false,
-            SnackbarMessage: '',
 
         };
     }
-    // //for fetching Employee list from database
-    // componentDidMount() {
-    //     this.history();
-    // }
-
-    SnackbarClose = (event) => {
-        this.setState({ SnackbarOpen: false });
+    //for fetching Employee list from database
+    componentDidMount() {
+        this.getAllBooks();
     }
 
-    // history = () => {
-    //     service.history()
-    //     .then((data) => {
-    //         console.log(" All books ", data);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
 
-    //     })
-    // }
 
-    // delete = (Id) => {
-    //     console.log("Delete Id", Id);
-    //     service.delete(Id).then((json) => {
-    //         console.log("responce data==>", json);
-    //         if (json.data.success === 'True') {
-    //             //alert('Record deleted successfully!!');
-    //             this.setState({ SnackbarOpen: true, SnackbarMessage: 'Record deleted successfully!!' })
-    //         }
-    //     })
-    // }
+    getAllBooks = () => {
+        service.GetAllBooks()
+            .then((data) => {
+                console.log(" All books ", data);
+                this.setState({ getAllBooks: data.data.data });
+                console.log(" All books arrey ", this.state.getAllBooks);
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
+    }
+
+    deleteBook = (Id) => {
+        console.log("Delete Id", Id);
+        service.delete(Id).then((json) => {
+            console.log("responce of deleteed data==>", json);
+            // if (json.data.success === 'True') {
+            //     //alert('Record deleted successfully!!');
+            //     this.setState({ SnackbarOpen: true, SnackbarMessage: 'Record deleted successfully!!' })
+            // }
+        })
+    }
 
     render() {
 
 
         return (
             <div class="tableBody">
-                <Snackbar
-                    anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-                    open={this.state.SnackbarOpen}
-                    autoHideDuration={3000}
-                    onClose={this.SnackbarClose}
-                    message={<span id="message-id">{this.state.SnackbarMessage}</span>}
-                    action={[
-                        <IconButton key="close" aria-label="close"
-                            color="inherit" onClick={this.SnackbarClose}>x</IconButton>
-                    ]}
-                />
-                <div class="history"><p>Admin DashBord</p></div>
+                {/* <div class="history"><p>Admin DashBord</p></div> */}
+                <ToolBar />
                 <div class="table">
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell align="right">Book_Name</TableCell>
-                                    <TableCell align="right">Auther</TableCell>
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="right">Quantity</TableCell>
-                                    <TableCell align="right">Edit</TableCell>
-                                    <TableCell align="right">DELETE</TableCell>
+                                    <TableCell>Title</TableCell>
+                                    <TableCell align="center">Author</TableCell>
+                                    <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">Quantity</TableCell>
+                                    <TableCell align="center">Image</TableCell>
+                                    <TableCell align="center">Description</TableCell>
+                                    <TableCell align="center">Edit</TableCell>
+                                    <TableCell align="center">Delete</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {
                                     this.state.getAllBooks.map((row) => (
                                         <StylesProvider injectFirst>
-                                        <TableRow key={row.id}>
-                                            <TableCell component="th" scope="row">
-                                                {row.id}
-                                            </TableCell>
-                                            <TableCell align="right">{row.conversionType}</TableCell>
-                                            <TableCell align="right">{row.value}</TableCell>
-                                            <TableCell align="right">{row.result}</TableCell>
-                                            <TableCell align="right">{row.dateOFCreation}</TableCell>
-                                            <TableCell align="right">
-                                                <Button variant="contained" onClick={() => this.delete(row.id)} color="primary" startIcon={<DeleteIcon />}>
-                                                    Delete
-                                         </Button>
-                                            </TableCell>
-                                        </TableRow>
+                                            <TableRow key={row.bookID}>
+                                                <TableCell component="th" scope="row">
+                                                    {row.bookName}
+                                                </TableCell>
+                                                <TableCell align="center">{row.authorName}</TableCell>
+                                                <TableCell align="center">{row.price}</TableCell>
+                                                <TableCell align="center">{row.quantity}</TableCell>
+                                                <TableCell align="center">{row.imageLink}</TableCell>
+                                                <TableCell align="center">{row.description}</TableCell>
+                                                <TableCell align="center">
+                                                    <IconButton edge="start" color="inherit" >
+                                                        <EditOutlinedIcon fontSize="small" color="inherit" />
+                                                    </IconButton>
+                                                </TableCell>
+                                                <TableCell align="center">
+                                                    <IconButton edge="start" color="inherit" onClick={()=>this.deleteBook(row.bookID)}>
+                                                        <DeleteOutlineOutlinedIcon fontSize="small" color="inherit" />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
                                         </StylesProvider>
                                     ))}
                             </TableBody>

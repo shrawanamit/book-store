@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default class AxiosService{
     Post(url,data){
-        console.log("login axios");
+        
         return axios.post(url,data);
     }
 
@@ -12,5 +12,9 @@ export default class AxiosService{
     Put(url,data,isHeaderRequired){
         
         return axios.put(url,data,isHeaderRequired);
+    }  
+    Delete(url,data,isHeaderRequired){
+        
+        return axios.delete(url,data,isHeaderRequired);
     }  
 }

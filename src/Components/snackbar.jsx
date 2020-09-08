@@ -1,10 +1,10 @@
-import react from React;
+import React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
 export default class snackBar extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-           
-           
             SnackbarOpen: false,
             SnackbarMessage: '',
         };
