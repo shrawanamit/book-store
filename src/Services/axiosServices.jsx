@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export default class AxiosService{
-    Post(url,data){
+    Post(url,data,isHeaderRequired){
         
-        return axios.post(url,data);
+        return axios.post(url,data ,isHeaderRequired);
     }
 
     Get(url,isHeaderRequired){
@@ -13,8 +13,8 @@ export default class AxiosService{
         
         return axios.put(url,data,isHeaderRequired);
     }  
-    Delete(url,data,isHeaderRequired){
+    Delete(url,isHeaderRequired){
         
-        return axios.delete(url,data,isHeaderRequired);
+        return axios.delete(url,isHeaderRequired);
     }  
 }

@@ -1,0 +1,1 @@
+export const DISPLAY_IMAGE ='DISPLAY_IMAGE';

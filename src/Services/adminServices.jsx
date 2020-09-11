@@ -3,6 +3,8 @@ import AxiosServices from "./axiosServices";
 
 const axiosService = new AxiosServices();
 const apiUrl = Config.url;
+const token = 'Bearer '+localStorage.getItem('token');
+
 export default class AdminService {
     Registration(data) {
        
@@ -27,14 +29,20 @@ export default class AdminService {
 
     }
     AddBook(data){
-        return axiosService.Post(`${apiUrl}api/Books`, data,false);
+        return axiosService.Post(`${apiUrl}api/Books`, data,{ headers: {
+          authorization: token
+        }});
 
     }
     updateBooks(data){
-        return axiosService.Put(`${apiUrl}api/Books`, data,false);
+        return axiosService.Put(`${apiUrl}api/Books`, data,{ headers: {
+          authorization: token
+        }});
 
     }
-    DeleteBooks(data){
-        return axiosService.Delete(`${apiUrl}/api/Books/{bookId}`,data,false)
+    DeleteBooks(Id){
+        return axiosService.Delete(`${apiUrl}api/Books/${Id}`,{ headers: {
+          authorization: token
+        }});
     }
 }

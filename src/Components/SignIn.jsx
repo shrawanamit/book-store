@@ -32,6 +32,7 @@ export default class Registration extends React.Component {
                 
                 email: '',
                 password: '',
+                token:''
             }
         };
     }
@@ -85,17 +86,12 @@ export default class Registration extends React.Component {
           }; 
 
           service.Login(user)
-            .then((json) => {
-              console.log("responce data==>", json.data.id);
-            //   //taking token Id of user
-            //   localStorage.setItem('token', json.data.id);
-              if (json.status === 200) {
-                this.setState({ SnackbarOpen: true, SnackbarMessage: 'Login Sucessfull !!' })
+            .then((data) => {
+              console.log("responce data==>", data.data);
+              this.setState({token:data.data});
+              console.log("token ",this.state.token.data.token);
+              localStorage.setItem('token', this.state.token.data.token);
 
-                // auth.login(()=>{
-                //     this.props.history.push("/home/notes");
-                // })
-              }
             })
             .catch((err) => {
               console.log(err);
