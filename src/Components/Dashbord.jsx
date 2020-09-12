@@ -3,7 +3,8 @@ import "../SCSS/dashbord.scss";
 import BooksContainer from "./BooksContainer.jsx"
 import ToolBar from "./ToolBar";
 
-export default class Dashbord extends React.Component {
+
+class Dashbord extends React.Component {
     render() {
         return (
             <React.Fragment>
@@ -26,3 +27,6 @@ export default class Dashbord extends React.Component {
         );
     }
 }
+
+
+export default Dashbord;

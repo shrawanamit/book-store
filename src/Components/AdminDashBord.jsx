@@ -28,6 +28,8 @@ import { connect } from 'react-redux';
 import logo from '../assetes/bookLogo.png';
 import TablePagination from '@material-ui/core/TablePagination';
 import SearchIcon from '@material-ui/icons/Search';
+import { Redirect } from 'react-router-dom';
+import {displayAllBooks} from '../redux/Action/actionCreater'
 
 
 let service = new AdminService();
@@ -37,6 +39,11 @@ class AdminDashBord extends React.Component {
 
     constructor(props) {
         super(props);
+        const token = localStorage.getItem("token");
+        let loggedIn = true;
+        if (token === null) {
+            loggedIn = false;
+        }
         this.state = {
             getAllBooks: [],
             open: false,
@@ -56,7 +63,8 @@ class AdminDashBord extends React.Component {
             rowsPerPage: 5,
             logOut: true,
             query: '',
-            titleError:''
+            titleError: '',
+            loggedIn: ''
 
         };
     }
@@ -104,28 +112,31 @@ class AdminDashBord extends React.Component {
 
     handelApi = () => {
         this.setState({ open: false });
-        if(this.state.title === ""){
+        if (this.state.title === "") {
             this.setState({
-                titleError:"title is empty"
+                titleError: "title is empty"
             });
         }
 
 
         else if (this.state.bookId === null && this.state.title != null) {
             this.setState({
-                titleError:""
+                titleError: ""
             });
-            const apiAddBookRequest = {
-                bookName: this.state.title,
-                description: this.state.description,
-                authorName: this.state.author,
-                quantity: parseInt(this.state.quantity),
-                pages: parseInt(this.state.pages),
-                price: parseInt(this.state.price),
 
-            };
+            let formData = new FormData();
+            formData.append('Image', this.props.imageURL);
+            formData.append('BookName', this.state.title);
+            formData.append('Description', this.state.description);
+            formData.append('AuthorName', this.state.author);
+            formData.append('Quantity', parseInt(this.state.quantity));
+            formData.append('Pages', parseInt(this.state.pages),);
+            formData.append('Price', parseInt(this.state.price),);
+
+
+
             service
-                .AddBook(apiAddBookRequest)
+                .AddBook(formData)
                 .then((json) => {
                     console.log(json)
                 })
@@ -135,19 +146,18 @@ class AdminDashBord extends React.Component {
 
         }
         else {
+            let formData = new FormData();
+            formData.append('Image', this.props.imageURL);
+            formData.append('BookId', parseInt(this.state.bookId));
+            formData.append('AdminId', parseInt(this.state.adminId));
+            formData.append('BookName', this.state.title);
+            formData.append('Description', this.state.description);
+            formData.append('AuthorName', this.state.author);
+            formData.append('Quantity', parseInt(this.state.quantity));
+            formData.append('Price', parseInt(this.state.price),);
 
-            const apiUpdateedInputData = {
-                bookName: this.state.title,
-                description: this.state.description,
-                authorName: this.state.author,
-                quantity: this.state.quantity,
-                pages: this.state.pages,
-                price: this.state.price,
-                bookID: this.state.bookId,
-                adminID: this.state.adminId
-            };
             service
-                .updateBooks(apiUpdateedInputData)
+                .updateBooks(formData)
                 .then((json) => {
                     console.log(json)
                     this.setState({
@@ -182,6 +192,7 @@ class AdminDashBord extends React.Component {
                 console.log(" All books ", data);
                 this.setState({ getAllBooks: data.data.data });
                 console.log(" All books arrey ", this.state.getAllBooks);
+                this.props.displayAllBooks(data.data.data );
             })
             .catch((err) => {
                 console.log(err);
@@ -205,7 +216,10 @@ class AdminDashBord extends React.Component {
     }
 
     render() {
-           const searchTitle =this.state.query.toLowerCase();
+        if (this.state.loggedIn === false) {
+            return <Redirect to="/signin" />
+        }
+        const searchTitle = this.state.query.toLowerCase();
         const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
         return (
             <div class="tableBody">
@@ -242,30 +256,30 @@ class AdminDashBord extends React.Component {
                             </TableHead>
                             <TableBody>
                                 {
-                                   (this.state.query
-                                   ? this.state.getAllBooks.filter(x=>x.bookName.toLowerCase().includes(searchTitle)).slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
-                                   : this.state.getAllBooks.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)).map((row) => (
-                                        <StylesProvider injectFirst>
-                                            <TableRow key={row.bookID}>
-                                                <TableCell component="th" scope="row">{row.imageLink}</TableCell>
-                                                <TableCell align="center">{row.bookName}</TableCell>
-                                                <TableCell align="center">{row.description}</TableCell>
-                                                <TableCell align="center">{row.authorName}</TableCell>
-                                                <TableCell align="center">{row.quantity}</TableCell>
-                                                <TableCell align="center">{row.price}</TableCell>
-                                                <TableCell align="center">
-                                                    <IconButton edge="start" color="inherit" >
-                                                        <EditOutlinedIcon fontSize="small" color="inherit" onClick={() => this.handleClickOpen(row)} />
-                                                    </IconButton>
-                                                </TableCell>
-                                                <TableCell align="center">
-                                                    <IconButton edge="start" color="inherit" onClick={() => this.deleteBook(row.bookID)}>
-                                                        <DeleteOutlineOutlinedIcon fontSize="small" color="inherit" />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        </StylesProvider>
-                                    ))}
+                                    (this.state.query
+                                        ? this.state.getAllBooks.filter(x => x.bookName.toLowerCase().includes(searchTitle)).slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+                                        : this.state.getAllBooks.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)).map((row) => (
+                                            <StylesProvider injectFirst>
+                                                <TableRow key={row.bookID}>
+                                                    <TableCell component="th" scope="row"><img src={row.imageLink} className="displayImage" /></TableCell>
+                                                    <TableCell align="center">{row.bookName}</TableCell>
+                                                    <TableCell align="center">{row.description}</TableCell>
+                                                    <TableCell align="center">{row.authorName}</TableCell>
+                                                    <TableCell align="center">{row.quantity}</TableCell>
+                                                    <TableCell align="center">{row.price}</TableCell>
+                                                    <TableCell align="center">
+                                                        <IconButton edge="start" color="inherit" >
+                                                            <EditOutlinedIcon fontSize="small" color="inherit" onClick={() => this.handleClickOpen(row)} />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                    <TableCell align="center">
+                                                        <IconButton edge="start" color="inherit" onClick={() => this.deleteBook(row.bookID)}>
+                                                            <DeleteOutlineOutlinedIcon fontSize="small" color="inherit" />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </StylesProvider>
+                                        ))}
                                 {emptyRows > 0 && (
                                     <TableRow style={{ height: 77 * emptyRows }}>
                                         <TableCell colSpan={6} />
@@ -398,5 +412,11 @@ const mapStateToProps = state => {
     };
 
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        displayAllBooks : (data) => dispatch(displayAllBooks(data))
+    }
+}
 
-export default connect(mapStateToProps)(AdminDashBord)
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDashBord)

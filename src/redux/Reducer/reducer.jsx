@@ -1,18 +1,29 @@
-import { DISPLAY_IMAGE } from '../Action/actionType';
+import { DISPLAY_IMAGE, DISPLAY_SNACKBAR, DISPLAY_ALLBOOKS } from '../Action/actionType';
 
 const initialState = {
-    imageURL: ''
+    imageURL: '',
+    open: false,
+    snackBarMeessage: '',
+    allBooks: [],
 }
+
+
 const bookReducer = (state = initialState, action) => {
-    console.log("i am in reducer");
+    
     switch (action.type) {
         case DISPLAY_IMAGE:
-           return { 
-               ...state, 
-               imageURL:action.payload ,
+            return {
+                ...state,
+                imageURL: action.payload,
             }
-            
-            default:return state
+        case DISPLAY_ALLBOOKS:
+            console.log("i am in reducer alll");
+            return {
+                ...state, 
+                allBooks:[...action.allBooks]
+            }
+
+        default: return state
     }
 }
 
