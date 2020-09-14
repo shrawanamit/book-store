@@ -1,0 +1,46 @@
+
+@mixin tableBorder {
+    border:1px solid lightgrey;
+}
+.orderSummeryContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.tableContainer{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+.tableHtml{
+   @include tableBorder();
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+.tableHeading{
+    background-color: lightgrey;
+    font-size: smaller;
+    font-weight: 400;
+    font-family: revert;
+    height: 40px;
+
+}
+.tableValue{
+   @include tableBorder();
+    height: 60px;
+    font-size: 12px;
+}
+.orderSucessfullImage{
+    width: fit-content;
+    height: fit-content;
+}
+.continueShopping{
+    padding: 25px;
+}
+.orderSucessfullMessage{
+    font-weight: 500;
+    opacity: 0.8;
+}

@@ -7,7 +7,9 @@ import AdminDashBord from "./Components/AdminDashBord"
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
-import BookInCart from './Components/BookInCart'
+import BookInCart from './Components/BookInCart';
+import OrderSummery from './Components/OrderSummery';
+
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
         <Route exact path="/userLogin" component={SignIn} />
         <Route exact path="/userDashBord" component={Dashbord} />
         <Route exact path="/bookInCart" component={BookInCart} />
-        <Route exact path="/adminDashBord" component={AdminDashBord} />
+        <Route exact path="/orderSummery" component={OrderSummery} />
         </Router>
     </div>
     </Provider>
