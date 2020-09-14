@@ -1,0 +1,94 @@
+@mixin flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+@mixin flexRow {
+    display: flex;
+    flex-direction: row;
+    
+}
+@mixin boxWidth {
+    width: 60%;
+    border: 1px solid rgb(185, 184, 184);
+}
+.cartDisplay{
+    @include flexRow();
+    padding-top: 65px;
+    justify-content: center;
+
+}
+.cartDisplayContainer{
+    padding-top: 50px;
+    @include flexColumn();
+    width: -webkit-fill-available;
+    align-items: center
+
+}
+.cartItem{
+   height: 200px;
+   @include boxWidth();
+   @include flexColumn();
+}
+.cartHeading{
+    @include flexRow();
+    justify-content: flex-start;
+    padding: 20px;
+    font-size:18px;
+    font-weight: 600;
+}
+.cartBody{
+    @include flexRow();
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 100px;
+
+}
+.cartImage{
+    display: flex;
+    flex-grow: 1;
+    padding-right: 20px;
+    height: 80%;
+   
+
+}
+.cartDetail{
+    @include flexColumn();
+    flex-grow: 5;
+    height: 100%;
+    
+}
+.quantityContainer{
+    @include flexRow();
+    justify-content: flex-start;
+    align-items: center;;
+}
+.noOfItems{
+    width: 40px;
+    height: 90%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border: 1px solid lightgray;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.removeMessage{
+    padding-left: 12px;
+    padding-bottom: 4px;
+}
+.cartButton{
+    display: flex;
+    justify-content: flex-end;
+}
+.CustomerDetails{
+    @include boxWidth();
+    height: 50px;
+    @include flexRow();
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+}
+.messageDetais{
+    padding-left: 15px;
+    font-weight: 500;
+}
