@@ -19,7 +19,8 @@ function App() {
         <Route exact path="/" component={Registration} />
         <Route exact path="/adminLogin" component={SignIn} />
         <Route exact path="/userLogin" component={SignIn} />
-        <Route exact path="/userDashBord" component={Dashbord} />
+        <Route exact path="/userDashboard" component={Dashbord} />
+        <Route exact path="/adminDashboard" component={AdminDashBord} />
         <Route exact path="/bookInCart" component={BookInCart} />
         <Route exact path="/orderSummery" component={OrderSummery} />
         </Router>

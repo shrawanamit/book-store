@@ -1,4 +1,4 @@
-import { DISPLAY_IMAGE, DISPLAY_SNACKBAR, DISPLAY_ALLBOOKS } from '../Action/actionType';
+import { DISPLAY_IMAGE, DISPLAY_SNACKBAR, DISPLAY_ALLBOOKS} from '../Action/actionType';
 
 const initialState = {
     imageURL: '',
@@ -27,4 +27,4 @@ const bookReducer = (state = initialState, action) => {
     }
 }
 
-export default bookReducer
+export default bookReducer;

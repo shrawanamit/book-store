@@ -36,4 +36,9 @@ export default class Service {
       authorization: token
     }});
   }
+  FilterBookByPrice() {
+    return axiosService.Get(`${apiUrl}api/Books/FilterByPrice`, { headers: {
+      authorization: token
+    }});
+  }
 }

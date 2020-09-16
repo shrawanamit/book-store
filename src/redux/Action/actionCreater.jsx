@@ -1,4 +1,4 @@
-import {DISPLAY_IMAGE,DISPLAY_SNACKBAR, DISPLAY_ALLBOOKS} from './actionType';
+import {DISPLAY_IMAGE,DISPLAY_SNACKBAR, DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART} from './actionType';
 
 //action creater
 export  const displayImage = (data) =>{
@@ -18,10 +18,17 @@ export  const displaySnackBar = (data) =>{
     }
 }
 export  const displayAllBooks = (data) =>{
-    console.log("i am in action ALL BOOKS" ,data);
-
+    
     return {   //object
         type:DISPLAY_ALLBOOKS,
         allBooks: data,
+    }
+}
+export  const displayAllBooksInCart = (data) =>{
+    console.log("i am in action cart" ,data);
+
+    return {   //object
+        type:DISPLAY_ALLBOOKS_INCART,
+        cartAllBooks: data
     }
 }

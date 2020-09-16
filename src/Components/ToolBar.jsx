@@ -6,12 +6,16 @@ import InputBase from '@material-ui/core/InputBase';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LocalLibraryOutlinedIcon from '@material-ui/icons/LocalLibraryOutlined';
 import Button from '@material-ui/core/Button';
-export default class ToolBar extends React.Component {
+import { Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+ class ToolBar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            getAllCartBook:[]
         };
     }
 
@@ -53,9 +57,13 @@ export default class ToolBar extends React.Component {
                         <div className="cartContainer">
                             <span className="cart">Cart</span>
                             <div className="searchIcon">
+                                <Link to='/bookInCart'>
                                 <IconButton edge="start" color="inherit" aria-label="menu">
-                                    <ShoppingCartOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon className="cartOutLine" />
+                                    <span className="countInCart">{this.props.getAllCartBook.length}</span>
                                 </IconButton>
+                                </Link>
+                               
                             </div>
                         </div>
                 }
@@ -64,3 +72,11 @@ export default class ToolBar extends React.Component {
     }
 
 } 
+const mapStateToProps = state => {
+    return {
+        getAllCartBook: [...state.bookInCartReducer.allBooksInCart]
+    };
+  
+}
+
+export default connect(mapStateToProps)(ToolBar)

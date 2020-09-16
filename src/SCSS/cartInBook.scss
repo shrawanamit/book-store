@@ -8,7 +8,7 @@
     
 }
 @mixin boxWidth {
-    width: 60%;
+    width: 70%;
     border: 1px solid rgb(185, 184, 184);
 }
 .cartDisplay{
@@ -19,13 +19,21 @@
 }
 .cartDisplayContainer{
     padding-top: 50px;
-    @include flexColumn();
-    width: -webkit-fill-available;
-    align-items: center
+    @include flexRow();
+    width: 100%;
 
 }
+.blank{
+    @include flexRow();
+    width: 15%;
+}
+.cartMainBody
+{
+    @include flexColumn();
+    width: 100%;
+}
 .cartItem{
-   height: 200px;
+   height: 210px;
    @include boxWidth();
    @include flexColumn();
 }
@@ -91,4 +99,59 @@
 .messageDetais{
     padding-left: 15px;
     font-weight: 500;
+}
+.CostumerDetailContainer{
+    @include flexRow();
+    @include boxWidth();
+    margin-top: 15Px;
+}
+.CostumerDetailContainerBody{
+    @include flexColumn();
+    padding: 25px;
+    width: 80%;
+
+}
+.CostumerDetailSideNav{
+    @include flexColumn();
+    padding: 15px;
+    justify-content: space-between;
+
+}
+.textfieldBody{
+    width: 100%;
+    padding-bottom: 20px;
+    @include flexRow();
+}
+.textFieldBodyOne{
+    padding-right: 2%;
+    width: 40%;
+}
+.textFieldBodyTwo{
+    width: 82%;
+}
+.customerAddress{
+    @include flexRow();
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+.editform{
+    padding:10px;
+}
+.radioContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.radioBodyType{
+  @include flexRow();
+}
+.radioBody{
+    @include flexRow();
+}
+.CustomerDetailsHeading{
+    padding-bottom:10px;
+    font-size:18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-start;
 }
