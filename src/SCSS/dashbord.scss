@@ -1,3 +1,4 @@
+$base-color: rgb(160, 48, 55);
 @mixin btn {
     cursor: pointer;
     padding-top: 8px;
@@ -13,9 +14,10 @@
     height: 65px;
     position: fixed;
     top: 0px;
-    background-color:maroon ;
+    background-color:$base-color ;
     display: flex;
     flex-direction: row;
+    z-index: 100;
 }
 .heading{
     font-size: 22px;
@@ -103,45 +105,49 @@
 .container{
     display: flex;
     flex-direction: row;
-    // position: relative;
+    position: relative;
     .bookDetailsContainer{
         display: none;
     }
     
 }
 .bookDetailsContainer{
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 248px;
-    height: 310px;
-    border: 1px groove rgb(233, 228, 228);
-     margin-top: 10px;
-     border-radius: 6px;
-    //  position: absolute;
+    min-width: 200px;
+    min-height: 100px;
+    max-width: 475px;
+    max-height: 370px;
+    border: 1px groove #e9e4e4;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 270px;
+    z-index: 1;
+    padding: 15px;
+    overflow: auto;
 }
 .bookDetailsheading{
-   display: flex;
-   font-size: 16px;
-   font-weight: 500;
-   padding:10px;
-
+    display: flex;
+    font-size: 20px;
+    font-weight: 500;
 }
 .bookDetails{
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
     display: flex;
     font-size: 12px;
+    padding-top: 10px;
+    text-align: left;
+    opacity: 0.9;
 }
 
 .bookcell{
     width: 248px;
     height: 310px;
-    border: 1px groove rgb(233, 228, 228);
+    border: 1px groove rgb(235, 235, 235);
     display: flex;
     flex-direction: column;
-    border-radius: 6px;
+    border-radius: 3px;
     margin: 10px;
     position: relative;
 
@@ -167,7 +173,7 @@
 }
 .Addbag{
     @include btn;
-    background-color: maroon;
+    background-color: $base-color;
     color:mintcream;
     border: none;
     
@@ -236,15 +242,9 @@
     font-weight: 700;
 }
 .MuiButton-containedPrimary{
-    background-color: maroon !important;
+    background-color:$base-color !important;
 }
-// .selectOption{
-//     color: #ffffff;
-//     padding: 8px 16px;
-//     border: 1px solid transparent;
-//     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-//     cursor: pointer;
-// }
+
 .selectOptionCntainer{
     width: 180px;
     height: 30px;
@@ -256,7 +256,7 @@
     text-indent: 15px;
 }
 .countInCart{
-    color: maroon;
+    color: $base-color;
     border-radius: 50%;
     width: 13px;;
     height: 13px;
@@ -274,17 +274,20 @@
     color: black;
     background-color: white;
     position: absolute;
-    top:25%;
-    right:20%;
+    top: 25%;
+    right: 16%;
     width: 60%;
     font-weight: 500;
     height: 20px;
+    padding: 8px;
+    box-shadow: 2px 2px 2px 2px lightgrey;
 }
 .pagination{
     display: flex;
     justify-content: center;
-    width: inherit
+    width: inherit;
+    margin: 40px;
 }
 .MuiPaginationItem-textSecondary.Mui-selected{
-    background-color: maroon !important;
+    background-color:$base-color !important;
 }

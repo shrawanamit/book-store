@@ -34,7 +34,8 @@
     width: 100%;
 }
 .cartItem{
-   height: 210px;
+    min-height: 210px;
+    overflow: auto;
    @include boxWidth();
    @include flexColumn();
 }
@@ -74,7 +75,7 @@
 }
 .noOfItems{
     width: 40px;
-    height: 90%;
+    height: 60%;
     justify-content: center;
     display: flex;
     align-items: center;
@@ -173,4 +174,10 @@
     display: flex;
     justify-content: center;
     width: 80px;
+}
+.form{
+    display: flex;
+}
+.TypePlace{
+    text-align: initial;
 }

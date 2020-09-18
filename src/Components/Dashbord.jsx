@@ -2,18 +2,18 @@ import React from 'react';
 import "../SCSS/dashbord.scss";
 import BooksContainer from "./BooksContainer.jsx"
 import ToolBar from "./ToolBar";
+import Footer from "./Footer.jsx";
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
-import { displayAllBooks,displayAllBooksInCart  } from '../redux/Action/actionCreater'
+import { displayAllBooks, displayAllBooksInCart } from '../redux/Action/actionCreater'
 let service = new UserService();
-
 
 class Dashbord extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-           allBooks:[]
+            allBooks: []
         }
     }
 
@@ -26,15 +26,15 @@ class Dashbord extends React.Component {
         service.GetAllBooks()
             .then((data) => {
                 console.log(" All books ", data);
-                this.setState({allBooks:data.data.data});
-                this.props.displayAllBooks(data.data.data );
+                this.setState({ allBooks: data.data.data });
+                this.props.displayAllBooks(data.data.data);
             })
             .catch((err) => {
                 console.log(err);
 
             })
     }
-   
+
 
     getAllCartBooks = () => {
         service.GetCart()
@@ -53,36 +53,40 @@ class Dashbord extends React.Component {
     }
 
 
-    filterByPrice = ()=>{
+    filterByPrice = () => {
         console.log("filter data")
         service.FilterBookByPrice()
-        .then((data) => {
-            console.log(" All books by filter ", data);
-           
-        })
-        .catch((err) => {
-            console.log(err);
+            .then((data) => {
+                console.log(" All books by filter ", data);
 
-        })
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
 
     }
     render() {
         return (
             <React.Fragment>
-               <ToolBar />
+                <ToolBar />
                 <div className="body">
                     <div className="bookscount">
-                        <span  className="headingcount">Books <span className="noOfBooks">({this.state.allBooks.length} items)</span></span>
+                        <span className="headingcount">Books <span className="noOfBooks">({this.state.allBooks.length} items)</span></span>
                         <select className="selectOptionCntainer">
                             <option >Sort by relevence</option>
-                            <option onClick={()=>this.filterByPrice()} value="">Price:low to high</option>
-                            <option  value="">Price:low to high</option>
-                            <option  value="">Newest Arrival</option>
+                            <option onClick={() => this.filterByPrice()} value="">Price:low to high</option>
+                            <option value="">Price:low to high</option>
+                            <option value="">Newest Arrival</option>
                         </select>
                     </div>
                     <div className="booksBodyContainer">
-                        <BooksContainer/>
+                        <BooksContainer />
                     </div>
+                    
+                       
+                        <Footer />
+                    
                 </div>
             </React.Fragment>
         );
@@ -90,7 +94,7 @@ class Dashbord extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    
+
     return {
         displayAllBooks: (data) => dispatch(displayAllBooks(data)),
         bookInCart: (data) => dispatch(displayAllBooksInCart(data)),

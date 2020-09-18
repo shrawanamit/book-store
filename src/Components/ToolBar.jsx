@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserService from "../Services/userService";
-import { displayAllSearchBook  } from '../redux/Action/actionCreater'
+import { displayAllSearchBook  } from '../redux/Action/actionCreater';
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 let service = new UserService();
 
  class ToolBar extends React.Component {

@@ -39,7 +39,7 @@ class CostumerDetail extends React.Component {
         return (
             <React.Fragment>
                 <div className="CostumerDetailContainer">
-                    <form onSubmit={this.handelSubmit}>
+                    <form onSubmit={this.handelSubmit} className="form">
                         <div className="CostumerDetailContainerBody">
                             <div className="CustomerDetailsHeading">
                                 Customer Details
@@ -154,7 +154,7 @@ class CostumerDetail extends React.Component {
                             </div>
                             <div className="radioContainer">
                                 <FormControl component="fieldset">
-                                    <span>Type</span>
+                                    <span className="TypePlace">Type</span>
                                     <RadioGroup aria-label="gender" name="type" row value={this.state.type} >
                                         {
                                             this.state.Type.map((item, index) =>

@@ -52,7 +52,7 @@ class BookInCart extends React.Component {
                                                 </div>
                                                 <div className="cartBookDetails">
                                                     <div className="bookname">{row.title}</div>
-                                                    <div className="Auther">{row.auther}</div>
+                                                    <div className="Auther">{row.author}</div>
                                                     <div className="price">Rs.{row.price}</div>
                                                     <div className="quantityContainer">
                                                         <div className="addIcon">

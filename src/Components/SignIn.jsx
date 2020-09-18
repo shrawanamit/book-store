@@ -95,18 +95,14 @@ const validateForm = (errors) => {
                 console.log("responce data==>", data.data); 
                             
                 localStorage.setItem('token', data.data.jsonToken);
-                // this.setState({loggedIn:true});
-                // { this.state.loggedIn ?  <Redirect to="/userDashboard" /> : <Redirect to="adminDashboard" /> }
                 if (data.data.data.userRole === "Customer" ) {
                     this.props.userInformation(data.data);
                     console.log("user login");
-                    return <Redirect to="/userDashboard" />
-                   
+                    this.props.history.push("/userDashboard");
                    
                 }
                 else {
-                    console.log("admin")
-                    return <Redirect to="/adminDashboard" />
+                    this.props.history.push("/adminDashboard");
                 }
             })
             .catch((err) => {
