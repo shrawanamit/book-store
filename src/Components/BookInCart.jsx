@@ -16,6 +16,7 @@ class BookInCart extends React.Component {
         super(props);
         this.state = {
             getAllCart: [],
+            cartDisplay:true,
         }
     }
     removeBookFromCart=(arrayObject)=>{
@@ -33,7 +34,7 @@ class BookInCart extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <ToolBar />
+                <ToolBar displaycartIcon={this.state.cartDisplay}/>
                 <div className="cartDisplay">
                     <div className="cartDisplayContainer">
                         <div className="blank"></div>

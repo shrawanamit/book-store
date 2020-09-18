@@ -7,6 +7,8 @@ import Link from '@material-ui/core/Link';
 import AdminService from "../Services/adminServices";
 import UserService from "../Services/userService";
 import { Redirect } from 'react-router-dom';
+import {userInformation} from '../redux/Action/actionCreater';
+import {connect} from 'react-redux';
 let service = new AdminService();
 let serviceUser = new UserService();
 
@@ -19,7 +21,7 @@ const validateForm = (errors) => {
     return valid;
 }
 
-export default class Registration extends React.Component {
+ class Registration extends React.Component {
 
 
     constructor(props) {
@@ -90,13 +92,16 @@ export default class Registration extends React.Component {
             };
             serviceUser.Login(data)
             .then((data) => {
-                console.log("responce data==>", data.data);                
+                console.log("responce data==>", data.data); 
+                            
                 localStorage.setItem('token', data.data.jsonToken);
                 // this.setState({loggedIn:true});
                 // { this.state.loggedIn ?  <Redirect to="/userDashboard" /> : <Redirect to="adminDashboard" /> }
                 if (data.data.data.userRole === "Customer" ) {
-                    console.log("user login")
+                    this.props.userInformation(data.data);
+                    console.log("user login");
                     return <Redirect to="/userDashboard" />
+                   
                    
                 }
                 else {
@@ -108,32 +113,6 @@ export default class Registration extends React.Component {
                 console.log(err);
             })
         };
-            //  else {
-            //     const data = {
-            //         emailId: this.state.email,
-            //         password: this.state.password,
-            //     };
-            //     serviceUser.Login(data)
-            //     .then((data) => {
-            //         console.log("responce data==>", data.data);
-            //         this.setState({ token: data.data });
-            //         console.log("token ", this.state.token.data.token);
-            //         localStorage.setItem('token', this.state.token.data.token);
-            //         if (this.state.token.data.userRole === 'User' && this.state.token.data.token !== undefined) {
-            //             this.setState({ loggedIn: true })
-            //             return <Redirect to="/userDashBord" />
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     })
-            // }
-    
-
-
-
-
-
 
     render() {
         const { errors } = this.state;
@@ -221,3 +200,12 @@ export default class Registration extends React.Component {
         );
     }
 }
+const mapDispatchToProps = dispatch => {
+    
+    return {
+        userInformation: (data) => dispatch(userInformation(data)),
+        
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Registration)

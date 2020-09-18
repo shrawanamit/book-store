@@ -73,7 +73,7 @@ let service = new UserService();
                             </div>
                         </div>}
                 {
-                    this.props.logOutTrue ? <div className="cartContainer">
+                    this.props.logOutTrue || this.props.displaycartIcon ? <div className="cartContainer">
                         <Button variant="contained" color="primary">
                             Logout
                     </Button>

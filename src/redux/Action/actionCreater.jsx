@@ -1,4 +1,4 @@
-import {DISPLAY_IMAGE,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART,DISPLAY_ALL_SEARCH_BOOKS} from './actionType';
+import {DISPLAY_IMAGE,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART,DISPLAY_ALL_SEARCH_BOOKS,SIGNIN_DATA} from './actionType';
 
 //action creater
 export  const displayImage = (data) =>{
@@ -29,5 +29,12 @@ export  const displayAllBooksInCart = (data) =>{
     return {   //object
         type:DISPLAY_ALLBOOKS_INCART,
         cartAllBooks: data
+    }
+}
+export  const userInformation = (data) =>{
+    
+    return {   //object
+        type:SIGNIN_DATA,
+        userData: data
     }
 }

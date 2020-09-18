@@ -54,9 +54,10 @@
 }
 .cartImage{
     display: flex;
-    flex-grow: 1;
+    
     padding-right: 20px;
     height: 80%;
+    
    
 
 }
@@ -166,9 +167,10 @@
 }
 .CartBookImage{
     height: 100%;
-    width: 50%;
+    width: 100%;
 }
 .DisplayCartBookImage{
     display: flex;
     justify-content: center;
+    width: 80px;
 }

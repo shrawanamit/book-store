@@ -7,8 +7,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
-export default class CostumerDetail extends React.Component {
+import {connect} from 'react-redux';
+class CostumerDetail extends React.Component {
 
     constructor(props) {
         super(props);
@@ -180,3 +180,12 @@ export default class CostumerDetail extends React.Component {
         );
     }
 }
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        userInformation: state.bookInCartReducer.userData
+    };
+  
+}
+
+export default connect(mapStateToProps)(CostumerDetail)
