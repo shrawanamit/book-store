@@ -7,22 +7,17 @@ const token = 'Bearer '+localStorage.getItem('token');
 
 export default class Service {
   Registration(data) {
-    return axiosService.Post(`${apiUrl}api/Users`, data, false);
+    return axiosService.Post(`${apiUrl}api/User/Registration`, data, false);
   }
   Login(data) {
-    return axiosService.Post(`${apiUrl}api/Users/Login`, data, false);
+    return axiosService.Post(`${apiUrl}api/User/Login`, data, false);
   }
-  ForgetPassword(data) {
-    return axiosService.Post(`${apiUrl}api/Users/ForgetPassword`, data, false);
-  }
-  ResetPassword(data) {
-    return axiosService.Put(`${apiUrl}api/Users/ResetPassword`, data, false);
-  }
+  
   GetAllBooks() {
-    return axiosService.Get(`${apiUrl}api/Books`, false);
+    return axiosService.Get(`${apiUrl}api/Book`, false);
   }
   AddtoCart(data) {
-    return axiosService.Post(`${apiUrl}api/Cart`, data, { headers: {
+    return axiosService.Post(`${apiUrl}api/Cart?BookId=${data.BookId}&Quantity=${data.Quantity}`, data, { headers: {
       authorization: token
     }});
   }
@@ -32,13 +27,35 @@ export default class Service {
     }});
   }
   DeleteCart(Id){
-    return axiosService.Delete(`${apiUrl}api/Books/${Id}`,{ headers: {
+    return axiosService.Delete(`${apiUrl}api/Cart/${Id}`,{ headers: {
       authorization: token
     }});
   }
   FilterBookByPrice() {
-    return axiosService.Get(`${apiUrl}api/Books/FilterByPrice`, { headers: {
+    return axiosService.Get(`${apiUrl}api/Book/FilterByPrice`, { headers: {
       authorization: token
     }});
   }
+  SearchBook(data){
+    return axiosService.Get(`${apiUrl}api/Book/${data.Search}`, { headers: {
+      authorization: token
+    }});
+  }
+
+  AddtoWishList(data) {
+    return axiosService.Post(`${apiUrl}api/WishList?BookId=${data.BookId}&Quantity=${data.Quantity}`, data, { headers: {
+      authorization: token
+    }});
+  }
+  GetWishList() {
+    return axiosService.Get(`${apiUrl}api/WishList`, { headers: {
+      authorization: token
+    }});
+  }
+  DeleteWishList(Id){
+    return axiosService.Delete(`${apiUrl}api/Book/${Id}`,{ headers: {
+      authorization: token
+    }});
+  }
+  
 }

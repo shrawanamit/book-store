@@ -3,13 +3,53 @@ import "../SCSS/dashbord.scss";
 import BooksContainer from "./BooksContainer.jsx"
 import ToolBar from "./ToolBar";
 import UserService from "../Services/userService";
+import { connect } from 'react-redux';
+import { displayAllBooks,displayAllBooksInCart  } from '../redux/Action/actionCreater'
 let service = new UserService();
+
 
 class Dashbord extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {}
+        this.state = {
+           allBooks:[]
+        }
+    }
+
+    componentDidMount() {
+        this.getAllBooks();
+        this.getAllCartBooks();
+    }
+
+    getAllBooks = () => {
+        service.GetAllBooks()
+            .then((data) => {
+                console.log(" All books ", data);
+                this.setState({allBooks:data.data.data});
+                this.props.displayAllBooks(data.data.data );
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
+    }
+   
+
+    getAllCartBooks = () => {
+        service.GetCart()
+            .then((data) => {
+                console.log(" All  cart books ", data);
+                this.props.bookInCart(data.data.data);
+                this.setState({ getAllCart: data.data.data })
+                // this.setState({ getAllBooks: data.data.data });
+                // console.log(" All books arrey ", this.state.getAllBooks);
+                // this.props.displayAllBooks(data.data.data );
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
     }
 
 
@@ -32,7 +72,7 @@ class Dashbord extends React.Component {
                <ToolBar />
                 <div className="body">
                     <div className="bookscount">
-                        <span  className="headingcount">Books</span>
+                        <span  className="headingcount">Books <span className="noOfBooks">({this.state.allBooks.length} items)</span></span>
                         <select className="selectOptionCntainer">
                             <option >Sort by relevence</option>
                             <option onClick={()=>this.filterByPrice()} value="">Price:low to high</option>
@@ -41,7 +81,7 @@ class Dashbord extends React.Component {
                         </select>
                     </div>
                     <div className="booksBodyContainer">
-                        <BooksContainer />
+                        <BooksContainer/>
                     </div>
                 </div>
             </React.Fragment>
@@ -49,5 +89,11 @@ class Dashbord extends React.Component {
     }
 }
 
-
-export default Dashbord;
+const mapDispatchToProps = dispatch => {
+    
+    return {
+        displayAllBooks: (data) => dispatch(displayAllBooks(data)),
+        bookInCart: (data) => dispatch(displayAllBooksInCart(data)),
+    }
+}
+export default connect(null, mapDispatchToProps)(Dashbord);

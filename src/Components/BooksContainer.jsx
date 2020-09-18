@@ -1,9 +1,9 @@
 import React from 'react';
 import "../SCSS/dashbord.scss";
-import { connect } from 'react-redux';
 import UserService from "../Services/userService";
-import TablePagination from '@material-ui/core/TablePagination';
 import Pagination from '@material-ui/lab/Pagination';
+import { connect } from 'react-redux';
+import { StylesProvider } from "@material-ui/core/styles";
 let service = new UserService();
 
 class BooksContainer extends React.Component {
@@ -11,24 +11,38 @@ class BooksContainer extends React.Component {
         super(props);
         this.state = {
             getAllBooks: [],
-            page: 0,
-            rowsPerPage: 8,
-            // page: 1,
-            count: 0,
+            page: 1,
+            count: 3,
             pageSize: 8,
             button: 'ADD TO BAG',
             buttonChange: true,
 
         };
     }
-    handleChangePage = (event, page) => {
-        this.setState({ page });
+    handlePageChange = (event, value) => {
+        this.setState({ page: value });
     };
 
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: event.target.value });
-    };
+    handlePageSizeChange(event) {
+        this.setState({ pageSize: event.target.value });
 
+    }
+    addToWishList=(arreyObject)=>{
+        const data = {
+            BookId: arreyObject.bookId,
+            Quantity: 1
+        }
+
+        service.AddtoWishList(data)
+        .then((data) => {
+            console.log("addToWishList",data);
+        })
+        .catch((err) => {
+            console.log(err);
+
+        })
+
+    }
 
     addToBag = async (arreyObject) => {
         //  this.setState({button:'ADDED TO BAG'});
@@ -37,7 +51,8 @@ class BooksContainer extends React.Component {
         })
         console.log(arreyObject);
         const data = {
-            bookID: arreyObject.bookID,
+            BookId: arreyObject.bookId,
+            Quantity: 1
         }
         service.AddtoCart(data)
             .then((data) => {
@@ -50,46 +65,30 @@ class BooksContainer extends React.Component {
 
     }
     //for fetching Employee list from database
-    componentDidMount() {
-        this.getAllBooks();
-    }
 
-    getAllBooks = () => {
-        service.GetAllBooks()
-            .then((data) => {
-                console.log(" All books ", data);
-                this.setState({ getAllBooks: data.data.data });
-                // console.log(" All books arrey ", this.state.getAllBooks);
-                // this.props.displayAllBooks(data.data.data );
-            })
-            .catch((err) => {
-                console.log(err);
-
-            })
-    }
     render() {
         const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
         console.log("all book", this.props.allBooks);
         return (
             <React.Fragment>
-                {this.state.getAllBooks.map((row) =>
+                {(this.props.searchedData === null ? this.props.searchedData:this.props.getAllBooks).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
-                                <img src={row.imageLink} className="imageUserBook" />
-                               
+                                <img src={row.bookImage} className="imageUserBook" />
+
                             </div>
                             <div className="outOfStock">OUT OF STOCK</div>
                             <div className="bookDiscription">
                                 <div className="bookNameContainer">
-                                    <div className="bookname">{row.bookName}</div>
-                                    <div className="Auther">{row.authorName}</div>
+                                    <div className="bookname">{row.title}</div>
+                                    <div className="Auther">{row.author}</div>
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
                                 {this.state.buttonChange ?
                                     <div className="buttonCotainer">
                                         <button className="Addbag" type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
-                                        <button className="wishlist" type="button" onclick="alert('Hello world!')">WISHLIST</button>
+                                        <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
                                     </div> : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>}
 
                             </div>
@@ -100,28 +99,30 @@ class BooksContainer extends React.Component {
                         </div>
                     </div>
                 )}
-                <Pagination
-                    color="secondary"
-                    count={18}
-                    defaultPage={1}
-                    onChange={this.handleChange}
-                // rowsPerPageOptions={[8, 12]}
-                // component="div"
-                // count={this.state.getAllBooks.length}
-                // rowsPerPage={this.state.rowsPerPage}
-                // page={this.state.page}
-                // onChangePage={this.handleChangePage}
-                // onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                />
+                <div className="pagination">
+                    <div>
+                    <Pagination
+                        color="secondary"
+                        count={this.props.getAllBooks.length % 8 === 0 ? parseInt(this.props.getAllBooks.length / 8) : parseInt(this.props.getAllBooks.length / 8 + 1)}
+                        page={this.state.page}
+                        siblingCount={1}
+                        boundaryCount={1}
+                        shape="rounded"
+                        onChange={this.handlePageChange}
+                    />
+                    </div>
+                </div>
             </React.Fragment>
         );
     }
 }
 const mapStateToProps = state => {
-    // console.log("state in book container", state);
-    // return {
-    //     allBooks: [...state.allBooks]
-    // };
+    console.log("state", state)
+    return {
+        getAllBooks: [...state.bookReducer.allBooks],
+        searchedData:[...state.bookReducer.searchedData]
+    };
 
 }
+
 export default connect(mapStateToProps)(BooksContainer)

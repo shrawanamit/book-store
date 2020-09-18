@@ -76,61 +76,59 @@ export default class Registration extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm(this.state.errors)) {
-            console.info('Valid Form')
+            alert('Valid Form')
         } else {
-            console.error('Invalid Form')
+            alert('Invalid Form')
         }
     }
 
-
-    componentDidMount() {
-        console.log("pathname",window.location.pathname); 
-        this.setState({pathName:window.location.pathname})
-    }
     submitUserSignInForm = () => {
         
-
-        if(this.state.pathName ==='/adminLogin')
-        {
             const data = {
-                email: this.state.email,
-                password: this.state.password,
+                Email: this.state.email,
+                Password: this.state.password,
             };
-            service.Login(data)
+            serviceUser.Login(data)
             .then((data) => {
-                console.log("responce data==>", data.data);
-                this.setState({ token: data.data });
-                localStorage.setItem('token', this.state.token.data.token);
-                if (this.state.token.data.role === 'admin' && this.state.token.data.token !== undefined) {
-                    this.setState({ loggedIn: true })
-                    return <Redirect to="/adminDashBord" />
+                console.log("responce data==>", data.data);                
+                localStorage.setItem('token', data.data.jsonToken);
+                // this.setState({loggedIn:true});
+                // { this.state.loggedIn ?  <Redirect to="/userDashboard" /> : <Redirect to="adminDashboard" /> }
+                if (data.data.data.userRole === "Customer" ) {
+                    console.log("user login")
+                    return <Redirect to="/userDashboard" />
+                   
+                }
+                else {
+                    console.log("admin")
+                    return <Redirect to="/adminDashboard" />
                 }
             })
             .catch((err) => {
                 console.log(err);
             })
-        }
-             else {
-                const data = {
-                    emailId: this.state.email,
-                    password: this.state.password,
-                };
-                serviceUser.Login(data)
-                .then((data) => {
-                    console.log("responce data==>", data.data);
-                    this.setState({ token: data.data });
-                    console.log("token ", this.state.token.data.token);
-                    localStorage.setItem('token', this.state.token.data.token);
-                    if (this.state.token.data.userRole === 'User' && this.state.token.data.token !== undefined) {
-                        this.setState({ loggedIn: true })
-                        return <Redirect to="/userDashBord" />
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-            }
-    };
+        };
+            //  else {
+            //     const data = {
+            //         emailId: this.state.email,
+            //         password: this.state.password,
+            //     };
+            //     serviceUser.Login(data)
+            //     .then((data) => {
+            //         console.log("responce data==>", data.data);
+            //         this.setState({ token: data.data });
+            //         console.log("token ", this.state.token.data.token);
+            //         localStorage.setItem('token', this.state.token.data.token);
+            //         if (this.state.token.data.userRole === 'User' && this.state.token.data.token !== undefined) {
+            //             this.setState({ loggedIn: true })
+            //             return <Redirect to="/userDashBord" />
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     })
+            // }
+    
 
 
 
@@ -207,7 +205,8 @@ export default class Registration extends React.Component {
                                     variant="contained"
                                     color="primary"
                                     onClick={this.submitUserSignInForm}
-                                    className="btn">
+                                    className="btn"
+                                    type="submit">
                                     Sign in
                             </Button>
                             </div>

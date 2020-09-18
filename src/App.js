@@ -11,18 +11,19 @@ import BookInCart from './Components/BookInCart';
 import OrderSummery from './Components/OrderSummery';
 
 
+
 function App() {
   return (
     <Provider store={ store }>
     <div className="App">
       <Router>
         <Route exact path="/" component={Registration} />
-        <Route exact path="/adminLogin" component={SignIn} />
-        <Route exact path="/userLogin" component={SignIn} />
+        <Route exact path="/Login" component={SignIn} />
         <Route exact path="/userDashboard" component={Dashbord} />
         <Route exact path="/adminDashboard" component={AdminDashBord} />
         <Route exact path="/bookInCart" component={BookInCart} />
         <Route exact path="/orderSummery" component={OrderSummery} />
+        
         </Router>
     </div>
     </Provider>

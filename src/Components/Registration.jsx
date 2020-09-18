@@ -5,11 +5,15 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import  AdminService from "../Services/adminServices";
-let service=new AdminService();
+import  userService from "../Services/userService";
+let service=new userService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-
+const validateForm = errors => {
+    let valid = true;
+    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    return valid;
+  };
 export default class Registration extends React.Component {
 
     constructor(props) {
@@ -20,6 +24,9 @@ export default class Registration extends React.Component {
             email: null,
             password: null,
             confirmPassword: null,
+            phoneNumber:null,
+            city:null,
+            address:null,
             SnackbarOpen: false,
             SnackbarMessage: '',
             errors: {
@@ -92,22 +99,24 @@ export default class Registration extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        
-        if (this.handleChange()) {
-            console.info('Valid Form')
-        } else {
-            console.error('Invalid Form')
+        if(validateForm(this.state.errors)) {
+          console.info('Valid Form')
+        }else{
+          console.error('Invalid Form')
         }
-    }
+      }
 
     
     submitUserSignInForm = () => {
-        const name= this.state.firstName + this.state.lastName;
+
         const user = {
-            adminName: name,
-            adminEmailId: this.state.email,
+            FirstName: this.state.firstName,
+            LastName: this.state.lastName,
+            Email:this.state.email,
+            Address:this.state.address,
+            City:this.state.city,
+            PhoneNumber:this.state.phoneNumber,
             password: this.state.password,
-            gender: "male"
         };
         if( this.state.password === this.state.confirmPassword)
         {
@@ -151,19 +160,19 @@ export default class Registration extends React.Component {
                 <div className="bodyContainer">
                     <div className="registrationContainer">
                         <div className="fundoofont" >
-                            <span class="f">B</span>
-                            <span class="u">o</span>
-                            <span class="n">o</span>
-                            <span class="d">k</span>
-                            <span class="o">s</span>
-                            <span class="oo">t</span>
-                            <span class="u">o</span>
-                            <span class="n">r</span>
-                            <span class="d">e</span>
+                            <span className="f">B</span>
+                            <span className="u">o</span>
+                            <span className="n">o</span>
+                            <span className="d">k</span>
+                            <span className="o">s</span>
+                            <span className="oo">t</span>
+                            <span className="u">o</span>
+                            <span className="n">r</span>
+                            <span className="d">e</span>
                         </div>
 
                         <div className="textFieldBody">
-                            <p className="p1">Create your BookStore Account</p> <br />
+                            {/* <p className="p1">Create your BookStore Account</p> <br /> */}
                             <form onSubmit={this.handleSubmit} noValidate>
                                 <div className="text">
                                     <div className="text1">
@@ -202,11 +211,11 @@ export default class Registration extends React.Component {
                                             fullWidth
                                             type="email"
                                             name="email"
-                                            label="Username"
+                                            label="Email"
                                             id="outlined-size-small"
                                             variant="outlined"
                                             size="small"
-                                            helperText="Use EmailID or Mobile Number"
+                                            helperText="Use EmailID "
                                             required
                                             placeholder="@gmail.com"
                                             text-align="right"
@@ -219,12 +228,61 @@ export default class Registration extends React.Component {
                                         <div className="textRow1">
                                             <TextField
                                                 fullWidth
+                                                name="city"
+                                                label="City"
+                                                type="text"
+                                                id="outlined-size-small"
+                                                variant="outlined"
+                                                size="small"
+                                                required
+                                                defaultValue={this.state.city}
+                                                onChange={this.handleChange}
+                                            />
+                                        </div>
+                                        <div className="textRow2">
+                                            <TextField
+                                                fullWidth
+                                                name="phoneNumber"
+                                                label="Phone Number"
+                                                type="number"
+                                                id="outlined-size-small"
+                                                variant="outlined"
+                                                size="small"
+                                                required
+                                                defaultValue={this.state.PhoneNumber}
+                                                onChange={this.handleChange}
+                                            />
+                                            {errors.confirmPassword.length > 0 &&
+                                                <span className='error'>{errors.confirmPassword}</span>}
+                                        </div>
+                                    </div>
+                                    <div className="textColumn2">
+                                        <TextField
+                                            fullWidth
+                                            type="address"
+                                            name="address"
+                                            label="address"
+                                            multiline
+                                            id="outlined-size-small"
+                                            variant="outlined"
+                                            size="small"
+                                            helperText="enter your address"
+                                            required
+                                            text-align="right"
+                                            defaultValue={this.state.address}
+                                            onChange={this.handleChange} noValidate />
+                                    </div>
+                                    <div className="text3">
+                                        <div className="textRow1">
+                                            <TextField
+                                                fullWidth
                                                 name="password"
                                                 label="Password"
                                                 type="password"
                                                 id="outlined-size-small"
                                                 variant="outlined"
                                                 size="small"
+                                                helperText="Use 8 or more characters mix"
                                                 required
                                                 defaultValue={this.state.password}
                                                 onChange={this.handleChange}
@@ -249,10 +307,7 @@ export default class Registration extends React.Component {
                                                 <span className='error'>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
-                                    <p className="passwordHint">Use 8 or more characters with a mix of letters, numbers & symbols</p>
                                     <div className="button">
-
-
                                         <div className="button1">
                                             <Link href="/signin" variant="body2">
                                                 <Button color="primary">sign in Insted</Button>
@@ -260,7 +315,7 @@ export default class Registration extends React.Component {
                                         </div>
 
                                         <div className="button2">
-                                            <Button variant="contained" color="primary" onClick={this.submitUserSignInForm}>
+                                            <Button variant="contained" color="primary" onClick={this.submitUserSignInForm} type='submit'>
                                                 Register
                                         </Button>
                                         </div>

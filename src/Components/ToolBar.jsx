@@ -8,17 +8,38 @@ import LocalLibraryOutlinedIcon from '@material-ui/icons/LocalLibraryOutlined';
 import Button from '@material-ui/core/Button';
 import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import UserService from "../Services/userService";
+import { displayAllSearchBook  } from '../redux/Action/actionCreater'
+let service = new UserService();
 
  class ToolBar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            getAllCartBook:[]
+            getAllCartBook:[],
+            searchBook:'',
         };
     }
+    handelChange = async(event) => {
+        event.preventDefault();
+        await this.setState({
+            [event.target.name]: event.target.value,
+        });
+        console.log(this.state.searchBook);
+        const requestdata={
+            Search:this.state.searchBook
+        }
+        service.SearchBook(requestdata)
+            .then((data) => {
+                console.log(data);
+                this.props.displayAllSearchBook(data.data.data)
+            })
+            .catch((err) => {
+                console.log(err);
 
+            })
+    }
 
 
     render() {
@@ -44,6 +65,9 @@ import { connect } from 'react-redux';
                                         placeholder="Search..."
                                         inputProps={{ 'aria-label': 'search' }}
                                         fullWidth
+                                        name="searchBook"
+                                        defaultValue={this.state.searchBook}
+                                        onChange={this.handelChange}
                                     />
                                 </div>
                             </div>
@@ -78,5 +102,12 @@ const mapStateToProps = state => {
     };
   
 }
+const mapDispatchToProps = dispatch => {
+    
+    return {
+        displayAllSearchBook: (data) => dispatch(displayAllSearchBook(data)),
+        
+    }
+}
 
-export default connect(mapStateToProps)(ToolBar)
+export default connect(mapStateToProps,mapDispatchToProps)(ToolBar)

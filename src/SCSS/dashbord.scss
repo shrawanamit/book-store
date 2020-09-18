@@ -82,6 +82,11 @@
     padding-bottom: 1%;
     margin-right: 10px;
 }
+.noOfBooks{
+    font-size: small;
+    color: lightgray;
+
+}
 .headingcount{
     font-size: 24px;
     font-weight: 500;
@@ -274,4 +279,12 @@
     width: 60%;
     font-weight: 500;
     height: 20px;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    width: inherit
+}
+.MuiPaginationItem-textSecondary.Mui-selected{
+    background-color: maroon !important;
 }

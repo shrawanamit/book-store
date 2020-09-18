@@ -6,43 +6,30 @@ const apiUrl = Config.url;
 const token = 'Bearer '+localStorage.getItem('token');
 
 export default class AdminService {
-    Registration(data) {
-       
-        return axiosService.Post(`${apiUrl}api/Admin`, data);
-        
-      }
-    Login(data) {
-        
-        return axiosService.Post(`${apiUrl}api/Admin/Login`, data);
-      }
-    ForgetPassword(data) {
-
-        return axiosService.Post(`${apiUrl}api/Admin/ForgetPassword`, data,false);
-      }
-
-    ResetPassword(data) {
-        return axiosService.Put(`${apiUrl}api/Admin/ResetPassword`, data,false);
-      }
-
     GetAllBooks(){
-        return axiosService.Get(`${apiUrl}api/Books`, false);
+        return axiosService.Get(`${apiUrl}api/Book`, false);
 
     }
     AddBook(data){
-        return axiosService.Post(`${apiUrl}api/Books`, data,{ headers: {
+        return axiosService.Post(`${apiUrl}api/Book`, data,{ headers: {
           authorization: token
         }});
 
     }
     updateBooks(data){
-        return axiosService.Put(`${apiUrl}api/Books`, data,{ headers: {
+        return axiosService.Put(`${apiUrl}api/Book/${data.BookId}`, data,{ headers: {
           authorization: token
         }});
 
     }
-    DeleteBooks(Id){
-        return axiosService.Delete(`${apiUrl}api/Books/${Id}`,{ headers: {
+    DeleteBooks(BookId){
+        return axiosService.Delete(`${apiUrl}api/Book/${BookId}`,{ headers: {
           authorization: token
         }});
     }
+    UpdtaeBookImage(BookId){
+      return axiosService.Delete(`${apiUrl}api/Book/InsertImage/${BookId}`,{ headers: {
+        authorization: token
+      }});
+  }
 }

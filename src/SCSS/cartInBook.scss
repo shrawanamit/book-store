@@ -15,6 +15,7 @@
     @include flexRow();
     padding-top: 65px;
     justify-content: center;
+    width: 100%;
 
 }
 .cartDisplayContainer{
@@ -154,4 +155,20 @@
     font-weight: 600;
     display: flex;
     justify-content: flex-start;
+}
+.DisplayCart{
+    @include flexRow();
+    height: 100%;
+}
+.cartBookDetails{
+    @include flexColumn();
+    justify-content: flex-start;
+}
+.CartBookImage{
+    height: 100%;
+    width: 50%;
+}
+.DisplayCartBookImage{
+    display: flex;
+    justify-content: center;
 }

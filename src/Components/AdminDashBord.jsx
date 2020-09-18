@@ -82,15 +82,13 @@ class AdminDashBord extends React.Component {
             button: 'UPDATE',
             heading: 'UPDATE BOOK ',
             open: true,
-            title: dataObject.bookName,
+            title: dataObject.title,
             description: dataObject.description,
-            author: dataObject.authorName,
-            quantity: dataObject.quantity,
+            author: dataObject.author,
+            quantity: dataObject.booksAvailable,
             price: dataObject.price,
-            pages: dataObject.pages,
-            imageURL: dataObject.imageLink,
-            bookId: dataObject.bookID,
-            adminId: dataObject.adminID,
+            imageURL: dataObject.bookImage,
+            bookId: dataObject.bookId,
 
         });
     };
@@ -123,20 +121,15 @@ class AdminDashBord extends React.Component {
             this.setState({
                 titleError: ""
             });
-
-            let formData = new FormData();
-            formData.append('Image', this.props.imageURL);
-            formData.append('BookName', this.state.title);
-            formData.append('Description', this.state.description);
-            formData.append('AuthorName', this.state.author);
-            formData.append('Quantity', parseInt(this.state.quantity));
-            formData.append('Pages', parseInt(this.state.pages),);
-            formData.append('Price', parseInt(this.state.price),);
-
-
-
+            const requestData={
+                'Title': this.state.title,
+                'Description': this.state.description,
+                'Author':this.state.author,
+                "BooksAvailable": parseInt(this.state.quantity),
+                'Price': parseInt(this.state.price)
+            }
             service
-                .AddBook(formData)
+                .AddBook(requestData)
                 .then((json) => {
                     console.log(json)
                 })
@@ -146,18 +139,17 @@ class AdminDashBord extends React.Component {
 
         }
         else {
-            let formData = new FormData();
-            formData.append('Image', this.props.imageURL);
-            formData.append('BookId', parseInt(this.state.bookId));
-            formData.append('AdminId', parseInt(this.state.adminId));
-            formData.append('BookName', this.state.title);
-            formData.append('Description', this.state.description);
-            formData.append('AuthorName', this.state.author);
-            formData.append('Quantity', parseInt(this.state.quantity));
-            formData.append('Price', parseInt(this.state.price),);
+            const requestData={
+                'BookId':parseInt(this.state.bookId),
+                'Title': this.state.title,
+                'Description': this.state.description,
+                'Author':this.state.author,
+                "BooksAvailable": parseInt(this.state.quantity),
+                'Price': parseInt(this.state.price)
+            }
 
             service
-                .updateBooks(formData)
+                .updateBooks(requestData)
                 .then((json) => {
                     console.log(json)
                     this.setState({
@@ -200,20 +192,21 @@ class AdminDashBord extends React.Component {
             })
     }
 
-    deleteBook = (Id) => {
-        console.log("Delete Id", Id);
-        service.DeleteBooks(Id).then((json) => {
+    deleteBook = (bookId) => {
+        console.log("Delete Id", bookId);
+        service.DeleteBooks(bookId).then((json) => {
             console.log("responce of deleteed data==>", json);
-            // if (json.data.success === 'True') {
-            //     //alert('Record deleted successfully!!');
-            //     this.setState({ SnackbarOpen: true, SnackbarMessage: 'Record deleted successfully!!' })
-            // }
+           
         })
             .catch((err) => {
                 console.log(err);
 
             })
     }
+    stringTruncate =(str, length)=>{
+        var dots = str.length > length ? '...' : '';
+        return str.substring(0, length)+dots;
+      };
 
     render() {
         if (this.state.loggedIn === false) {
@@ -257,15 +250,15 @@ class AdminDashBord extends React.Component {
                             <TableBody>
                                 {
                                     (this.state.query
-                                        ? this.state.getAllBooks.filter(x => x.bookName.toLowerCase().includes(searchTitle)).slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+                                        ? this.state.getAllBooks.filter(x => x.title.toLowerCase().includes(searchTitle)).slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
                                         : this.state.getAllBooks.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)).map((row) => (
                                             <StylesProvider injectFirst>
                                                 <TableRow key={row.bookID}>
-                                                    <TableCell component="th" scope="row"><img src={row.imageLink} className="displayImage" /></TableCell>
-                                                    <TableCell align="center">{row.bookName}</TableCell>
-                                                    <TableCell align="center">{row.description}</TableCell>
-                                                    <TableCell align="center">{row.authorName}</TableCell>
-                                                    <TableCell align="center">{row.quantity}</TableCell>
+                                                    <TableCell component="th" scope="row" ><img src={row.bookImage} className="displayImage" /></TableCell>
+                                                    <TableCell align="center">{row.title}</TableCell>
+                                                    <TableCell align="center">{this.stringTruncate(row.description, 20)}</TableCell>
+                                                    <TableCell align="center">{row.author}</TableCell>
+                                                    <TableCell align="center">{row.booksAvailable}</TableCell>
                                                     <TableCell align="center">{row.price}</TableCell>
                                                     <TableCell align="center">
                                                         <IconButton edge="start" color="inherit" >
@@ -273,7 +266,7 @@ class AdminDashBord extends React.Component {
                                                         </IconButton>
                                                     </TableCell>
                                                     <TableCell align="center">
-                                                        <IconButton edge="start" color="inherit" onClick={() => this.deleteBook(row.bookID)}>
+                                                        <IconButton edge="start" color="inherit" onClick={() => this.deleteBook(row.bookId)}>
                                                             <DeleteOutlineOutlinedIcon fontSize="small" color="inherit" />
                                                         </IconButton>
                                                     </TableCell>

@@ -1,6 +1,6 @@
 export default class Config {
    
-    static url = "https://localhost:44343/";
+    static url = "https://localhost:44387/";
    
    
 }

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import CostumerDetail from './CostumerDetail';
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
-import {displayAllBooksInCart} from '../redux/Action/actionCreater'
+import { displayAllBooksInCart } from '../redux/Action/actionCreater'
 let service = new UserService();
 
 class BookInCart extends React.Component {
@@ -15,27 +15,21 @@ class BookInCart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allCart: [],
+            getAllCart: [],
         }
     }
-    componentDidMount() {
-        this.getAllCartBooks();
-    }
+    removeBookFromCart=(arrayObject)=>{
+        console.log("cartId",arrayObject.cartId)
+        service.DeleteCart(arrayObject.cartId)
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
 
-    getAllCartBooks = () => {
-        service.GetCart()
-            .then((data) => {
-                console.log(" All  cart books ", data);
-                this.props.bookInCart(data.data.data);
-                // this.setState({ getAllBooks: data.data.data });
-                // console.log(" All books arrey ", this.state.getAllBooks);
-                // this.props.displayAllBooks(data.data.data );
-            })
-            .catch((err) => {
-                console.log(err);
-
-            })
+        })
     }
+   
     render() {
         return (
             <React.Fragment>
@@ -47,26 +41,36 @@ class BookInCart extends React.Component {
                             <div className="cartItem">
                                 <div className="cartHeading"><span>My Cart</span></div>
                                 <div className="cartBody">
-                                    <div className="cartImage"></div>
-                                    <div className="cartDetail">
-                                        <div className="bookname">java</div>
-                                        <div className="Auther">amit</div>
-                                        <div className="price">Rs:500</div>
-                                        <div className="quantityContainer">
-                                            <div className="addIcon">
-                                                <RemoveCircleOutlineRoundedIcon font="small" />
-                                            </div>
-                                            <div className="noOfItems">1</div>
-                                            <div className="removeIcons">
-                                                <ControlPointOutlinedIcon font="small" />
-                                            </div>
-                                            <div className="removeMessage">Remove</div>
 
-                                        </div>
+
+                                    <div className="cartDetail">
+                                        {this.props.getAllCartBook.map((row) =>
+                                            <div className="DisplayCart">
+                                                <div className="DisplayCartBookImage">
+                                                    <div className="cartImage"><img  className="CartBookImage" src={row.bookImage}/></div>
+                                                </div>
+                                                <div className="cartBookDetails">
+                                                    <div className="bookname">{row.title}</div>
+                                                    <div className="Auther">{row.auther}</div>
+                                                    <div className="price">Rs.{row.price}</div>
+                                                    <div className="quantityContainer">
+                                                        <div className="addIcon">
+                                                            <RemoveCircleOutlineRoundedIcon font="small" />
+                                                        </div>
+                                                        <div className="noOfItems">{row.quantity}</div>
+                                                        <div className="removeIcons">
+                                                            <ControlPointOutlinedIcon font="small" />
+                                                        </div>
+                                                        <div className="removeMessage"><Button onClick={()=>this.removeBookFromCart(row)}>Remove</Button></div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>)}
                                         <div className="cartButton">
                                             <Button variant="contained" color="primary" disableElevation>
                                                 place order
-                                    </Button>
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>
@@ -81,9 +85,11 @@ class BookInCart extends React.Component {
         );
     }
 }
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        bookInCart: (data) => dispatch(displayAllBooksInCart(data))
-    }
+        getAllCartBook: [...state.bookInCartReducer.allBooksInCart]
+    };
+  
 }
-export default connect(null, mapDispatchToProps)(BookInCart)
+
+export default connect(mapStateToProps)(BookInCart)
