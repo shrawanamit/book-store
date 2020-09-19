@@ -1,13 +1,35 @@
-.wishListContainer{
-    padding-top: 95px;
+@mixin flexrow {
     display: flex;
     justify-content: center;
-    width: 60%;
-    min-height: 210px;
 }
-.wishListBody{
+@mixin flexColumn {
     display: flex;
     flex-direction: column;
+}
+
+
+.wishListContainer{
+    padding-top: 95px;
+    @include flexrow();
+    width: 50%;
+    min-height: 200px;
+}
+.wishListBody{
+    @include flexColumn();
     width: 100%;
     border: 1px solid lightgray;
+}
+.displayWishListImage {
+    @include flexrow();
+    width: 70px;
+    margin-right: 20px;
+}
+.emptyWishList{
+    @include flexrow();
+    font-size: 30px;
+    font-weight: 800;
+}
+.WishListAction{
+    display: flex;
+    justify-content: space-between;
 }

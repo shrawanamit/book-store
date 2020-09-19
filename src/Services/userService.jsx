@@ -53,9 +53,14 @@ export default class Service {
     }});
   }
   DeleteWishList(Id){
-    return axiosService.Delete(`${apiUrl}api/Book/${Id}`,{ headers: {
+    return axiosService.Delete(`${apiUrl}api/WishList/${Id}`,{ headers: {
       authorization: token
     }});
   }
-  
+  AddWishListToCart(Id){
+    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${Id}`,{ headers: {
+      authorization: token
+    }});
+  }
 }
+

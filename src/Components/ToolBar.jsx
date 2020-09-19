@@ -76,7 +76,7 @@ class ToolBar extends React.Component {
                         </div>}
                 <div className="cartlogoutContainer">
                     {
-                       this.props.logOutTrue || this.props.displaycartIcon || this.props.wishListsearchBarCartHide ?<div></div>
+                       this.props.logOutTrue || this.props.displaycartIcon ?<div></div>
                          :
                             <div className="cartContainer">
                                 <span className="cart">Cart</span>
