@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import BookInCart from './Components/BookInCart';
 import OrderSummery from './Components/OrderSummery';
+import WishList from './Components/WishList'
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/userDashboard" component={Dashbord} />
         <Route exact path="/adminDashboard" component={AdminDashBord} />
         <Route exact path="/bookInCart" component={BookInCart} />
+        <Route exact path="/wishlist" component={WishList} />
         <Route exact path="/orderSummery" component={OrderSummery} />
         
         </Router>

@@ -52,7 +52,7 @@ class ToolBar extends React.Component {
                 Bookstore</div>
 
                 {
-                    this.props.logOutTrue || this.props.displaycartIcon ?
+                    this.props.logOutTrue || this.props.displaycartIcon ||this.props.wishListsearchBarCartHide ?
                         <div className="searchBarContener"></div> :
                         <div className="searchBarContener">
                             <div className="searchBody">
@@ -76,7 +76,7 @@ class ToolBar extends React.Component {
                         </div>}
                 <div className="cartlogoutContainer">
                     {
-                       this.props.logOutTrue || this.props.displaycartIcon ?<div></div>
+                       this.props.logOutTrue || this.props.displaycartIcon || this.props.wishListsearchBarCartHide ?<div></div>
                          :
                             <div className="cartContainer">
                                 <span className="cart">Cart</span>

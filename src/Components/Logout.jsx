@@ -6,7 +6,7 @@ import logo from '../assetes/logo.jpg';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import { withRouter } from "react-router";
+import { Link,withRouter } from "react-router-dom";
 
 export default class Logout extends React.Component {
     constructor(props) {
@@ -81,7 +81,9 @@ export default class Logout extends React.Component {
                             <span>amitstudent2017@gmail.com</span>
                         </div>
                         <div className="btnLogout">
-                            <button className="wishlist" type="button" >WISHLIST</button>
+                            <Link to="/wishlist" variant="body2">
+                                <button className="wishlist" type="button" >WISHLIST</button>
+                            </Link>
                             <button className="Addbag" type="button" onClick={this.handelLogOut}>LOGOUT</button>
                         </div>
 

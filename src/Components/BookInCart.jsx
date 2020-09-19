@@ -42,8 +42,6 @@ class BookInCart extends React.Component {
                             <div className="cartItem">
                                 <div className="cartHeading"><span>My Cart</span></div>
                                 <div className="cartBody">
-
-
                                     <div className="cartDetail">
                                         {this.props.getAllCartBook.map((row) =>
                                             <div className="DisplayCart">
@@ -65,8 +63,6 @@ class BookInCart extends React.Component {
                                                         <div className="removeMessage"><Button onClick={()=>this.removeBookFromCart(row)}>Remove</Button></div>
                                                     </div>
                                                 </div>
-
-
                                             </div>)}
                                         <div className="cartButton">
                                             <Button variant="contained" color="primary" disableElevation>
