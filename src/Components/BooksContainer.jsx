@@ -16,6 +16,7 @@ class BooksContainer extends React.Component {
             pageSize: 8,
             button: 'ADD TO BAG',
             buttonChange: true,
+            btn:'Addbag'
 
         };
     }
@@ -46,9 +47,8 @@ class BooksContainer extends React.Component {
 
     addToBag = async (arreyObject) => {
         //  this.setState({button:'ADDED TO BAG'});
-        this.setState({
-            buttonChange: !this.state.buttonChange
-        })
+        
+      
         console.log(arreyObject);
         const data = {
             BookId: arreyObject.bookId,
@@ -57,6 +57,10 @@ class BooksContainer extends React.Component {
         service.AddtoCart(data)
             .then((data) => {
                 console.log(data);
+                this.setState({
+                    btn:'AddedToBag',
+                    button:'ADDED TO BAG'
+                })
             })
             .catch((err) => {
                 console.log(err);
@@ -76,20 +80,20 @@ class BooksContainer extends React.Component {
                         <div className="bookcell">
                             <div className="imageContainer">
                                 <img src={row.bookImage} className="imageUserBook" />
-
                             </div>
-                            <div className="outOfStock">OUT OF STOCK</div>
+                            {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div> }
                             <div className="bookDiscription">
                                 <div className="bookNameContainer">
                                     <div className="bookname">{row.title}</div>
                                     <div className="Auther">{row.author}</div>
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
-                                {this.state.buttonChange ?
+                                {/* {this.state.buttonChange ? */}
                                     <div className="buttonCotainer">
-                                        <button className="Addbag" type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
+                                        <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
                                         <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
-                                    </div> : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>}
+                                    </div> 
+                                    {/* : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>} */}
 
                             </div>
                         </div>
