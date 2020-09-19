@@ -1,3 +1,4 @@
+$base-color: rgb(160, 48, 55);
 @mixin flexColumn {
     display: flex;
     flex-direction: column;
@@ -178,3 +179,21 @@
 .TypePlace{
     text-align: initial;
 }
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $base-color; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $base-color; 
+  }
