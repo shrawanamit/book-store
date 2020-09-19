@@ -57,15 +57,18 @@ $base-color: rgb(160, 48, 55);
 }
 
 }
-.cartContainer{
+.cartlogoutContainer{
     flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    color: mintcream;
+}
+.cartContainer{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: mintcream;;
     .cart{
-        padding: 4%;
-       
+        padding: 4%;  
     }
 
 }

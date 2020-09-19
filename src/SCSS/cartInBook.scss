@@ -45,22 +45,16 @@
     padding: 20px;
     font-size:18px;
     font-weight: 600;
+    padding-bottom: 0px;
 }
 .cartBody{
     @include flexRow();
-    padding-left: 20px;
-    padding-right: 20px;
     height: 100px;
 
 }
 .cartImage{
     display: flex;
-    
-    padding-right: 20px;
-    height: 80%;
-    
-   
-
+    height: 100%;
 }
 .cartDetail{
     @include flexColumn();
@@ -90,6 +84,7 @@
 .cartButton{
     display: flex;
     justify-content: flex-end;
+    padding: 0px 20px 20px 20px;
 }
 .CustomerDetails{
     @include boxWidth();
@@ -161,6 +156,7 @@
 .DisplayCart{
     @include flexRow();
     height: 100%;
+    padding: 20px;
 }
 .cartBookDetails{
     @include flexColumn();
@@ -174,6 +170,7 @@
     display: flex;
     justify-content: center;
     width: 80px;
+    margin-right: 20px;
 }
 .form{
     display: flex;

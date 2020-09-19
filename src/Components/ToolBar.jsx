@@ -6,30 +6,31 @@ import InputBase from '@material-ui/core/InputBase';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LocalLibraryOutlinedIcon from '@material-ui/icons/LocalLibraryOutlined';
 import Button from '@material-ui/core/Button';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserService from "../Services/userService";
-import { displayAllSearchBook  } from '../redux/Action/actionCreater';
-import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import { displayAllSearchBook } from '../redux/Action/actionCreater';
+import Logout from './Logout';
+
 let service = new UserService();
 
- class ToolBar extends React.Component {
+class ToolBar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            getAllCartBook:[],
-            searchBook:'',
+            getAllCartBook: [],
+            searchBook: '',
         };
     }
-    handelChange = async(event) => {
+    handelChange = async (event) => {
         event.preventDefault();
         await this.setState({
             [event.target.name]: event.target.value,
         });
         console.log(this.state.searchBook);
-        const requestdata={
-            Search:this.state.searchBook
+        const requestdata = {
+            Search: this.state.searchBook
         }
         service.SearchBook(requestdata)
             .then((data) => {
@@ -51,7 +52,7 @@ let service = new UserService();
                 Bookstore</div>
 
                 {
-                    this.props.logOutTrue ?
+                    this.props.logOutTrue || this.props.displaycartIcon ?
                         <div className="searchBarContener"></div> :
                         <div className="searchBarContener">
                             <div className="searchBody">
@@ -73,42 +74,42 @@ let service = new UserService();
                                 </div>
                             </div>
                         </div>}
-                {
-                    this.props.logOutTrue || this.props.displaycartIcon ? <div className="cartContainer">
-                        <Button variant="contained" color="primary">
-                            Logout
-                    </Button>
-                    </div> :
-                        <div className="cartContainer">
-                            <span className="cart">Cart</span>
-                            <div className="searchIcon">
-                                <Link to='/bookInCart'>
-                                <IconButton edge="start" color="inherit" aria-label="menu">
-                                    <ShoppingCartOutlinedIcon className="cartOutLine" />
-                                    <span className="countInCart">{this.props.getAllCartBook.length}</span>
-                                </IconButton>
-                                </Link>
-                               
+                <div className="cartlogoutContainer">
+                    {
+                       this.props.logOutTrue || this.props.displaycartIcon ?<div></div>
+                         :
+                            <div className="cartContainer">
+                                <span className="cart">Cart</span>
+                                <div className="searchIcon">
+                                    <Link to='/bookInCart'>
+                                        <IconButton edge="start" color="inherit" aria-label="menu">
+                                            <ShoppingCartOutlinedIcon className="cartOutLine" />
+                                            <span className="countInCart">{this.props.getAllCartBook.length}</span>
+                                        </IconButton>
+                                    </Link>
+                                </div>
                             </div>
-                        </div>
-                }
+                    }
+                    <Logout />
+                   
+                </div>
             </div>
         );
     }
 
-} 
+}
 const mapStateToProps = state => {
     return {
         getAllCartBook: [...state.bookInCartReducer.allBooksInCart]
     };
-  
+
 }
 const mapDispatchToProps = dispatch => {
-    
+
     return {
         displayAllSearchBook: (data) => dispatch(displayAllSearchBook(data)),
-        
+
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ToolBar)
+export default connect(mapStateToProps, mapDispatchToProps)(ToolBar)
