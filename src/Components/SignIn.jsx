@@ -21,7 +21,7 @@ const validateForm = (errors) => {
     return valid;
 }
 
- class Registration extends React.Component {
+ class SignIn extends React.Component {
 
 
     constructor(props) {
@@ -33,7 +33,6 @@ const validateForm = (errors) => {
             SnackbarOpen: false,
             SnackbarMessage: '',
             loggedIn: false,
-            pathName:'',
             errors: {
 
                 email: '',
@@ -118,18 +117,18 @@ const validateForm = (errors) => {
 
                 <div className="sloginContainer">
                     <div className="fundoofont1" align="center">
-                        <span class="f">B</span>
-                        <span class="u">o</span>
-                        <span class="n">o</span>
-                        <span class="d">k</span>
-                        <span class="o">s</span>
-                        <span class="oo">t</span>
-                        <span class="u">o</span>
-                        <span class="n">r</span>
-                        <span class="d">e</span>
+                        <span className="f">B</span>
+                        <span className="u">o</span>
+                        <span className="n">o</span>
+                        <span className="d">k</span>
+                        <span className="o">s</span>
+                        <span className="oo">t</span>
+                        <span className="u">o</span>
+                        <span className="n">r</span>
+                        <span className="d">e</span>
                     </div>
                     <div>
-                        <p class="title" align="center">
+                        <p classNameq="title" align="center">
                             <Typography component="h1" variant="h5">
                                 Sign in
                                 </Typography>
@@ -177,6 +176,7 @@ const validateForm = (errors) => {
                             </div>
                             <div className="btn2">
                                 <Button
+                                    type = "button"
                                     variant="contained"
                                     color="primary"
                                     onClick={this.submitUserSignInForm}
@@ -203,5 +203,6 @@ const mapDispatchToProps = dispatch => {
         
     }
 }
+//connect(null,mapDispatchToProps)
 
-export default connect(null,mapDispatchToProps)(Registration)
+export default (SignIn)
