@@ -1,4 +1,4 @@
-import {DISPLAY_IMAGE,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART,DISPLAY_ALL_SEARCH_BOOKS,SIGNIN_DATA} from './actionType';
+import {DISPLAY_IMAGE,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART, WISHLIST_DATA,DISPLAY_ALL_SEARCH_BOOKS,SIGNIN_DATA} from './actionType';
 
 //action creater
 export  const displayImage = (data) =>{
@@ -43,6 +43,14 @@ export  const snackbarDisplay = (data) =>{
         return {   //object
             type:DISPLAY_SNACKBAR,
             snackbarData: data,
+            
+        }
+}
+export  const  wishListData = (data) =>{
+    console.log("i am in action wishlist" ,data);
+        return {   //object
+            type: WISHLIST_DATA,
+            wishListData: data,
             
         }
 }

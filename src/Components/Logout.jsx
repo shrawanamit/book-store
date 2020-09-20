@@ -77,8 +77,8 @@ export default class Logout extends React.Component {
                             </div> */}
                         </div>
                         <div className="name">
-                            <span>Amit kumar</span><br />
-                            <span>amitstudent2017@gmail.com</span>
+                            <div className="namebody">Amit kumar</div>
+                            <div className="email">amitstudent2017@gmail.com</div><br />
                         </div>
                         <div className="btnLogout">
                             <Link to="/wishlist" variant="body2">

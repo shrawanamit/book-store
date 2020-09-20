@@ -9,7 +9,7 @@ $base-color: rgb(160, 48, 55);
     
 }
 @mixin boxWidth {
-    width: 70%;
+    width: 60%;
     border: 1px solid rgb(185, 184, 184);
 }
 .cartDisplay{
@@ -85,7 +85,7 @@ $base-color: rgb(160, 48, 55);
 .cartButton{
     display: flex;
     justify-content: flex-end;
-    padding: 0px 20px 20px 20px;
+    
 }
 .CustomerDetails{
     @include boxWidth();
@@ -107,12 +107,12 @@ $base-color: rgb(160, 48, 55);
 .CostumerDetailContainerBody{
     @include flexColumn();
     padding: 25px;
-    width: 80%;
+    width: 500px;
 
 }
 .CostumerDetailSideNav{
     @include flexColumn();
-    padding: 15px;
+    padding: 25px;
     justify-content: space-between;
 
 }
@@ -123,19 +123,17 @@ $base-color: rgb(160, 48, 55);
 }
 .textFieldBodyOne{
     padding-right: 2%;
-    width: 40%;
+    width: 48%;
 }
 .textFieldBodyTwo{
-    width: 82%;
+    width: 98%;
 }
 .customerAddress{
     @include flexRow();
     justify-content: flex-start;
     padding-bottom: 10px;
 }
-.editform{
-    padding:10px;
-}
+
 .radioContainer{
     display: flex;
     flex-direction: column;

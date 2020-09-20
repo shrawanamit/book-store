@@ -17,7 +17,15 @@ class BookInCart extends React.Component {
         this.state = {
             getAllCart: [],
             cartDisplay:true,
+            handelOrderOpenClose:true,
+            handelAddressOpenClose:true
         }
+    }
+    handelOrder=()=>{
+      this.setState({
+        handelOrderOpenClose:false,
+        handelAddressOpenClose:false
+      })
     }
     removeBookFromCart=(arrayObject)=>{
         console.log("cartId",arrayObject.cartId)
@@ -64,16 +72,18 @@ class BookInCart extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>)}
+                                            {this.state.handelOrderOpenClose ?
                                         <div className="cartButton">
-                                            <Button variant="contained" color="primary" disableElevation>
+                                            <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
                                                 place order
                                             </Button>
-                                        </div>
+                                        </div> : ""}
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="CustomerDetails"> <span className="messageDetais">Customer Details</span></div> */}
-                            <CostumerDetail />
+
+                            { this.state.handelAddressOpenClose? <div className="CustomerDetails"> <span className="messageDetais">Customer Details</span></div> :
+                            <CostumerDetail  />}
                             <div className="CustomerDetails"><span className="messageDetais"> Order Summery </span></div>
                         </div>
                     </div>

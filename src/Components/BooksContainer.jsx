@@ -10,13 +10,13 @@ class BooksContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            getAllBooks: [],
+            allBooks: [],
             page: 1,
             count: 3,
             pageSize: 8,
             button: 'ADD TO BAG',
             buttonChange: true,
-            btn:'Addbag'
+            btn: 'Addbag'
 
         };
     }
@@ -28,27 +28,27 @@ class BooksContainer extends React.Component {
         this.setState({ pageSize: event.target.value });
 
     }
-    addToWishList=(arreyObject)=>{
+    addToWishList = (arreyObject) => {
         const data = {
             BookId: arreyObject.bookId,
             Quantity: 1
         }
 
         service.AddtoWishList(data)
-        .then((data) => {
-            console.log("addToWishList",data);
-        })
-        .catch((err) => {
-            console.log(err);
+            .then((data) => {
+                console.log("addToWishList", data);
+            })
+            .catch((err) => {
+                console.log(err);
 
-        })
+            })
 
     }
 
     addToBag = async (arreyObject) => {
         //  this.setState({button:'ADDED TO BAG'});
-        
-      
+
+
         console.log(arreyObject);
         const data = {
             BookId: arreyObject.bookId,
@@ -58,8 +58,8 @@ class BooksContainer extends React.Component {
             .then((data) => {
                 console.log(data);
                 this.setState({
-                    btn:'AddedToBag',
-                    button:'ADDED TO BAG'
+                    btn: 'AddedToBag',
+                    button: 'ADDED TO BAG'
                 })
             })
             .catch((err) => {
@@ -68,20 +68,20 @@ class BooksContainer extends React.Component {
             })
 
     }
-    //for fetching Employee list from database
 
     render() {
-        const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
-        console.log("all book", this.props.allBooks);
+        console.log("prpops", this.props)
+        // const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
+        var output = this.props.getAllBooks.map((s, i) => ({ added: true }))
         return (
             <React.Fragment>
-                {(this.props.searchedData === null ? this.props.searchedData:this.props.getAllBooks).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row) =>
+                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
                                 <img src={row.bookImage} className="imageUserBook" />
                             </div>
-                            {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div> }
+                            {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div>}
                             <div className="bookDiscription">
                                 <div className="bookNameContainer">
                                     <div className="bookname">{row.title}</div>
@@ -89,11 +89,11 @@ class BooksContainer extends React.Component {
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
                                 {/* {this.state.buttonChange ? */}
-                                    <div className="buttonCotainer">
-                                        <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
-                                        <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
-                                    </div> 
-                                    {/* : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>} */}
+                                <div className="buttonCotainer">
+                                    <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
+                                    <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
+                                </div>
+                                {/* : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>} */}
 
                             </div>
                         </div>
@@ -105,15 +105,15 @@ class BooksContainer extends React.Component {
                 )}
                 <div className="pagination">
                     <div>
-                    <Pagination
-                        color="secondary"
-                        count={this.props.getAllBooks.length % 8 === 0 ? parseInt(this.props.getAllBooks.length / 8) : parseInt(this.props.getAllBooks.length / 8 + 1)}
-                        page={this.state.page}
-                        siblingCount={1}
-                        boundaryCount={1}
-                        shape="rounded"
-                        onChange={this.handlePageChange}
-                    />
+                        <Pagination
+                            color="secondary"
+                            count={this.props.getAllBooks.length % 8 === 0 ? parseInt(this.props.getAllBooks.length / 8) : parseInt(this.props.getAllBooks.length / 8 + 1)}
+                            page={this.state.page}
+                            siblingCount={1}
+                            boundaryCount={1}
+                            shape="rounded"
+                            onChange={this.handlePageChange}
+                        />
                     </div>
                 </div>
             </React.Fragment>
@@ -121,12 +121,28 @@ class BooksContainer extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("state", state)
-    return {
-        getAllBooks: [...state.bookReducer.allBooks],
-        searchedData:[...state.bookReducer.searchedData]
-    };
+    console.log("state====", state)
+   
+    if (state.bookReducer.wishListData.length === 0) {
+        if (state.bookReducer.searchedData.length === 0) {
+            return {
+                getAllBooks: [...state.bookReducer.allBooks]
+            }
+        }
+        else {
+            return {
+                // 
+                getAllBooks: [...state.bookReducer.wishListData]
+            }
+        }
+    }
+    else {
+        return {
+            getAllBooks: [...state.bookReducer.wishListData],
+        }
+    }
+};
 
-}
+
 
 export default connect(mapStateToProps)(BooksContainer)

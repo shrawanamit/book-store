@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import UserService from "../Services/userService";
 import { RowingOutlined } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
+import BookContainer from './BooksContainer';
+import { wishListData} from '../redux/Action/actionCreater';
 let service = new UserService();
 
 class WishList extends React.Component {
@@ -38,6 +40,7 @@ class WishList extends React.Component {
             .then((data) => {
                 console.log(" All wishList  books ", data.data.data);
                 this.setState({ getAllWishListBook: data.data.data })
+                this.props.wishListData(data.data.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -53,7 +56,8 @@ class WishList extends React.Component {
                 <div className="wishListContainer">
                     <div className="wishListBody">
                         <div className="cartHeading"><span>My WishList</span></div>
-                        {this.state.getAllWishListBook.length === 0 ? <div className="emptyWishList">Your WishList is Empty</div> :
+                        <BookContainer />
+                        {/* {this.state.getAllWishListBook.length === 0 ? <div className="emptyWishList">Your WishList is Empty</div> :
                             this.state.getAllWishListBook.map((row) =>
                                 <div className="DisplayCart">
                                     <div className="displayWishListImage">
@@ -78,7 +82,7 @@ class WishList extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                            )} */}
                     </div>
                 </div>
             </React.Fragment>
@@ -88,7 +92,7 @@ class WishList extends React.Component {
 const mapDispatchToProps = dispatch => {
 
     return {
-        // displayAllSearchBook: (data) => dispatch(displayAllSearchBook(data)),
+        wishListData: (data) => dispatch(wishListData(data)),
 
     }
 }
