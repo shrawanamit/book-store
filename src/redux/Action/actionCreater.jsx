@@ -18,7 +18,7 @@ export  const displayAllSearchBook = (data) =>{
     }
 }
 export  const displayAllBooks = (data) =>{
-    console.log("i am in action all books" ,data);
+   
     return {   //object
         type:DISPLAY_ALLBOOKS,
         allBooks: data,
@@ -37,4 +37,12 @@ export  const userInformation = (data) =>{
         type:SIGNIN_DATA,
         userData: data
     }
+}
+export  const snackbarDisplay = (data) =>{
+    console.log("i am in action snackbarDisplay" ,data);
+        return {   //object
+            type:DISPLAY_SNACKBAR,
+            snackbarData: data,
+            
+        }
 }

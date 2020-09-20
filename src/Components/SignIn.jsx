@@ -9,6 +9,7 @@ import UserService from "../Services/userService";
 import { Redirect } from 'react-router-dom';
 import {userInformation} from '../redux/Action/actionCreater';
 import {connect} from 'react-redux';
+import {snackbarDisplay} from '../redux/Action/actionCreater';
 let service = new AdminService();
 let serviceUser = new UserService();
 
@@ -30,9 +31,12 @@ const validateForm = (errors) => {
 
             email: null,
             password: null,
-            SnackbarOpen: false,
-            SnackbarMessage: '',
-            loggedIn: false,
+            SnackbarOpen: true,
+            snackbar:{
+                SnackbarMessage: 'login Sucessfull',
+                loggedIn: true,
+            },
+            
             errors: {
 
                 email: '',
@@ -90,18 +94,17 @@ const validateForm = (errors) => {
                 Password: this.state.password,
             };
             serviceUser.Login(data)
-            .then((data) => {
-                console.log("responce data==>", data.data); 
-                            
+            .then((data) => {           
                 localStorage.setItem('token', data.data.jsonToken);
                 if (data.data.data.userRole === "Customer" ) {
                     this.props.userInformation(data.data);
-                    console.log("user login");
-                    this.props.history.push("/userDashboard");
-                   
+                    this.props.snackbarDisplay(this.state.snackbar);
+                    this.props.history.push("/userDashboard");    
                 }
                 else {
                     this.props.history.push("/adminDashboard");
+                    this.props.snackbarDisplay(this.state.snackbar);
+
                 }
             })
             .catch((err) => {
@@ -200,9 +203,10 @@ const mapDispatchToProps = dispatch => {
     
     return {
         userInformation: (data) => dispatch(userInformation(data)),
+        snackbarDisplay: (data) => dispatch(snackbarDisplay(data))
         
     }
 }
-//connect(null,mapDispatchToProps)
 
-export default (SignIn)
+
+export default connect(null,mapDispatchToProps)(SignIn)

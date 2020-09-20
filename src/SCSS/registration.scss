@@ -1,9 +1,11 @@
 .App{
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    align-items: center;
 }
 .mainContainer {
+    box-shadow: 1px 1px 1px 1px lightgrey;
+    margin: 37px auto;
     background-color: #fff;
     border: 1px solid #dadce0;
     height: 540px;
