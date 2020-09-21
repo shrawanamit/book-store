@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import CostumerDetail from './CostumerDetail';
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
+import Footer from "./Footer"
 
 let service = new UserService();
 
@@ -102,6 +103,9 @@ class BookInCart extends React.Component {
                             <div className="CustomerDetails"><span className="messageDetais"> Order Summery </span></div>
                         </div>
                     </div>
+                </div>
+                <div className="cartFooter">
+                <Footer />
                 </div>
             </React.Fragment>
         );

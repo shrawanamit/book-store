@@ -3,16 +3,26 @@ import ToolBar from './ToolBar';
 import orderSucessfull from '../assetes/orderSucessfull.png';
 import '../SCSS/orderSummery.scss'
 import Button from '@material-ui/core/Button';
+import Footer from './Footer';
+import { Link } from 'react-router-dom';
+
 
 export default class OrderSummery extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            cartDisplayOrderSummary:true,
+            searchBarOrderSummary:true,
+        }
+    }
     render() {
         return (
             <React.Fragment>
-                <ToolBar />
+                <ToolBar   searchBarOrderSummary={this.state.searchBarOrderSummary} cartDisplayOrderSummary={this.state.cartDisplayOrderSummary} />
                 <div className="cartDisplay">
                     <div className="orderSummeryContainer">
                         <div className="orderSucessfullImageContainer">
-                            <img src={orderSucessfull} alt ="noImage"className="orderSucessfullImage" />
+                            <img src={orderSucessfull} alt="noImage" className="orderSucessfullImage" />
                         </div>
                         <div>
                             <p className="orderSucessfullMessage">hurray!!! your order is confirmed <br />
@@ -35,12 +45,15 @@ export default class OrderSummery extends React.Component {
                             </table>
                         </div>
                         <div className="continueShopping">
-                            <Button variant="contained" color="primary" disableElevation>
-                                continue Shoping
+                            <Link href="/home/books" variant="body2">
+                                <Button variant="contained" color="primary" disableElevation>
+                                    continue Shoping
                             </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </React.Fragment>
         );
     }

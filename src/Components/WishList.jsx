@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import UserService from "../Services/userService";
 import BookContainer from './BooksContainer';
 import { wishListData} from '../redux/Action/actionCreater';
+import Footer from './Footer'
 let service = new UserService();
 
 class WishList extends React.Component {
@@ -49,7 +50,7 @@ class WishList extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="wishListMainContainer">
                 <Toolbar wishListsearchBarCartHide={this.state.searchBarCartHide} />.
                 <div className="wishListContainer">
                     <div className="wishListBody">
@@ -57,8 +58,8 @@ class WishList extends React.Component {
                         <BookContainer />
                     </div>
                 </div>
-                {/* <Footer /> */}
-            </React.Fragment>
+                 <Footer /> 
+            </div>
         );
     }
 }

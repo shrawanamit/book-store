@@ -178,6 +178,9 @@ $base-color: rgb(160, 48, 55);
     width: 80px;
     margin-right: 20px;
 }
+.cartFooter{
+    margin-top: 104px;
+}
 .form{
     display: flex;
 }
@@ -220,5 +223,29 @@ $base-color: rgb(160, 48, 55);
     }
     .CostumerDetailSideNav{
         padding: 5px;
+    }
+
+}
+@media only screen and (max-width: 500px) {
+    .cartDisplayContainer {
+        padding-top: 20px;
+    }
+    .blank{
+    display: none;
+    }
+    .cartItem{
+        width: 99%;
+        min-height: 400px;
+    }
+    .CustomerDetails{
+        width: 99%;
+    }
+    .cartFooter {
+        margin-top: 10px;
+    }
+    .cartButton {
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
     }
 }

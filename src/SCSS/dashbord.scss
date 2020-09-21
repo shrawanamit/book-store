@@ -302,8 +302,31 @@ $base-color: rgb(160, 48, 55);
 .MuiPaginationItem-textSecondary.Mui-selected{
     background-color:$base-color !important;
 }
-@media only screen and (max-width: 1025px) {
-    // .bookscount{
-    //     width: 58%;
-    // }
+@media only screen and (max-width: 500px) {
+    .bookscount{
+        width: 92%;
+    }
+    .heading {
+        padding-right:0 ;
+    }
+    .searchBarContener {
+        flex-grow: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+    }
+    .searchBarContener {
+       .inputBox{
+           display: none;
+       }
+       .searchBody{
+           display: flex;
+           justify-content: center;
+           border-radius: 50%;
+           background-color: $base-color;
+           color: rgb(255, 255, 255);
+       }
+    }
+    
 }

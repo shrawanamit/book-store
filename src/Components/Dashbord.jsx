@@ -6,7 +6,7 @@ import Footer from "./Footer.jsx";
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
 import { displayAllBooks, displayAllBooksInCart } from '../redux/Action/actionCreater'
-import { BrowserRouter as  Route } from 'react-router-dom';
+import {  Route } from 'react-router-dom';
 let service = new UserService();
 
 class Dashbord extends React.Component {
@@ -85,9 +85,10 @@ class Dashbord extends React.Component {
                         <Route path="/home/books" component={BooksContainer} /> 
                         {/* <BooksContainer /> */}
                     </div>
-                    <Footer />
+                    
 
                 </div>
+                <Footer />
             </React.Fragment>
         );
     }

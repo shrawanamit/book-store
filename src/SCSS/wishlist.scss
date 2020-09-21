@@ -7,9 +7,10 @@
     flex-direction: column;
 }
 
-.wishListMainContener{
-    display: flex;
-    flex-direction: column;
+.wishListMainContainer{
+   @include flexColumn();
+    justify-content: center;
+    align-items: center;
 }
 .wishListContainer{
     padding-top: 95px;
@@ -22,17 +23,23 @@
     width: 100%;
     border: 1px solid lightgray;
 }
-.displayWishListImage {
-    @include flexrow();
-    width: 70px;
-    margin-right: 20px;
-}
-.emptyWishList{
-    @include flexrow();
-    font-size: 30px;
-    font-weight: 800;
-}
-.WishListAction{
-    display: flex;
-    justify-content: space-between;
+
+@media only screen and (max-width: 500px) {
+    .pagination {
+        width: auto;
+    }
+    .wishListContainer{
+        padding-top: 65px;
+        width: 100%;
+    }
+    .container {
+        display: flex;
+      justify-content: center;
+    }
+    .cartHeading {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
 }
