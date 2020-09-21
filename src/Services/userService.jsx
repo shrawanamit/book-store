@@ -26,8 +26,8 @@ export default class Service {
       authorization: token
     }});
   }
-  DeleteCart(Id){
-    return axiosService.Delete(`${apiUrl}api/Cart/${Id}`,{ headers: {
+  DeleteCart(CartId){
+    return axiosService.Delete(`${apiUrl}api/Cart/${CartId}`,{ headers: {
       authorization: token
     }});
   }
@@ -59,6 +59,16 @@ export default class Service {
   }
   AddWishListToCart(data){
     return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.WishListId}`,{ headers: {
+      authorization: token
+    }});
+  }
+  Order(data){
+    return axiosService.Post(`${apiUrl}api/Order/${data.CartId}`,{ headers: {
+      authorization: token
+    }});
+  }
+  OrderPlace(data){
+    return axiosService.Post(`${apiUrl}api/Order/OrderPlace`,data,{ headers: {
       authorization: token
     }});
   }

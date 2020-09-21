@@ -85,7 +85,13 @@ $base-color: rgb(160, 48, 55);
 .cartButton{
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 15px;
+    padding-right: 20px;
     
+}
+.cartButtonContinue{
+    display: flex;
+    justify-content: flex-end;
 }
 .CustomerDetails{
     @include boxWidth();
@@ -97,7 +103,8 @@ $base-color: rgb(160, 48, 55);
 }
 .messageDetais{
     padding-left: 15px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 18px;
 }
 .CostumerDetailContainer{
     @include flexRow();
@@ -195,3 +202,23 @@ $base-color: rgb(160, 48, 55);
   ::-webkit-scrollbar-thumb:hover {
     background: $base-color; 
   }
+
+  @media only screen and (max-width: 500px) {
+    .CostumerDetailContainerBody{
+        width: 200px;
+        padding: 5px;
+    }
+    @mixin boxWidth {
+        width: 90%;
+        border: 1px solid rgb(185, 184, 184);
+    }
+}
+@media only screen and (max-width: 900px) {
+    .CostumerDetailContainerBody{
+        width: 300px;
+        padding: 5px;
+    }
+    .CostumerDetailSideNav{
+        padding: 5px;
+    }
+}

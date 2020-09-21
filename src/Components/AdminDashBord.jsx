@@ -39,11 +39,6 @@ class AdminDashBord extends React.Component {
 
     constructor(props) {
         super(props);
-        const token = localStorage.getItem("token");
-        let loggedIn = true;
-        if (token === null) {
-            loggedIn = false;
-        }
         this.state = {
             getAllBooks: [],
             open: false,
@@ -223,7 +218,6 @@ class AdminDashBord extends React.Component {
                         <SearchIcon />
                     </IconButton>
                     <TextField
-                        id="standard-basic"
                         label="search by title"
                         type="text"
                         name="query"
@@ -254,7 +248,7 @@ class AdminDashBord extends React.Component {
                                         : this.state.getAllBooks.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)).map((row) => (
                                             <StylesProvider injectFirst>
                                                 <TableRow key={row.bookID}>
-                                                    <TableCell component="th" scope="row" ><img src={row.bookImage} className="displayImage" /></TableCell>
+                                                    <TableCell component="th" scope="row" ><img src={row.bookImage} alt ="noImage" className="displayImage" /></TableCell>
                                                     <TableCell align="center">{row.title}</TableCell>
                                                     <TableCell align="center">{this.stringTruncate(row.description, 20)}</TableCell>
                                                     <TableCell align="center">{row.author}</TableCell>

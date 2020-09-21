@@ -5,7 +5,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LocalLibraryOutlinedIcon from '@material-ui/icons/LocalLibraryOutlined';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserService from "../Services/userService";

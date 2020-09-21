@@ -1,8 +1,5 @@
 import React from 'react';
 import '../SCSS/update.scss';
-import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import { connect } from 'react-redux';
 import {  displayImage  } from '../redux/Action/actionCreater';
 class AddImage extends React.Component {

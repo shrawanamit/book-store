@@ -4,13 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import AdminService from "../Services/adminServices";
 import UserService from "../Services/userService";
-import { Redirect } from 'react-router-dom';
 import {userInformation} from '../redux/Action/actionCreater';
 import {connect} from 'react-redux';
 import {snackbarDisplay} from '../redux/Action/actionCreater';
-let service = new AdminService();
+
 let serviceUser = new UserService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -99,7 +97,7 @@ const validateForm = (errors) => {
                 if (data.data.data.userRole === "Customer" ) {
                     this.props.userInformation(data.data);
                     this.props.snackbarDisplay(this.state.snackbar);
-                    this.props.history.push("/userDashboard");    
+                    this.props.history.push("/home/books");    
                 }
                 else {
                     this.props.history.push("/adminDashboard");
@@ -179,7 +177,6 @@ const validateForm = (errors) => {
                             </div>
                             <div className="btn2">
                                 <Button
-                                    type = "button"
                                     variant="contained"
                                     color="primary"
                                     onClick={this.submitUserSignInForm}

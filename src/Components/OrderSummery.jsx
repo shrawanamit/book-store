@@ -12,7 +12,7 @@ export default class OrderSummery extends React.Component {
                 <div className="cartDisplay">
                     <div className="orderSummeryContainer">
                         <div className="orderSucessfullImageContainer">
-                            <img src={orderSucessfull} className="orderSucessfullImage" />
+                            <img src={orderSucessfull} alt ="noImage"className="orderSucessfullImage" />
                         </div>
                         <div>
                             <p className="orderSucessfullMessage">hurray!!! your order is confirmed <br />

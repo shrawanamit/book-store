@@ -3,7 +3,7 @@ import "../SCSS/dashbord.scss";
 import UserService from "../Services/userService";
 import Pagination from '@material-ui/lab/Pagination';
 import { connect } from 'react-redux';
-import { StylesProvider } from "@material-ui/core/styles";
+
 let service = new UserService();
 
 class BooksContainer extends React.Component {
@@ -107,14 +107,14 @@ class BooksContainer extends React.Component {
     render() {
         console.log("prpops", this.props)
         // const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
-        var output = this.props.getAllBooks.map((s, i) => ({ added: true }))
+        // var output = this.props.getAllBooks.map((s, i) => ({ added: true }))
         return (
             <React.Fragment>
                 {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
-                                <img src={row.bookImage} className="imageUserBook" />
+                                <img src={row.bookImage} alt="noImage"className="imageUserBook" />
                             </div>
                             {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div>}
                             <div className="bookDiscription">

@@ -117,9 +117,9 @@ $base-color: rgb(160, 48, 55);
 .bookDetailsContainer{
     flex-direction: column;
     justify-content: flex-start;
-    min-width: 200px;
+    width:  275px;
     min-height: 100px;
-    max-width: 475px;
+     max-width: 475px;
     max-height: 370px;
     border: 1px groove #e9e4e4;
     margin-top: 10px;
@@ -301,4 +301,9 @@ $base-color: rgb(160, 48, 55);
 }
 .MuiPaginationItem-textSecondary.Mui-selected{
     background-color:$base-color !important;
+}
+@media only screen and (max-width: 1025px) {
+    // .bookscount{
+    //     width: 58%;
+    // }
 }

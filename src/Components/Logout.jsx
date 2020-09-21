@@ -1,12 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import "../SCSS/logout.scss";
 import logo from '../assetes/logo.jpg';
-import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import { Link,withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Logout extends React.Component {
     constructor(props) {

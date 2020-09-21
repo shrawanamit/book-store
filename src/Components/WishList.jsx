@@ -1,14 +1,10 @@
 import React from 'react';
 import '../SCSS/wishlist.scss';
 import Toolbar from './ToolBar'
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import UserService from "../Services/userService";
-import { RowingOutlined } from '@material-ui/icons';
-import { Divider } from '@material-ui/core';
 import BookContainer from './BooksContainer';
 import { wishListData} from '../redux/Action/actionCreater';
-import Footer from './Footer';
 let service = new UserService();
 
 class WishList extends React.Component {

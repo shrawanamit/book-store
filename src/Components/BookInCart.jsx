@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import CostumerDetail from './CostumerDetail';
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
-import { displayAllBooksInCart } from '../redux/Action/actionCreater'
+
 let service = new UserService();
 
 class BookInCart extends React.Component {
@@ -21,12 +21,27 @@ class BookInCart extends React.Component {
             handelAddressOpenClose:true
         }
     }
-    handelOrder=()=>{
+    //place order
+
+    handelOrder=(cartId)=>{
       this.setState({
         handelOrderOpenClose:false,
         handelAddressOpenClose:false
       })
-    }
+      const data={
+           
+      }
+      service.Order(data)
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+
+        })
+      } 
+
+
     removeBookFromCart=(arrayObject)=>{
         console.log("cartId",arrayObject.cartId)
         service.DeleteCart(arrayObject.cartId)
@@ -54,7 +69,7 @@ class BookInCart extends React.Component {
                                         {this.props.getAllCartBook.map((row) =>
                                             <div className="DisplayCart">
                                                 <div className="DisplayCartBookImage">
-                                                    <div className="cartImage"><img  className="CartBookImage" src={row.bookImage}/></div>
+                                                    <div className="cartImage"><img  alt="noImage"className="CartBookImage" src={row.bookImage}/></div>
                                                 </div>
                                                 <div className="cartBookDetails">
                                                     <div className="bookname">{row.title}</div>

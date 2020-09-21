@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import {connect} from 'react-redux';
 class CostumerDetail extends React.Component {
 
@@ -167,7 +166,7 @@ class CostumerDetail extends React.Component {
                         </div>
                         <div className="CostumerDetailSideNav ">
                             <div className="editform">Edit</div>
-                            <div className="cartButton">
+                            <div className="cartButtonContinue">
                                 <Button variant="contained" color="primary" disableElevation type='submit'>
                                     Continue
                         </Button>
