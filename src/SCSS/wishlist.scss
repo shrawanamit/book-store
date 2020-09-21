@@ -7,11 +7,14 @@
     flex-direction: column;
 }
 
-
+.wishListMainContener{
+    display: flex;
+    flex-direction: column;
+}
 .wishListContainer{
     padding-top: 95px;
     @include flexrow();
-    width: 50%;
+    width: 85%;
     min-height: 200px;
 }
 .wishListBody{

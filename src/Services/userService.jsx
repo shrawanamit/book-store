@@ -52,13 +52,13 @@ export default class Service {
       authorization: token
     }});
   }
-  DeleteWishList(Id){
-    return axiosService.Delete(`${apiUrl}api/WishList/${Id}`,{ headers: {
+  DeleteWishList(data){
+    return axiosService.Delete(`${apiUrl}api/WishList/${data.WishListId}`,{ headers: {
       authorization: token
     }});
   }
-  AddWishListToCart(Id){
-    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${Id}`,{ headers: {
+  AddWishListToCart(data){
+    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.WishListId}`,{ headers: {
       authorization: token
     }});
   }

@@ -16,7 +16,8 @@ class BooksContainer extends React.Component {
             pageSize: 8,
             button: 'ADD TO BAG',
             buttonChange: true,
-            btn: 'Addbag'
+            btn: 'Addbag',
+            addToCart: 'ADD TO CART',
 
         };
     }
@@ -29,43 +30,77 @@ class BooksContainer extends React.Component {
 
     }
     addToWishList = (arreyObject) => {
-        const data = {
-            BookId: arreyObject.bookId,
-            Quantity: 1
+
+        if (arreyObject.wishListId === null) {
+            const data = {
+                BookId: arreyObject.bookId,
+                Quantity: 1
+            }
+
+            service.AddtoWishList(data)
+                .then((data) => {
+                    console.log("addToWishList", data);
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                })
         }
+        else {
+            console.log("DeleteWishList id", arreyObject.wishListId);
+            const data = {
+                wishListId: arreyObject.wishListId
+            }
+            service.DeleteWishList(data)
+                .then((data) => {
+                    console.log(" All wishList removed  books responce", data);
+                })
+                .catch((err) => {
+                    console.log(err);
 
-        service.AddtoWishList(data)
-            .then((data) => {
-                console.log("addToWishList", data);
-            })
-            .catch((err) => {
-                console.log(err);
+                })
 
-            })
+        }
 
     }
 
-    addToBag = async (arreyObject) => {
+    addToBag = (arreyObject) => {
         //  this.setState({button:'ADDED TO BAG'});
-
-
-        console.log(arreyObject);
-        const data = {
-            BookId: arreyObject.bookId,
-            Quantity: 1
-        }
-        service.AddtoCart(data)
-            .then((data) => {
-                console.log(data);
-                this.setState({
-                    btn: 'AddedToBag',
-                    button: 'ADDED TO BAG'
+        if (arreyObject.wishListId === null) {
+            console.log(arreyObject);
+            const data = {
+                BookId: arreyObject.bookId,
+                Quantity: 1
+            }
+            service.AddtoCart(data)
+                .then((data) => {
+                    console.log(data);
+                    this.setState({
+                        btn: 'AddedToBag',
+                        button: 'ADDED TO BAG'
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err);
+                .catch((err) => {
+                    console.log(err);
 
-            })
+                })
+        }
+        else {//AddWishListToCart
+            const data = {
+                WishListId: arreyObject.wishListId,
+            }
+            service.AddWishListToCart(data)
+                .then((data) => {
+                    console.log(data);
+                   alert("added to cart")
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                })
+        }
+
+
 
     }
 
@@ -90,17 +125,18 @@ class BooksContainer extends React.Component {
                                 </div>
                                 {/* {this.state.buttonChange ? */}
                                 <div className="buttonCotainer">
-                                    <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{this.state.button}</button>
-                                    <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
+                                    <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
+                                    <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
                                 </div>
                                 {/* : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>} */}
 
                             </div>
                         </div>
+                        {row.wishListId === undefined &&
                         <div className="bookDetailsContainer">
                             <div className="bookDetailsheading">Book Details</div>
                             <div className="bookDetails">{row.description}</div>
-                        </div>
+                        </div>}
                     </div>
                 )}
                 <div className="pagination">
@@ -122,8 +158,9 @@ class BooksContainer extends React.Component {
 }
 const mapStateToProps = state => {
     console.log("state====", state)
-   
+
     if (state.bookReducer.wishListData.length === 0) {
+
         if (state.bookReducer.searchedData.length === 0) {
             return {
                 getAllBooks: [...state.bookReducer.allBooks]
@@ -132,9 +169,10 @@ const mapStateToProps = state => {
         else {
             return {
                 // 
-                getAllBooks: [...state.bookReducer.wishListData]
+                getAllBooks: [...state.bookReducer.searchedData]
             }
         }
+      
     }
     else {
         return {

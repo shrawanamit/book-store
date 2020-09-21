@@ -8,6 +8,7 @@ import { RowingOutlined } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
 import BookContainer from './BooksContainer';
 import { wishListData} from '../redux/Action/actionCreater';
+import Footer from './Footer';
 let service = new UserService();
 
 class WishList extends React.Component {
@@ -15,7 +16,8 @@ class WishList extends React.Component {
         super(props);
         this.state = {
             searchBarCartHide: true,
-            getAllWishListBook: []
+            getAllWishListBook: [],
+            addTocart:"ADD TO Cart"
         }
     }
 
@@ -57,34 +59,9 @@ class WishList extends React.Component {
                     <div className="wishListBody">
                         <div className="cartHeading"><span>My WishList</span></div>
                         <BookContainer />
-                        {/* {this.state.getAllWishListBook.length === 0 ? <div className="emptyWishList">Your WishList is Empty</div> :
-                            this.state.getAllWishListBook.map((row) =>
-                                <div className="DisplayCart">
-                                    <div className="displayWishListImage">
-                                        <div className="cartImage"><img className="CartBookImage" src={row.bookImage} /></div>
-                                    </div>
-                                    <div className="cartBookDetails">
-                                        <div className="bookname">{row.title}</div>
-                                        <div className="Auther">{row.author}</div>
-                                        <div className="price">Rs.{row.price}</div>
-                                        <div className="WishListAction">
-                                            <div>
-                                                <Button variant="contained" disableElevation onclick={() => this.removeBookFromWishList(row)}>
-                                                    Remove
-                                                </Button>
-                                            </div>
-                                            <div>
-                                                <Button variant="contained" color="primary" disableElevation>
-                                                    send to cart
-                                                </Button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            )} */}
                     </div>
                 </div>
+                {/* <Footer /> */}
             </React.Fragment>
         );
     }
