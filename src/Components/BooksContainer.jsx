@@ -18,7 +18,7 @@ class BooksContainer extends React.Component {
             buttonChange: true,
             btn: 'Addbag',
             addToCart: 'ADD TO CART',
-
+            BookId:null
         };
     }
     handlePageChange = (event, value) => {
@@ -72,13 +72,13 @@ class BooksContainer extends React.Component {
                 BookId: arreyObject.bookId,
                 Quantity: 1
             }
+            this.setState({
+                bookId:arreyObject.bookId,
+            });
             service.AddtoCart(data)
                 .then((data) => {
                     console.log(data);
-                    this.setState({
-                        btn: 'AddedToBag',
-                        button: 'ADDED TO BAG'
-                    })
+                    
                 })
                 .catch((err) => {
                     console.log(err);
@@ -123,13 +123,16 @@ class BooksContainer extends React.Component {
                                     <div className="Auther">{row.author}</div>
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
-                                {/* {this.state.buttonChange ? */}
-                                <div className="buttonCotainer">
-                                    <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
-                                    <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
+                                {this.state.bookId ===row.bookId ? <div className="buttonCotainer">
+                                <button className="AddedToBag" type="button" >ADDED TO BAG</button>
                                 </div>
-                                {/* : <div className="buttonCotainer"><button className="AddedToBag" type="button" >ADDED TO BAG</button></div>} */}
-
+                                :
+                                 <div className="buttonCotainer">
+                                 <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
+                                 <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
+                               </div>
+                                
+                                }
                             </div>
                         </div>
                         {row.wishListId === undefined &&
