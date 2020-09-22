@@ -18,7 +18,7 @@ class BooksContainer extends React.Component {
             buttonChange: true,
             btn: 'Addbag',
             addToCart: 'ADD TO CART',
-            BookId:null
+            BookId: null
         };
     }
     handlePageChange = (event, value) => {
@@ -73,12 +73,12 @@ class BooksContainer extends React.Component {
                 Quantity: 1
             }
             this.setState({
-                bookId:arreyObject.bookId,
+                bookId: arreyObject.bookId,
             });
             service.AddtoCart(data)
                 .then((data) => {
                     console.log(data);
-                    
+
                 })
                 .catch((err) => {
                     console.log(err);
@@ -92,7 +92,7 @@ class BooksContainer extends React.Component {
             service.AddWishListToCart(data)
                 .then((data) => {
                     console.log(data);
-                   alert("added to cart")
+                    alert("added to cart")
                 })
                 .catch((err) => {
                     console.log(err);
@@ -114,7 +114,7 @@ class BooksContainer extends React.Component {
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
-                                <img src={row.bookImage} alt="noImage"className="imageUserBook" />
+                                <img src={row.bookImage} alt="noImage" className="imageUserBook" />
                             </div>
                             {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div>}
                             <div className="bookDiscription">
@@ -123,23 +123,25 @@ class BooksContainer extends React.Component {
                                     <div className="Auther">{row.author}</div>
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
-                                {this.state.bookId ===row.bookId ? <div className="buttonCotainer">
-                                <button className="AddedToBag" type="button" >ADDED TO BAG</button>
+
+                                {this.state.bookId === row.bookId ? <div className="buttonCotainer">
+                                    <button className="AddedToBag" type="button" >ADDED TO BAG</button>
                                 </div>
-                                :
-                                 <div className="buttonCotainer">
-                                 <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
-                                 <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
-                               </div>
-                                
+                                    : row.booksAvailable === 0 ? <div className="buttonCotainer">
+                                        <button className="wishlisted" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
+                                    </div> :
+                                        <div className="buttonCotainer">
+                                            <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
+                                            <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
+                                        </div>
                                 }
                             </div>
                         </div>
                         {row.wishListId === undefined &&
-                        <div className="bookDetailsContainer">
-                            <div className="bookDetailsheading">Book Details</div>
-                            <div className="bookDetails">{row.description}</div>
-                        </div>}
+                            <div className="bookDetailsContainer">
+                                <div className="bookDetailsheading">Book Details</div>
+                                <div className="bookDetails">{row.description}</div>
+                            </div>}
                     </div>
                 )}
                 <div className="pagination">
@@ -164,12 +166,12 @@ const mapStateToProps = state => {
 
     if (state.bookReducer.wishListData.length === 0) {
 
-        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length ===0 ) {
+        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
             return {
                 getAllBooks: [...state.bookReducer.allBooks]
             }
         }
-        else if(state.bookReducer.searchedData.length === 0 ){
+        else if (state.bookReducer.searchedData.length === 0) {
             return {
                 getAllBooks: [...state.bookReducer.filteredData]
             }
@@ -181,7 +183,7 @@ const mapStateToProps = state => {
                 getAllBooks: [...state.bookReducer.searchedData]
             }
         }
-      
+
     }
     else {
         return {

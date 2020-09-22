@@ -1,4 +1,5 @@
 $base-color: rgb(160, 48, 55);
+$max-width:100%;
 @mixin btn {
     cursor: pointer;
     padding-top: 8px;
@@ -10,7 +11,7 @@ $base-color: rgb(160, 48, 55);
 }
 
 .appBar{
-    width: 100%;
+    width: $max-width;
     height: 65px;
     position: fixed;
     top: 0px;
@@ -52,7 +53,7 @@ $base-color: rgb(160, 48, 55);
     opacity: 0.61;
 }
 .inputBox{
-    width: 100%;
+    width: $max-width;
     font-size: smaller;
 }
 
@@ -104,7 +105,6 @@ $base-color: rgb(160, 48, 55);
     justify-content: flex-start;
 }
 
-/////////////////////
 .container{
     display: flex;
     flex-direction: row;
@@ -180,6 +180,13 @@ $base-color: rgb(160, 48, 55);
     @include btn;
     
 }
+.wishlisted{
+    color: black;
+    border: 1px solid grey;
+    @include btn;
+    width: $max-width;
+    
+}
 .Addbag{
     @include btn;
     background-color: $base-color;
@@ -192,7 +199,7 @@ $base-color: rgb(160, 48, 55);
     background-color: rgb(51, 113, 181);
     color: white;
     border: 1px solid grey;
-    width: 100%;
+    width: $max-width;
     .buttonCotainer{
         .wishlist{
             display: none;
@@ -203,7 +210,7 @@ $base-color: rgb(160, 48, 55);
 
 
 .imageContainer{
-  width: 100%;
+  width: $max-width;
   height: 56%;
   background-color: rgb(241, 241, 241);
   display: flex;
