@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import UserService from "../Services/userService";
-
-
+import Link from '@material-ui/core/Link';
 let service = new UserService();
 export default class OrderCheckOut extends React.Component {
     constructor(props) {
@@ -30,9 +29,9 @@ export default class OrderCheckOut extends React.Component {
     }
     render() {
         return (
-            <> {this.state.orderData.map((row) =>
+            <>
                 <div className="orderSummaryBody">
-                   
+                {this.state.orderData.map((row) =>
                     <div className="DisplayCart">
                         <div className="DisplayCartBookImage">
                             <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage}/></div>
@@ -43,13 +42,15 @@ export default class OrderCheckOut extends React.Component {
                             <div className="price">Rs.{row.price}</div>
                         </div>
 
-                    </div>
+                    </div>)}
                     <div className="orderCheck">
-                        <Button variant="contained" color="primary" disableElevation onClick={() => this.handelOrder()}>
+                        <Link href="/orderSummery" variant="body2"underline="none">
+                        <Button variant="contained" color="primary" disableElevation >
                             Order checkOut
                        </Button>
+                       </Link>
                     </div>
-            </div>)}
+            </div>
             </>
         );
     }

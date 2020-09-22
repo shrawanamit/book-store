@@ -33,12 +33,12 @@ class CostumerDetail extends React.Component {
         }
     }
     submitData= async()=>{
-        {this.props.cartDetail.filter((row => row.isDeleted === false)).map((row)=>{
-            console.log("cartId",row.cartId )
-            this.setState({
-                cartId:row.cartId,
-            })
-        })}
+        this.props.cartDetail.filter((row => row.isDeleted === false)).map((row)=>{
+             this.setState({
+                    cartId:row.cartId,
+                })
+                return console.log("row.cartId",row.cartId);
+        })
         const data={
             address:this.state.address,
             city:this.state.city,

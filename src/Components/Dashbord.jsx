@@ -50,9 +50,6 @@ class Dashbord extends React.Component {
                 console.log(" All  cart books ", data);
                 this.props.bookInCart(data.data.data);
                 this.setState({ getAllCart: data.data.data })
-                // this.setState({ getAllBooks: data.data.data });
-                // console.log(" All books arrey ", this.state.getAllBooks);
-                // this.props.displayAllBooks(data.data.data );
             })
             .catch((err) => {
                 console.log(err);

@@ -58,17 +58,17 @@ export default class Service {
     }});
   }
   AddWishListToCart(data){
-    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.wishListId}`,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.wishListId}`,{},{ headers: {
       authorization: token
     }});
   }
   Order(data){
-    return axiosService.Post(`${apiUrl}api/Order/${data.cartId}`,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Order/${data.cartId}`,{},{ headers: {
       authorization: token
     }});
   }
   OrderPlace(data){
-    return axiosService.Post(`${apiUrl}api/Order/OrderPlace?cartId=${data.cartId}&Address=${data.address}&City=${data.city}&PinCode=${data.pinCode}`,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Order/OrderPlace?cartId=${data.cartId}&Address=${data.address}&City=${data.city}&PinCode=${data.pinCode}`,{},{ headers: {
       authorization: token
     }});
   }

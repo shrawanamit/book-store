@@ -4,7 +4,7 @@ import orderSucessfull from '../assetes/orderSucessfull.png';
 import '../SCSS/orderSummery.scss'
 import Button from '@material-ui/core/Button';
 import Footer from './Footer';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
 
 export default class OrderSummery extends React.Component {
@@ -45,7 +45,7 @@ export default class OrderSummery extends React.Component {
                             </table>
                         </div>
                         <div className="continueShopping">
-                            <Link href="/home/books" variant="body2">
+                            <Link href="/home/books" variant="body2" underline="none">
                                 <Button variant="contained" color="primary" disableElevation>
                                     continue Shoping
                             </Button>

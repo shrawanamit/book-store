@@ -55,10 +55,14 @@ class WishList extends React.Component {
                 <div className="wishListContainer">
                     <div className="wishListBody">
                         <div className="cartHeading"><span>My WishList</span></div>
+                        <div className="wishListBook">
                         <BookContainer />
+                        </div>
                     </div>
                 </div>
+                <div className="footerContener">
                  <Footer /> 
+                 </div>
             </div>
         );
     }
