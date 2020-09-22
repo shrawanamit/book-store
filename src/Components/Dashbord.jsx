@@ -5,8 +5,8 @@ import ToolBar from "./ToolBar";
 import Footer from "./Footer.jsx";
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
-import { displayAllBooks, displayAllBooksInCart } from '../redux/Action/actionCreater'
-import {  Route } from 'react-router-dom';
+import { displayAllBooks, displayAllBooksInCart,filteredData } from '../redux/Action/actionCreater'
+import { Route } from 'react-router-dom';
 let service = new UserService();
 
 class Dashbord extends React.Component {
@@ -14,7 +14,14 @@ class Dashbord extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allBooks: []
+            allBooks: [],
+            Type: [
+                { id: 'diceble', type: "Sort by relevence", isdisabled: true },
+                { id: 'title', type: "title" },
+                { id: 'auther', type: "author" },
+                { id: 'priceAscending', type: "price" },
+            ],
+            inputOption:'',
         }
     }
 
@@ -54,12 +61,17 @@ class Dashbord extends React.Component {
     }
 
 
-    filterByPrice = () => {
-        console.log("filter data")
-        service.FilterBookByPrice()
+    filterOnChange = async(e) => {
+        let value = e.target.value;
+       await this.setState({ inputOption: value }, () => { console.log("====",this.state.inputOption); });
+         const data={
+            columnName:this.state.inputOption,
+            order:"ascending"
+         }
+        service.sortBookByColumn(data)
             .then((data) => {
                 console.log(" All books by filter ", data);
-
+                this.props.filteredData(data.data.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -74,18 +86,17 @@ class Dashbord extends React.Component {
                 <div className="body">
                     <div className="bookscount">
                         <span className="headingcount">Books <span className="noOfBooks">({this.state.allBooks.length} items)</span></span>
-                        <select className="selectOptionCntainer">
-                            <option >Sort by relevence</option>
-                            <option onClick={() => this.filterByPrice()} value="">Price:low to high</option>
-                            <option value="">Price:low to high</option>
-                            <option value="">Newest Arrival</option>
+                        <select className="selectOptionCntainer" value={this.state.inputOption} onChange={(element) => this.filterOnChange(element)}>
+                            {this.state.Type.map((item, index) =>
+                                <option key={item.id}>{item.type}</option>
+                            )}
                         </select>
                     </div>
                     <div className="booksBodyContainer">
-                        <Route path="/home/books" component={BooksContainer} /> 
+                        <Route path="/home/books" component={BooksContainer} />
                         {/* <BooksContainer /> */}
                     </div>
-                    
+
 
                 </div>
                 <Footer />
@@ -99,6 +110,7 @@ const mapDispatchToProps = dispatch => {
     return {
         displayAllBooks: (data) => dispatch(displayAllBooks(data)),
         bookInCart: (data) => dispatch(displayAllBooksInCart(data)),
+        filteredData: (data) => dispatch(filteredData(data)),
     }
 }
-export default connect(null, mapDispatchToProps)(Dashbord);
+export default connect(null, mapDispatchToProps)(Dashbord);//filteredData

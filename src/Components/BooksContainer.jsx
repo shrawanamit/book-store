@@ -31,7 +31,7 @@ class BooksContainer extends React.Component {
     }
     addToWishList = (arreyObject) => {
 
-        if (arreyObject.wishListId === null) {
+        if (arreyObject.wishListId === undefined) {
             const data = {
                 BookId: arreyObject.bookId,
                 Quantity: 1
@@ -66,7 +66,7 @@ class BooksContainer extends React.Component {
 
     addToBag = (arreyObject) => {
         //  this.setState({button:'ADDED TO BAG'});
-        if (arreyObject.wishListId === null) {
+        if (arreyObject.wishListId === undefined) {
             console.log(arreyObject);
             const data = {
                 BookId: arreyObject.bookId,
@@ -87,7 +87,7 @@ class BooksContainer extends React.Component {
         }
         else {//AddWishListToCart
             const data = {
-                WishListId: arreyObject.wishListId,
+                wishListId: arreyObject.wishListId,
             }
             service.AddWishListToCart(data)
                 .then((data) => {
@@ -110,7 +110,7 @@ class BooksContainer extends React.Component {
         // var output = this.props.getAllBooks.map((s, i) => ({ added: true }))
         return (
             <React.Fragment>
-                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row) =>
+                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false).map((row) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
@@ -161,10 +161,16 @@ const mapStateToProps = state => {
 
     if (state.bookReducer.wishListData.length === 0) {
 
-        if (state.bookReducer.searchedData.length === 0) {
+        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length ===0 ) {
             return {
                 getAllBooks: [...state.bookReducer.allBooks]
             }
+        }
+        else if(state.bookReducer.searchedData.length === 0 ){
+            return {
+                getAllBooks: [...state.bookReducer.filteredData]
+            }
+
         }
         else {
             return {

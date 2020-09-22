@@ -1,4 +1,4 @@
-import { DISPLAY_IMAGE, WISHLIST_DATA, DISPLAY_ALLBOOKS, DISPLAY_ALL_SEARCH_BOOKS } from '../Action/actionType';
+import { DISPLAY_IMAGE, FILTERED_BOOK, WISHLIST_DATA, DISPLAY_ALLBOOKS, DISPLAY_ALL_SEARCH_BOOKS } from '../Action/actionType';
 
 const initialState = {
     imageURL: '',
@@ -6,7 +6,8 @@ const initialState = {
     snackBarMeessage: '',
     allBooks: [],
     searchedData: [],
-    wishListData:[]
+    wishListData: [],
+    filteredData: [],
 }
 
 
@@ -33,6 +34,11 @@ const bookReducer = (state = initialState, action) => {
             return {
                 ...state,
                 wishListData: [...action.wishListData],
+            }
+        case FILTERED_BOOK:
+            return {
+                ...state,
+                filteredData: [...action.filteredData],
             }
 
 

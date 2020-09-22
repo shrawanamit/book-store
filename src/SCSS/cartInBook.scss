@@ -35,7 +35,7 @@ $base-color: rgb(160, 48, 55);
     width: 100%;
 }
 .cartItem{
-    min-height: 210px;
+    min-height: 235px;
     overflow: auto;
    @include boxWidth();
    @include flexColumn();
@@ -49,7 +49,7 @@ $base-color: rgb(160, 48, 55);
     padding-bottom: 0px;
 }
 .cartBody{
-    @include flexRow();
+    @include flexColumn();
     height: 100px;
 
 }
@@ -100,6 +100,16 @@ $base-color: rgb(160, 48, 55);
     justify-content: flex-start;
     align-items: center;
     margin-top: 20px;
+}
+.orderSummary{
+    width: 60%;
+    padding-top: 15px;
+    border: 1px solid #b9b8b8;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    min-height: 50px;
+    align-items: flex-start;
 }
 .messageDetais{
     padding-left: 15px;
@@ -204,6 +214,16 @@ $base-color: rgb(160, 48, 55);
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: $base-color; 
+  }
+  .orderCheck{
+      display: flex;
+      justify-content: flex-end;
+      padding:0px 0px 15px 15px;
+  }
+  .orderSummaryBody{
+      display: flex;
+      flex-direction: column;
+      width: 97%;
   }
 
   @media only screen and (max-width: 500px) {

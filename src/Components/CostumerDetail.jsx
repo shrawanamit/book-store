@@ -7,6 +7,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import {connect} from 'react-redux';
+import UserService from "../Services/userService";
+
+let service = new UserService();
 class CostumerDetail extends React.Component {
 
     constructor(props) {
@@ -18,15 +21,48 @@ class CostumerDetail extends React.Component {
                 { id: 'work', title: "Work" },
                 { id: 'other', title: "Other" },
             ],
-            name: '',
-            phoneNumber: '',
-            pinCode: '',
-            locality: '',
-            city: '',
-            address: '',
-            landMark: ''
+            name: localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'),
+            phoneNumber: localStorage.getItem('phoneNo'),
+            pinCode: "",
+            locality: localStorage.getItem('city'),
+            city: localStorage.getItem('city'),
+            address: localStorage.getItem('address'),
+            landMark: localStorage.getItem('city'),
+            cartId:'58',
 
         }
+    }
+    submitData= async()=>{
+        {this.props.cartDetail.filter((row => row.isDeleted === false)).map((row)=>{
+            console.log("cartId",row.cartId )
+            this.setState({
+                cartId:row.cartId,
+            })
+        })}
+        const data={
+            address:this.state.address,
+            city:this.state.city,
+            pinCode:parseInt(this.state.pinCode),
+            cartId:parseInt(this.state.cartId)
+        }
+        service.OrderPlace(data)
+        .then((data)=>{
+            console.log("order with address",data);
+        })
+        .catch((err) => {
+            console.log(err);
+
+        })
+
+    }
+
+    
+    handleChange = (event) => {
+        event.preventDefault();
+        
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
     }
     handelSubmit = (e) => {
         e.preventDefault();
@@ -53,8 +89,8 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.name}
-                                    // onChange={this.handleChange} noValidate 
+                                        defaultValue={this.state.name}
+                                        onChange={this.handleChange} noValidate 
                                     />
                                 </div>
 
@@ -67,8 +103,8 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.phoneNumber}
-                                    // onChange={this.handleChange} noValidate
+                                        defaultValue={this.state.phoneNumber}
+                                        onChange={this.handleChange} noValidate
                                     />
 
                                 </div>
@@ -83,8 +119,8 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.pinCode}
-                                    // onChange={this.handleChange} noValidate 
+                                        defaultValue={this.state.pinCode}
+                                        onChange={this.handleChange} noValidate 
                                     />
                                 </div>
 
@@ -97,9 +133,9 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.locality}
-                                    // required
-                                    // onChange={this.handleChange} noValidate
+                                        defaultValue={this.state.locality}
+                                        required
+                                        onChange={this.handleChange} noValidate
                                     />
 
                                 </div>
@@ -115,8 +151,8 @@ class CostumerDetail extends React.Component {
                                         variant="outlined"
                                         size="medium"
                                         multiline
-                                        value={this.state.address}
-                                    // onChange={this.handleChange} noValidate 
+                                        defaultValue={this.state.address}
+                                        onChange={this.handleChange} noValidate 
                                     />
                                 </div>
                             </div>
@@ -130,8 +166,8 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.city}
-                                    // onChange={this.handleChange} noValidate 
+                                        defaultValue={this.state.city}
+                                        onChange={this.handleChange} noValidate 
                                     />
                                 </div>
 
@@ -144,9 +180,9 @@ class CostumerDetail extends React.Component {
                                         id="outlined-size-small"
                                         variant="outlined"
                                         size="small"
-                                        value={this.state.landMark}
-                                    // required
-                                    // onChange={this.handleChange} noValidate
+                                        defaultValue={this.state.landMark}
+                                        required
+                                        onChange={this.handleChange} noValidate
                                     />
 
                                 </div>
@@ -167,7 +203,11 @@ class CostumerDetail extends React.Component {
                         <div className="CostumerDetailSideNav ">
                             <div className="editform">Edit</div>
                             <div className="cartButtonContinue">
-                                <Button variant="contained" color="primary" disableElevation type='submit'>
+                                <Button variant="contained" 
+                                color="primary" 
+                                disableElevation 
+                                type='submit'
+                                onClick={this.submitData}>
                                     Continue
                         </Button>
                             </div>
@@ -180,9 +220,9 @@ class CostumerDetail extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log(state);
+    console.log("state usrer details",state );
     return {
-        userInformation: state.bookInCartReducer.userData
+        cartDetail: [...state.bookInCartReducer.allBooksInCart]
     };
   
 }

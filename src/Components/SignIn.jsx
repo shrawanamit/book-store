@@ -92,8 +92,15 @@ const validateForm = (errors) => {
                 Password: this.state.password,
             };
             serviceUser.Login(data)
-            .then((data) => {           
+            .then((data) => {     
+                localStorage.setItem('userId', data.data.data.userId);    
+                localStorage.setItem('address', data.data.data.address);   
+                localStorage.setItem('phoneNo', data.data.data.phoneNumber);     
+                localStorage.setItem('firstName', data.data.data.firstName);   
+                localStorage.setItem('lastName', data.data.data.lastName);   
+                localStorage.setItem('city', data.data.data.city);  
                 localStorage.setItem('token', data.data.jsonToken);
+                localStorage.setItem('email', data.data.data.email);
                 if (data.data.data.userRole === "Customer" ) {
                     this.props.userInformation(data.data);
                     this.props.snackbarDisplay(this.state.snackbar);

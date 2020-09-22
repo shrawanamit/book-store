@@ -31,8 +31,8 @@ export default class Service {
       authorization: token
     }});
   }
-  FilterBookByPrice() {
-    return axiosService.Get(`${apiUrl}api/Book/FilterByPrice`, { headers: {
+  sortBookByColumn(data) {
+    return axiosService.Get(`${apiUrl}api/Book/Sorting?columnName=${data.columnName}&order=${data.order}`, { headers: {
       authorization: token
     }});
   }
@@ -53,24 +53,30 @@ export default class Service {
     }});
   }
   DeleteWishList(data){
-    return axiosService.Delete(`${apiUrl}api/WishList/${data.WishListId}`,{ headers: {
+    return axiosService.Delete(`${apiUrl}api/WishList/${data.wishListId}`,{ headers: {
       authorization: token
     }});
   }
   AddWishListToCart(data){
-    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.WishListId}`,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Cart/WishListToCart/${data.wishListId}`,{ headers: {
       authorization: token
     }});
   }
   Order(data){
-    return axiosService.Post(`${apiUrl}api/Order/${data.CartId}`,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Order/${data.cartId}`,{ headers: {
       authorization: token
     }});
   }
   OrderPlace(data){
-    return axiosService.Post(`${apiUrl}api/Order/OrderPlace`,data,{ headers: {
+    return axiosService.Post(`${apiUrl}api/Order/OrderPlace?cartId=${data.cartId}&Address=${data.address}&City=${data.city}&PinCode=${data.pinCode}`,{ headers: {
       authorization: token
     }});
   }
+  getOrder(){
+    return axiosService.Get(`${apiUrl}api/Order`,{ headers: {
+      authorization: token
+    }});
+  }
+
 }
 
