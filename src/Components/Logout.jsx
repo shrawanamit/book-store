@@ -75,8 +75,8 @@ export default class Logout extends React.Component {
                             </div> */}
                         </div>
                         <div className="name">
-                            <div className="namebody">Amit kumar</div>
-                            <div className="email">amitstudent2017@gmail.com</div><br />
+                        <div className="namebody">{localStorage.getItem('firstName')+' '+localStorage.getItem('lastName')}</div>
+                            <div className="email">{localStorage.getItem('email')}</div><br />
                         </div>
                         <div className="btnLogout">
                             <Link to="/wishlist" variant="body2">

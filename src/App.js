@@ -4,12 +4,13 @@ import Registration from './Components/Registration';
 import SignIn from './Components/SignIn';
 import Dashbord from './Components/Dashbord'
 import AdminDashBord from "./Components/AdminDashBord"
-import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import BookInCart from './Components/BookInCart';
 import OrderSummery from './Components/OrderSummery';
 import WishList from './Components/WishList'
+import {MyForm} from './Components/Form'
+
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route  exact path="/bookInCart" component={BookInCart} />
         <Route exact path="/wishlist" component={WishList} />
         <Route exact path="/orderSummery" component={OrderSummery} />
+        <Route exact path="/form" component={MyForm} />
         
         </Router>
     </div>
