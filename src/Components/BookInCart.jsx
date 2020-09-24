@@ -82,8 +82,8 @@ class BookInCart extends React.Component {
                         <div className="cartMainBody">
                             <div className="cartItem">
                                 <div className="cartHeading"><span>My Cart</span></div>
-                                {this.props.getAllCartBook.filter(row => row.isDeleted === false).length === 0 ? <Emptymessage /> :
-                                    this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) =>
+                                {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false ).length === 0 ? <Emptymessage /> :
+                                    this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false).map((row) =>
                                         <div className="cartBody">
                                             <div className="DisplayCart">
                                                 <div className="DisplayCartBookImage">

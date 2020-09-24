@@ -86,7 +86,7 @@ class ToolBar extends React.Component {
                                     <Link to='/bookInCart'>
                                         <IconButton edge="start" color="inherit" aria-label="menu">
                                             <ShoppingCartOutlinedIcon className="cartOutLine" />
-                                            <span className="countInCart">{this.props.getAllCartBook.filter(row => row.isDeleted === false).length}</span>
+                                            <span className="countInCart">{this.props.getAllCartBook.filter(row => row.isDeleted === false && row.isUsed === false).length}</span>
                                         </IconButton>
                                     </Link>
                                 </div>

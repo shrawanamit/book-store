@@ -111,7 +111,7 @@ class BooksContainer extends React.Component {
         console.log("prpops", this.props)
         return (
             <React.Fragment>
-                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false).map((row) =>
+                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false ).map((row) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">

@@ -57,7 +57,7 @@ class OrderCheckOut extends React.Component {
         return (
             <>
                 <div className="orderSummaryBody">
-                    {this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) =>
+                    {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false).map((row) =>
                         <div className="DisplayCart">
                             <div className="DisplayCartBookImage">
                                 <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>

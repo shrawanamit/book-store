@@ -38,9 +38,9 @@ export default class OrderSummery extends React.Component {
                                     <th className="tableHeading">Address</th>
                                 </tr>
                                 <tr classNmae="tableRow">
-                                    <td className="tableValue">Jill</td>
-                                    <td className="tableValue">Smith</td>
-                                    <td className="tableValue">50</td>
+                                    <td className="tableValue">bookStore@gmail.com</td>
+                                    <td className="tableValue">8390202340</td>
+                                    <td className="tableValue">@patna</td>
                                 </tr>
                             </table>
                         </div>
