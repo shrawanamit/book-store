@@ -6,10 +6,10 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import {connect} from 'react-redux';
-import UserService from "../Services/userService";
+import { connect } from 'react-redux';
+import { userInformation } from "../redux/Action/actionCreater"
 
-let service = new UserService();
+
 class CostumerDetail extends React.Component {
 
     constructor(props) {
@@ -21,45 +21,41 @@ class CostumerDetail extends React.Component {
                 { id: 'work', title: "Work" },
                 { id: 'other', title: "Other" },
             ],
-            name: localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'),
+            name: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
             phoneNumber: localStorage.getItem('phoneNo'),
             pinCode: "",
             locality: localStorage.getItem('city'),
             city: localStorage.getItem('city'),
             address: localStorage.getItem('address'),
             landMark: localStorage.getItem('city'),
-            cartId:'58',
+            orderSummeryOpen: true,
+            openButton: true,
+
 
         }
     }
-    submitData= async()=>{
-        this.props.cartDetail.filter((row => row.isDeleted === false)).map((row)=>{
-             this.setState({
-                    cartId:row.cartId,
-                })
-                return console.log("row.cartId",row.cartId);
+    submitData = async () => {
+        this.setState({
+            openButton: false
         })
-        const data={
-            address:this.state.address,
-            city:this.state.city,
-            pinCode:parseInt(this.state.pinCode),
-            cartId:parseInt(this.state.cartId)
+
+        const data = {
+            address: this.state.address,
+            city: this.state.city,
+            pinCode: this.state.pinCode,
+            email: this.state.email,
+            name: this.state.name,
+            phoneNumber: this.state.phoneNumber,
+            orderSummeryOpen: this.state.orderSummeryOpen,
+
         }
-        service.OrderPlace(data)
-        .then((data)=>{
-            console.log("order with address",data);
-        })
-        .catch((err) => {
-            console.log(err);
-
-        })
-
+        this.props.userInformation(data);
     }
 
-    
+
     handleChange = (event) => {
         event.preventDefault();
-        
+
         this.setState({
             [event.target.name]: event.target.value,
         });
@@ -90,7 +86,7 @@ class CostumerDetail extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         defaultValue={this.state.name}
-                                        onChange={this.handleChange} noValidate 
+                                        onChange={this.handleChange} noValidate
                                     />
                                 </div>
 
@@ -120,7 +116,7 @@ class CostumerDetail extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         defaultValue={this.state.pinCode}
-                                        onChange={this.handleChange} noValidate 
+                                        onChange={this.handleChange} noValidate
                                     />
                                 </div>
 
@@ -152,7 +148,7 @@ class CostumerDetail extends React.Component {
                                         size="medium"
                                         multiline
                                         defaultValue={this.state.address}
-                                        onChange={this.handleChange} noValidate 
+                                        onChange={this.handleChange} noValidate
                                     />
                                 </div>
                             </div>
@@ -167,7 +163,7 @@ class CostumerDetail extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         defaultValue={this.state.city}
-                                        onChange={this.handleChange} noValidate 
+                                        onChange={this.handleChange} noValidate
                                     />
                                 </div>
 
@@ -201,16 +197,16 @@ class CostumerDetail extends React.Component {
 
                         </div>
                         <div className="CostumerDetailSideNav ">
-                            <div className="editform">Edit</div>
-                            <div className="cartButtonContinue">
-                                <Button variant="contained" 
-                                color="primary" 
-                                disableElevation 
-                                type='submit'
-                                onClick={this.submitData}>
+                            <div className="editform"></div>
+                            {this.state.openButton ? <div className="cartButtonContinue">
+                                <Button variant="contained"
+                                    color="primary"
+                                    disableElevation
+                                    type='submit'
+                                    onClick={this.submitData}>
                                     Continue
-                        </Button>
-                            </div>
+                                </Button>
+                            </div> : ""}
                         </div>
                     </form>
                 </div>
@@ -219,12 +215,15 @@ class CostumerDetail extends React.Component {
         );
     }
 }
-const mapStateToProps = state => {
-    console.log("state usrer details",state );
+
+const mapDispatchToProps = dispatch => {
+
     return {
-        cartDetail: [...state.bookInCartReducer.allBooksInCart]
-    };
-  
+        userInformation: (data) => dispatch(userInformation(data)),
+
+    }
 }
 
-export default connect(mapStateToProps)(CostumerDetail)
+
+
+export default connect(null, mapDispatchToProps)(CostumerDetail)

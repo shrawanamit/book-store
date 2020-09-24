@@ -1,4 +1,4 @@
-import { DISPLAY_ALLBOOKS_INCART,SIGNIN_DATA } from '../Action/actionType';
+import { DISPLAY_ALLBOOKS_INCART,USER_DATA } from '../Action/actionType';
 
 const cartInitialState={
     allBooksInCart: [],
@@ -13,8 +13,8 @@ const bookInCartReducer = (state = cartInitialState, action) => {
                 ...state, 
                 allBooksInCart:[...action.cartAllBooks] ,
             }
-            case SIGNIN_DATA:
-            console.log("i am in reducer sighin",action.userData);
+            case USER_DATA:
+            console.log("i am in reducer user",action.userData);
             return {
                 ...state, 
                 userData:action.userData ,

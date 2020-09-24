@@ -2,8 +2,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import UserService from "../Services/userService";
 import Link from '@material-ui/core/Link';
+import { connect } from 'react-redux';
 let service = new UserService();
-export default class OrderCheckOut extends React.Component {
+class OrderCheckOut extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,32 +28,67 @@ export default class OrderCheckOut extends React.Component {
 
             })
     }
+
+    hendalOrder = () => {
+        console.log("===",this.props.userInformation.address)
+        this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) => {
+            const data = {
+                address: JSON.stringify(this.props.userInformation.address),
+                city: JSON.stringify(this.props.userInformation.city),
+                pinCode: this.props.userInformation.pinCode,
+                cartId: row.cartId
+            }
+
+            service.OrderPlace(data)
+                .then((data) => {
+                    console.log("order with address", data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
+        })
+    };
+
+
+
+
     render() {
         return (
             <>
                 <div className="orderSummaryBody">
-                {this.state.orderData.map((row) =>
-                    <div className="DisplayCart">
-                        <div className="DisplayCartBookImage">
-                            <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage}/></div>
-                        </div>
-                        <div className="cartBookDetails">
-                            <div className="bookname">{row.title}</div>
-                            <div className="Auther">{row.author}</div>
-                            <div className="price">Rs.{row.price}</div>
-                        </div>
+                    {this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) =>
+                        <div className="DisplayCart">
+                            <div className="DisplayCartBookImage">
+                                <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>
+                            </div>
+                            <div className="cartBookDetails">
+                                <div className="bookname">{row.title}</div>
+                                <div className="Auther">{row.author}</div>
+                                <div className="price">Rs.{row.price}</div>
+                            </div>
 
-                    </div>)}
+                        </div>)}
                     <div className="orderCheck">
-                        <Link href="/orderSummery" variant="body2"underline="none">
-                        <Button variant="contained" color="primary" disableElevation >
-                            Order checkOut
-                       </Button>
-                       </Link>
+                        {/* <Link href="/orderSummery" variant="body2" underline="none"> */}
+                            <Button variant="contained" color="primary" disableElevation onClick={this.hendalOrder} >
+                                Order checkOut
+                            </Button>
+                        {/* </Link> */}
                     </div>
-            </div>
+                </div>
             </>
         );
     }
 }
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        getAllCartBook: [...state.bookInCartReducer.allBooksInCart],
+        userInformation: state.bookInCartReducer.userData
+    };
+
+}
+
+export default connect(mapStateToProps)(OrderCheckOut)
 

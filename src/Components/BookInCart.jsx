@@ -20,7 +20,8 @@ class BookInCart extends React.Component {
             getAllCart: [],
             cartDisplay: true,
             handelOrderOpenClose: true,
-            handelAddressOpenClose: false
+            handelAddressOpenClose: true,
+            placeOrder :true
         }
     }
     componentDidMount(){
@@ -37,23 +38,23 @@ class BookInCart extends React.Component {
         })
     }
 
-    handelOrder = (cartObject) => {
-        // this.setState({
-        //     handelOrderOpenClose: false,
-        //     handelAddressOpenClose: true,
-        // })
-        console.log("cartObject.cartId",cartObject.cartId)
-        const data = {
-            cartId: cartObject.cartId
-        }
-        service.Order(data)
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
+    handelOrder = () => {
+        this.setState({
+            placeOrder : false,
+            handelAddressOpenClose: false,
+        })
+        // console.log("cartObject.cartId",cartObject.cartId)
+        // const data = {
+        //     cartId: cartObject.cartId
+        // }
+        // service.Order(data)
+        //     .then((data) => {
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
 
-            })
+        //     })
     }
 
 
@@ -101,13 +102,14 @@ class BookInCart extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="cartButton">
-                                            <Button variant="contained" color="primary" disableElevation onClick={()=>this.handelOrder(row)}>
+                                    </div>)}
+                                    {this.state.placeOrder && <div className="cartButton">
+                                            <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
                                                 place order
                                           </Button>
                                         </div>
-                                    </div>)}
+                                     }
+                                   
                             </div>
 
                             {this.state.handelAddressOpenClose ? <div className="CustomerDetails"> <span className="messageDetais">Customer Details</span></div> :
