@@ -28,15 +28,16 @@ class CostumerDetail extends React.Component {
             city: localStorage.getItem('city'),
             address: localStorage.getItem('address'),
             landMark: localStorage.getItem('city'),
-            orderSummeryOpen: true,
+            orderSummeryOpen: false,
             openButton: true,
 
 
         }
     }
     submitData = async () => {
-        this.setState({
-            openButton: false
+       await this.setState({
+            openButton: false,
+            orderSummeryOpen:true,
         })
 
         const data = {

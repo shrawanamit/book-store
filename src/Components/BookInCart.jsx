@@ -115,8 +115,8 @@ class BookInCart extends React.Component {
                             {this.state.handelAddressOpenClose ? <div className="CustomerDetails"> <span className="messageDetais">Customer Details</span></div> :
                                 <CostumerDetail />}
                                
-                            <div className="orderSummary"><span className="messageDetais"> Order Summery </span>
-                            {this.state.handelAddressOpenClose ? "": <OrderCheckOut />} 
+                            <div className="orderSummary"><span className={this.props.userInformation.orderSummeryOpen ? "displayCheckOut":"messageDetais"}> Order Summery </span>
+                            {this.props.userInformation.orderSummeryOpen ? <OrderCheckOut  />: ""} 
                             </div>
                         </div>
                     </div>
@@ -129,8 +129,10 @@ class BookInCart extends React.Component {
     }
 }
 const mapStateToProps = state => {
+    console.log("state book in cart",state)
     return {
-        getAllCartBook: [...state.bookInCartReducer.allBooksInCart]
+        getAllCartBook: [...state.bookInCartReducer.allBooksInCart],
+        userInformation: state.bookInCartReducer.userData
     };
 
 }

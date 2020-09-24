@@ -112,10 +112,17 @@ $base-color: rgb(160, 48, 55);
     align-items: flex-start;
     justify-content: center;
 }
-.messageDetais{
-    padding-left: 15px;
+@mixin orderSummarycss {
+    padding-left: 20px;
     font-weight: 600;
     font-size: 18px;
+}
+.messageDetais{
+    @include orderSummarycss();
+}
+.displayCheckOut{
+  @include orderSummarycss();
+    padding-top: 15px;
 }
 .CostumerDetailContainer{
     @include flexRow();
