@@ -1,4 +1,4 @@
-import {DISPLAY_IMAGE,GET_AllCART_METHOD,FILTERED_BOOK,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART, WISHLIST_DATA,DISPLAY_ALL_SEARCH_BOOKS,USER_DATA} from './actionType';
+import {DISPLAY_IMAGE,GET_AllCART_METHOD,FILTERED_BOOK,DISPLAY_SNACKBAR,DISPLAY_ALLBOOKS,DISPLAY_ALLBOOKS_INCART, WISHLIST_DATA,DISPLAY_ALL_SEARCH_BOOKS,USER_DATA, ORDER_ID} from './actionType';
 
 //action creater
 export  const displayImage = (data) =>{
@@ -67,6 +67,14 @@ export  const   methodData = (data) =>{
         return {   //object
             type: GET_AllCART_METHOD,
             methodData: data,
+            
+        }
+}
+export  const   getOrderId = (data) =>{
+    console.log("i am in action method" ,data);
+        return {   //object
+            type: ORDER_ID,
+            orderId: data,
             
         }
 }

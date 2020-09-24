@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import UserService from "../Services/userService";
 import Link from '@material-ui/core/Link';
 import { connect } from 'react-redux';
+import {getOrderId} from '../redux/Action/actionCreater'
 let service = new UserService();
 class OrderCheckOut extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class OrderCheckOut extends React.Component {
 
     hendalOrder = () => {
         console.log("===",this.props.userInformation.address)
-        this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) => {
+        this.props.getAllCartBook.filter(row => row.isDeleted === false && row.isUsed === false).map((row) => {
             const data = {
                 address: JSON.stringify(this.props.userInformation.address),
                 city: JSON.stringify(this.props.userInformation.city),
@@ -42,6 +43,9 @@ class OrderCheckOut extends React.Component {
             service.OrderPlace(data)
                 .then((data) => {
                     console.log("order with address", data);
+                    this.props.getOrderId(data.data.data);
+                    localStorage.setItem('orderId', data.data.data.orderId);  
+                    this.props.history.push("/orderSummery");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -70,7 +74,7 @@ class OrderCheckOut extends React.Component {
 
                         </div>)}
                     <div className="orderCheck">
-                        {/* <Link href="/orderSummery" variant="body2" underline="none"> */}
+                         {/* <Link href="/orderSummery" variant="body2" underline="none">  */}
                             <Button variant="contained" color="primary" disableElevation onClick={this.hendalOrder} >
                                 Order checkOut
                             </Button>
@@ -79,6 +83,12 @@ class OrderCheckOut extends React.Component {
                 </div>
             </>
         );
+    }
+}
+const mapDispatchToProps = dispatch => {
+
+    return {
+        getOrderId: (data) => dispatch(getOrderId(data)),
     }
 }
 const mapStateToProps = state => {
@@ -90,5 +100,5 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps)(OrderCheckOut)
+export default connect(mapStateToProps,mapDispatchToProps)(OrderCheckOut)
 

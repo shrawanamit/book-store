@@ -7,3 +7,4 @@ export const USER_DATA ='USER_DATA';
 export const WISHLIST_DATA ='WISHLIST_DATA';
 export const FILTERED_BOOK ="FILTERED_BOOK";
 export const GET_AllCART_METHOD ="GET_AllCART_METHOD";
+export const ORDER_ID ="ORDER_ID";

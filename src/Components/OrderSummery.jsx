@@ -5,9 +5,9 @@ import '../SCSS/orderSummery.scss'
 import Button from '@material-ui/core/Button';
 import Footer from './Footer';
 import Link from '@material-ui/core/Link';
+import {connect} from 'react-redux'
 
-
-export default class OrderSummery extends React.Component {
+class OrderSummery extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -26,7 +26,7 @@ export default class OrderSummery extends React.Component {
                         </div>
                         <div>
                             <p className="orderSucessfullMessage">hurray!!! your order is confirmed <br />
-                                your order id is #12345 save the order id<br />
+                                your order id is #{localStorage.getItem('orderId')} save the order id<br />
                                 fro further communication
                             </p>
                         </div>
@@ -58,3 +58,11 @@ export default class OrderSummery extends React.Component {
         );
     }
 }
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        orderSummery: [...state.bookInCartReducer.orderSummery],
+    };
+
+}
+export default connect(mapStateToProps)(OrderSummery)
