@@ -7,7 +7,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { connect } from 'react-redux';
-import { userInformation } from "../redux/Action/actionCreater"
+import { userInformation } from "../redux/Action/actionCreater";
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
 class CostumerDetail extends React.Component {
@@ -35,9 +36,9 @@ class CostumerDetail extends React.Component {
         }
     }
     submitData = async () => {
-       await this.setState({
+        await this.setState({
             openButton: false,
-            orderSummeryOpen:true,
+            orderSummeryOpen: true,
         })
 
         const data = {
@@ -71,7 +72,13 @@ class CostumerDetail extends React.Component {
         return (
             <React.Fragment>
                 <div className="CostumerDetailContainer">
-                    <form onSubmit={this.handelSubmit} className="form">
+                    {/* <form onSubmit={this.handelSubmit} > */}
+                    <ValidatorForm
+                        ref="form"
+                        onSubmit={this.handleSubmit}
+                        onError={errors => console.log(errors)}
+                        className="form"
+                    >
                         <div className="CostumerDetailContainerBody">
                             <div className="CustomerDetailsHeading">
                                 Customer Details
@@ -108,7 +115,7 @@ class CostumerDetail extends React.Component {
                             </div>
                             <div className="textfieldBody">
                                 <div className="textFieldBodyOne">
-                                    <TextField
+                                <TextValidator
                                         fullWidth
                                         type="number"
                                         name="pinCode"
@@ -117,7 +124,9 @@ class CostumerDetail extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         defaultValue={this.state.pinCode}
-                                        onChange={this.handleChange} noValidate
+                                        onChange={this.handleChange}
+                                        validators={['required']}
+                                        errorMessages={['this field is required', 'pincode is not valid']}
                                     />
                                 </div>
 
@@ -203,13 +212,14 @@ class CostumerDetail extends React.Component {
                                 <Button variant="contained"
                                     color="primary"
                                     disableElevation
-                                    type='submit'
-                                    onClick={this.submitData}>
+                                    type="submit"
+                                    // onClick={this.submitData}
+                                    >
                                     Continue
                                 </Button>
                             </div> : ""}
                         </div>
-                    </form>
+                    </ValidatorForm>
                 </div>
 
             </React.Fragment>

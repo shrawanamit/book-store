@@ -138,6 +138,7 @@ class BooksContainer extends React.Component {
                                 }
                             </div>
                         </div>
+                        {/* book discription not shownwishList  Book */}
                         {row.wishListId === undefined &&
                             <div className="bookDetailsContainer">
                                 <div className="bookDetailsheading">Book Details</div>
@@ -145,8 +146,8 @@ class BooksContainer extends React.Component {
                             </div>}
                     </div>
                 )}
-                <div className="pagination">
-                    <div>
+               {this.props.paginationhide ?"":<div className="pagination">
+                 <div>
                         <Pagination
                             color="secondary"
                             count={this.props.getAllBooks.length % 8 === 0 ? parseInt(this.props.getAllBooks.length / 8) : parseInt(this.props.getAllBooks.length / 8 + 1)}
@@ -157,7 +158,7 @@ class BooksContainer extends React.Component {
                             onChange={this.handlePageChange}
                         />
                     </div>
-                </div>
+                </div>}
             </React.Fragment>
         );
     }

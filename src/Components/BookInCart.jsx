@@ -9,6 +9,7 @@ import UserService from "../Services/userService";
 import { connect } from 'react-redux';
 import Footer from "./Footer";
 import OrderCheckOut from './OrderCheckOut';
+import Emptymessage from './Emptymessage'
 
 let service = new UserService();
 
@@ -21,26 +22,26 @@ class BookInCart extends React.Component {
             cartDisplay: true,
             handelOrderOpenClose: true,
             handelAddressOpenClose: true,
-            placeOrder :true
+            placeOrder: true
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getorder();
     }
-    getorder =()=>{
+    getorder = () => {
         service.getOrder()
-        .then((data) => {
-            console.log("order ",data);
-        })
-        .catch((err) => {
-            console.log(err);
+            .then((data) => {
+                console.log("order ", data);
+            })
+            .catch((err) => {
+                console.log(err);
 
-        })
+            })
     }
 
     handelOrder = () => {
         this.setState({
-            placeOrder : false,
+            placeOrder: false,
             handelAddressOpenClose: false,
         })
         // console.log("cartObject.cartId",cartObject.cartId)
@@ -80,43 +81,44 @@ class BookInCart extends React.Component {
                         <div className="cartMainBody">
                             <div className="cartItem">
                                 <div className="cartHeading"><span>My Cart</span></div>
-                                {this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) =>
-                                    <div className="cartBody">
-                                        <div className="DisplayCart">
-                                            <div className="DisplayCartBookImage">
-                                                <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>
-                                            </div>
-                                            <div className="cartBookDetails">
-                                                <div className="bookname">{row.title}</div>
-                                                <div className="Auther">{row.author}</div>
-                                                <div className="price">Rs.{row.price}</div>
-                                                <div className="quantityContainer">
-                                                    <div className="addIcon">
-                                                        <RemoveCircleOutlineRoundedIcon font="small" />
+                                {this.props.getAllCartBook.filter(row => row.isDeleted === false).length === 0 ? <Emptymessage /> :
+                                    this.props.getAllCartBook.filter(row => row.isDeleted === false).map((row) =>
+                                        <div className="cartBody">
+                                            <div className="DisplayCart">
+                                                <div className="DisplayCartBookImage">
+                                                    <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>
+                                                </div>
+                                                <div className="cartBookDetails">
+                                                    <div className="bookname">{row.title}</div>
+                                                    <div className="Auther">{row.author}</div>
+                                                    <div className="price">Rs.{row.price}</div>
+                                                    <div className="quantityContainer">
+                                                        <div className="addIcon">
+                                                            <RemoveCircleOutlineRoundedIcon font="small" />
+                                                        </div>
+                                                        <div className="noOfItems">{row.quantity}</div>
+                                                        <div className="removeIcons">
+                                                            <ControlPointOutlinedIcon font="small" />
+                                                        </div>
+                                                        <div className="removeMessage"><Button onClick={() => this.removeBookFromCart(row)}>Remove</Button></div>
                                                     </div>
-                                                    <div className="noOfItems">{row.quantity}</div>
-                                                    <div className="removeIcons">
-                                                        <ControlPointOutlinedIcon font="small" />
-                                                    </div>
-                                                    <div className="removeMessage"><Button onClick={() => this.removeBookFromCart(row)}>Remove</Button></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>)}
-                                    {this.state.placeOrder && <div className="cartButton">
-                                            <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
-                                                place order
+                                        </div>)}
+                                {this.props.getAllCartBook.filter(row => row.isDeleted === false).length === 0 ? "" : this.state.placeOrder && <div className="cartButton">
+                                    <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
+                                        place order
                                           </Button>
-                                        </div>
-                                     }
-                                   
+                                </div>
+                                }
+
                             </div>
 
                             {this.state.handelAddressOpenClose ? <div className="CustomerDetails"> <span className="messageDetais">Customer Details</span></div> :
                                 <CostumerDetail />}
-                               
-                            <div className="orderSummary"><span className={this.props.userInformation.orderSummeryOpen ? "displayCheckOut":"messageDetais"}> Order Summery </span>
-                            {this.props.userInformation.orderSummeryOpen ? <OrderCheckOut  />: ""} 
+
+                            <div className="orderSummary"><span className={this.props.userInformation.orderSummeryOpen ? "displayCheckOut" : "messageDetais"}> Order Summery </span>
+                                {this.props.userInformation.orderSummeryOpen ? <OrderCheckOut /> : ""}
                             </div>
                         </div>
                     </div>
@@ -129,7 +131,7 @@ class BookInCart extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("state book in cart",state)
+    console.log("state book in cart", state)
     return {
         getAllCartBook: [...state.bookInCartReducer.allBooksInCart],
         userInformation: state.bookInCartReducer.userData
