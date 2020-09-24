@@ -15,7 +15,7 @@ const bookReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case DISPLAY_ALLBOOKS:
-            console.log("i am in reducer all book reducer");
+           
             return {
                 ...state,
                 allBooks: [...action.allBooks]
@@ -31,6 +31,7 @@ const bookReducer = (state = initialState, action) => {
                 searchedData: [...action.searchedData],
             }
         case WISHLIST_DATA:
+            console.log("i am in reducer all wish list");
             return {
                 ...state,
                 wishListData: [...action.wishListData],

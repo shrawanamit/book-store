@@ -4,8 +4,7 @@ import Registration from './Components/Registration';
 import SignIn from './Components/SignIn';
 import Dashbord from './Components/Dashbord'
 import AdminDashBord from "./Components/AdminDashBord"
-import { Provider } from 'react-redux';
-import store from './redux/store/store';
+
 import BookInCart from './Components/BookInCart';
 import OrderSummery from './Components/OrderSummery';
 import WishList from './Components/WishList'
@@ -13,10 +12,10 @@ import {MyForm} from './Components/Form'
 
 
 
-
 function App() {
   return (
-    <Provider store={ store }>
+   
+
     <div className="App">
       <Router>
         <Route exact path="/" component={Registration} />
@@ -30,7 +29,8 @@ function App() {
         
         </Router>
     </div>
-    </Provider>
+    
+   
   );
 }
 

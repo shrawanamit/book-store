@@ -27,6 +27,7 @@ class BookInCart extends React.Component {
     }
     componentDidMount() {
         this.getorder();
+        // this.props.methodData();
     }
     getorder = () => {
         service.getOrder()
