@@ -213,7 +213,7 @@ class CostumerDetail extends React.Component {
                                     color="primary"
                                     disableElevation
                                     type="submit"
-                                    // onClick={this.submitData}
+                                    onClick={this.submitData}
                                     >
                                     Continue
                                 </Button>

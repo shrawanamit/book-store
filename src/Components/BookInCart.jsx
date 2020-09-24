@@ -64,6 +64,7 @@ class BookInCart extends React.Component {
         service.DeleteCart(arrayObject.cartId)
             .then((data) => {
                 console.log(data);
+                this.props.methodData();
             })
             .catch((err) => {
                 console.log(err);
@@ -134,7 +135,8 @@ const mapStateToProps = state => {
     console.log("state book in cart", state)
     return {
         getAllCartBook: [...state.bookInCartReducer.allBooksInCart],
-        userInformation: state.bookInCartReducer.userData
+        userInformation: state.bookInCartReducer.userData,
+        methodData: state.bookInCartReducer.methodData
     };
 
 }

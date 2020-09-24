@@ -1,8 +1,9 @@
-import { DISPLAY_ALLBOOKS_INCART,USER_DATA } from '../Action/actionType';
+import { DISPLAY_ALLBOOKS_INCART,USER_DATA ,GET_AllCART_METHOD} from '../Action/actionType';
 
 const cartInitialState={
     allBooksInCart: [],
-    userData:''
+    userData:'',
+    methodData:null
 }
 const bookInCartReducer = (state = cartInitialState, action) => {
     
@@ -18,8 +19,14 @@ const bookInCartReducer = (state = cartInitialState, action) => {
             return {
                 ...state, 
                 userData:action.userData ,
-            }
+            } 
 
+            case GET_AllCART_METHOD:
+            console.log("i am in reducer user",action.methodData);
+            return {
+                ...state, 
+                methodData:action.methodData ,
+            }
         default: return state
     }
 }

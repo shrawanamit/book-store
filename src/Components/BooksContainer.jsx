@@ -41,6 +41,7 @@ class BooksContainer extends React.Component {
             service.AddtoWishList(data)
                 .then((data) => {
                     console.log("addToWishList", data);
+                    this.props.getAllWishListBooks();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -55,6 +56,7 @@ class BooksContainer extends React.Component {
             service.DeleteWishList(data)
                 .then((data) => {
                     console.log(" All wishList removed  books responce", data);
+                    this.props.getAllWishListBooks();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -79,6 +81,7 @@ class BooksContainer extends React.Component {
             service.AddtoCart(data)
                 .then((data) => {
                     console.log(data);
+                    this.props.getAllCartBooks();
 
                 })
                 .catch((err) => {
@@ -92,8 +95,7 @@ class BooksContainer extends React.Component {
             }
             service.AddWishListToCart(data)
                 .then((data) => {
-                    console.log(data);
-                    alert("added to cart")
+                    this.props.getAllCartBooks();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -107,8 +109,6 @@ class BooksContainer extends React.Component {
 
     render() {
         console.log("prpops", this.props)
-        // const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
-        // var output = this.props.getAllBooks.map((s, i) => ({ added: true }))
         return (
             <React.Fragment>
                 {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false).map((row) =>

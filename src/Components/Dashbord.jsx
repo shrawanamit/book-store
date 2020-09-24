@@ -5,8 +5,8 @@ import ToolBar from "./ToolBar";
 import Footer from "./Footer.jsx";
 import UserService from "../Services/userService";
 import { connect } from 'react-redux';
-import { displayAllBooks, displayAllBooksInCart,filteredData } from '../redux/Action/actionCreater'
-import { Route } from 'react-router-dom';
+import { displayAllBooks, displayAllBooksInCart,filteredData ,methodData} from '../redux/Action/actionCreater'
+// import { Route } from 'react-router-dom';
 let service = new UserService();
 
 class Dashbord extends React.Component {
@@ -28,6 +28,7 @@ class Dashbord extends React.Component {
     componentDidMount() {
         this.getAllBooks();
         this.getAllCartBooks();
+        this.props.methodData( this.getAllCartBooks);
     }
 
     getAllBooks = () => {
@@ -48,8 +49,8 @@ class Dashbord extends React.Component {
         service.GetCart()
             .then((data) => {
                 console.log(" All  cart books ", data);
-                this.props.bookInCart(data.data.data);
                 this.setState({ getAllCart: data.data.data })
+                this.props.bookInCart(data.data.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -90,8 +91,8 @@ class Dashbord extends React.Component {
                         </select>
                     </div>
                     <div className="booksBodyContainer">
-                        <Route path="/home/books" component={BooksContainer} />
-                        {/* <BooksContainer /> */}
+                        {/* <Route path="/home/books" component={BooksContainer} /> */}
+                         <BooksContainer getAllCartBooks={this.getAllCartBooks}/> 
                     </div>
 
 
@@ -108,6 +109,7 @@ const mapDispatchToProps = dispatch => {
         displayAllBooks: (data) => dispatch(displayAllBooks(data)),
         bookInCart: (data) => dispatch(displayAllBooksInCart(data)),
         filteredData: (data) => dispatch(filteredData(data)),
+        methodData: (data) => dispatch(methodData(data))
     }
 }
 export default connect(null, mapDispatchToProps)(Dashbord);//filteredData

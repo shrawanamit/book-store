@@ -14,7 +14,7 @@ export default class Service {
   }
   
   GetAllBooks() {
-    return axiosService.Get(`${apiUrl}api/Book`, false);
+     return axiosService.Get(`${apiUrl}api/Book`, false);
   }
   AddtoCart(data) {
     return axiosService.Post(`${apiUrl}api/Cart?BookId=${data.BookId}&Quantity=${data.Quantity}`, data, { headers: {

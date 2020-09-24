@@ -22,19 +22,17 @@ class WishList extends React.Component {
         }
     }
 
-    removeBookFromWishList = (wishListObject) => {
-        console.log("DeleteWishList id", wishListObject.wishListId);
-        service.DeleteWishList(wishListObject.wishListId)
-            .then((data) => {
-                console.log(" All wishList  books ", data);
-            })
-            .catch((err) => {
-                console.log(err);
+    // removeBookFromWishList = (wishListObject) => {
+    //     console.log("DeleteWishList id", wishListObject.wishListId);
+    //     service.DeleteWishList(wishListObject.wishListId)
+    //         .then((data) => {
+    //             console.log(" All wishList  books ", data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
 
-            })
-    }
-
-
+    //         })
+    // }
     componentDidMount() {
         this.getAllWishListBooks();
     }
@@ -52,6 +50,8 @@ class WishList extends React.Component {
     }
 
 
+ 
+
     render() {
         return (
             <div className="wishListMainContainer">
@@ -61,7 +61,8 @@ class WishList extends React.Component {
                         <div className="cartHeading"><span>My WishList</span></div>
                         <div className="wishListBook">
                             {this.state.getAllWishListBook.filter(row => row.isDeleted === false).length === 0?
-                            <div className="wishListEmptyMessage"><Emptymessage messageEmpty={this.state.message}/></div>:<BookContainer paginationhide={this.state.paginationhide}/> }
+                            <div className="wishListEmptyMessage"><Emptymessage messageEmpty={this.state.message}/></div>:
+                            <BookContainer paginationhide={this.state.paginationhide} getAllWishListBooks={this.getAllWishListBooks}/> }
                         
                         </div>
                     </div>

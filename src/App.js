@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Route exact path="/" component={Registration} />
         <Route exact path="/Login" component={SignIn} />
-        <Route  path="/home" component={Dashbord} />
+        <Route  path="/home/books" component={Dashbord} />
         <Route exact path="/adminDashboard" component={AdminDashBord} />
         <Route  exact path="/bookInCart" component={BookInCart} />
         <Route exact path="/wishlist" component={WishList} />
