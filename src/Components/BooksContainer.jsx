@@ -19,7 +19,7 @@ class BooksContainer extends React.Component {
             buttonChange: true,
             btn: 'Addbag',
             addToCart: 'ADD TO CART',
-            BookId: null
+            bookIdArray: []
         };
     }
     handlePageChange = (event, value) => {
@@ -67,16 +67,18 @@ class BooksContainer extends React.Component {
 
     }
 
-    addToBag = (arreyObject) => {
+    addToBag = (arreyObject, index) => {
         //  this.setState({button:'ADDED TO BAG'});
+
         if (arreyObject.wishListId === undefined) {
             console.log(arreyObject);
             const data = {
                 BookId: arreyObject.bookId,
                 Quantity: 1
             }
+            this.props.getAllBooks[index].isAdded = true
             this.setState({
-                bookId: arreyObject.bookId,
+                bookIdArray: [...this.state.bookIdArray, arreyObject.bookId]
             });
             service.AddtoCart(data)
                 .then((data) => {
@@ -108,14 +110,14 @@ class BooksContainer extends React.Component {
     }
 
     render() {
-        console.log("prpops", this.props)
+        console.log("array bookid", this.state.bookIdArray)
         return (
             <React.Fragment>
-                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false ).map((row) =>
+                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false).map((row, index) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
-                                <img src={row.bookImage?row.bookImage:Noimage} alt="noImage" className="imageUserBook" />
+                                <img src={row.bookImage ? row.bookImage : Noimage} alt="noImage" className="imageUserBook" />
                             </div>
                             {row.booksAvailable === 0 && <div className="outOfStock">OUT OF STOCK</div>}
                             <div className="bookDiscription">
@@ -125,16 +127,22 @@ class BooksContainer extends React.Component {
                                     <div className="price">Rs. {row.price}</div>
                                 </div>
 
-                                {this.state.bookId === row.bookId ? <div className="buttonCotainer">
-                                    <button className="AddedToBag" type="button" >ADDED TO BAG</button>
-                                </div>
-                                    : row.booksAvailable === 0 ? <div className="buttonCotainer">
-                                        <button className="wishlisted" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
-                                    </div> :
+                                {!row.isAdded ?
+
+                                    row.booksAvailable === 0 ?
                                         <div className="buttonCotainer">
-                                            <button className={this.state.btn} type="button" onClick={() => this.addToBag(row)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
-                                            <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
+                                            <button className="wishlisted" type="button" onClick={() => this.addToWishList(row)}>WISHLIST</button>
                                         </div>
+                                        :
+                                        <div className="buttonCotainer">
+                                            <button className={this.state.btn} type="button" onClick={() => this.addToBag(row, index)}>{row.wishListId === undefined ? this.state.button : this.state.addToCart}</button>
+                                            <button className="wishlist" type="button" onClick={() => this.addToWishList(row)}>{row.wishListId === undefined ? "WISHLIST" : "REMOVE"}</button>
+                                        </div> :
+                                    <div className="buttonCotainer">
+                                        <button className="AddedToBag" type="button" >ADDED TO BAG</button>
+                                    </div>
+
+
                                 }
                             </div>
                         </div>
@@ -146,8 +154,8 @@ class BooksContainer extends React.Component {
                             </div>}
                     </div>
                 )}
-               {this.props.paginationhide ?"":<div className="pagination">
-                 <div>
+                {this.props.paginationhide ? "" : <div className="pagination">
+                    <div>
                         <Pagination
                             color="secondary"
                             count={this.props.getAllBooks.length % 8 === 0 ? parseInt(this.props.getAllBooks.length / 8) : parseInt(this.props.getAllBooks.length / 8 + 1)}
@@ -164,34 +172,36 @@ class BooksContainer extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("state====", state)
-
-    if (state.bookReducer.wishListData.length === 0) {
-
-        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
-            return {
-                getAllBooks: [...state.bookReducer.allBooks]
-            }
-        }
-        else if (state.bookReducer.searchedData.length === 0) {
-            return {
-                getAllBooks: [...state.bookReducer.filteredData]
-            }
-
-        }
-        else {
-            return {
-                // 
-                getAllBooks: [...state.bookReducer.searchedData]
-            }
-        }
-
+    console.log("state=in book container", state)
+    return {
+        getAllBooks: [...state.bookReducer.allBooks]
     }
-    else {
-        return {
-            getAllBooks: [...state.bookReducer.wishListData],
-        }
-    }
+    // if (state.bookReducer.wishListData.length === 0) {
+
+    //     if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
+    //         return {
+    //             getAllBooks: [...state.bookReducer.allBooks]
+    //         }
+    //     }
+    //     else if (state.bookReducer.searchedData.length === 0) {
+    //         return {
+    //             getAllBooks: [...state.bookReducer.filteredData]
+    //         }
+
+    //     }
+    //     else {
+    //         return {
+    //             // 
+    //             getAllBooks: [...state.bookReducer.searchedData]
+    //         }
+    //     }
+
+    // }
+    // else {
+    //     return {
+    //         getAllBooks: [...state.bookReducer.wishListData],
+    //     }
+    // }
 };
 
 
