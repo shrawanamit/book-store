@@ -2,16 +2,6 @@ import { createStore} from 'redux';
 import combineReducers from '../Reducer/combineReducer';
 
 
-
-function saveToLocalStorage(combineReducers ) {
-    try {
-        const serializedState = JSON.stringify(combineReducers );
-        localStorage.setItem('currentState', serializedState);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 function loadFromLocalStorage() {
     try {
         JSON.stringify(combineReducers );

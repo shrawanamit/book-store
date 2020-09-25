@@ -152,13 +152,13 @@ $base-color: rgb(160, 48, 55);
 }
 .CostumerDetailContainerBody{
     @include flexColumn();
-    padding: 25px;
-    width: 500px;
+    // padding: 25px;
+     width: 100%;
 
 }
 .CostumerDetailSideNav{
     @include flexColumn();
-    padding: 25px;
+    padding: 5px;
     justify-content: space-between;
 
 }
@@ -222,6 +222,8 @@ $base-color: rgb(160, 48, 55);
 }
 .form{
     display: flex;
+    padding:20px;
+    width:100%;
 }
 .TypePlace{
     text-align: initial;
@@ -264,7 +266,27 @@ $base-color: rgb(160, 48, 55);
         width: 90%;
         border: 1px solid rgb(185, 184, 184);
     }
+    .orderSummary{
+        width: 99%;
+    }
+    .emptyCart{
+        padding-top: 30px;
+    }
 }
+@media only screen and (max-width: 1125px) {
+    .form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+       
+    }
+    .CostumerDetailContainerBody{
+       width: 100%;
+       display: flex;
+    }
+}
+
 @media only screen and (max-width: 900px) {
     .CostumerDetailContainerBody{
         width: 300px;
@@ -275,7 +297,7 @@ $base-color: rgb(160, 48, 55);
     }
 
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 900px) {
     .cartDisplayContainer {
         padding-top: 20px;
     }
@@ -284,7 +306,11 @@ $base-color: rgb(160, 48, 55);
     }
     .cartItem{
         width: 99%;
-        min-height: 400px;
+        min-height: 225px;
+    }
+    .orderSummary{
+        width: 99%;
+        min-height: 225px;
     }
     .CustomerDetails{
         width: 99%;
@@ -294,7 +320,47 @@ $base-color: rgb(160, 48, 55);
     }
     .cartButton {
         display: flex;
-        justify-content: center;
         padding-top: 10px;
     }
+    .CostumerDetailContainer{
+        width: 99%;
+    }
+    // .form{
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     width: 100%;
+    // }
+    .CostumerDetailSideNav{
+        padding: 5px;
+        width: 100%;
+        display: flex;
+       
+    }
+    .CostumerDetailContainerBody{
+        width: 100%;
+        // padding: 5px;
+    }
+    .textfieldBody{
+        display: flex;
+        flex-direction: column;
+    }
+    .textFieldBodyOne{
+        width: 98%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .textFieldBodyTwo{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .textfieldBody{
+        padding: 0px;
+    }
+    .cartButtonContinue{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+   
 }

@@ -348,5 +348,11 @@ input[type="button"]{
            color: rgb(255, 255, 255);
        }
     }
+    .booksBodyContainer{
+        display: flex;
+        justify-content: center;
+        min-height: 480px;
+    }
+   
     
 }
