@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import UserService from "../Services/userService";
 import Link from '@material-ui/core/Link';
 import { connect } from 'react-redux';
-import {getOrderId} from '../redux/Action/actionCreater'
+import { getOrderId } from '../redux/Action/actionCreater';
+import { withRouter } from "react-router";
 let service = new UserService();
 class OrderCheckOut extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class OrderCheckOut extends React.Component {
     }
 
     hendalOrder = () => {
-        console.log("===",this.props.userInformation.address)
+        console.log("===", this.props.userInformation.address)
         this.props.getAllCartBook.filter(row => row.isDeleted === false && row.isUsed === false).map((row) => {
             const data = {
                 address: JSON.stringify(this.props.userInformation.address),
@@ -44,8 +45,9 @@ class OrderCheckOut extends React.Component {
                 .then((data) => {
                     console.log("order with address", data);
                     this.props.getOrderId(data.data.data);
-                    localStorage.setItem('orderId', data.data.data.orderId);  
+                    localStorage.setItem('orderId', data.data.data.orderId);
                     this.props.history.push("/orderSummery");
+                    // <Redirect to="/orderSummery" />
                 })
                 .catch((err) => {
                     console.log(err);
@@ -61,7 +63,7 @@ class OrderCheckOut extends React.Component {
         return (
             <>
                 <div className="orderSummaryBody">
-                    {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false).map((row) =>
+                    {this.props.getAllCartBook.filter(row => row.isDeleted === false && row.isUsed === false).map((row) =>
                         <div className="DisplayCart">
                             <div className="DisplayCartBookImage">
                                 <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>
@@ -73,13 +75,12 @@ class OrderCheckOut extends React.Component {
                             </div>
 
                         </div>)}
+                        {this.props.getAllCartBook.filter(row => row.isDeleted === false && row.isUsed === false).length ===0 ?"":
                     <div className="orderCheck">
-                         {/* <Link href="/orderSummery" variant="body2" underline="none">  */}
-                            <Button variant="contained" color="primary" disableElevation onClick={this.hendalOrder} >
-                                Order checkOut
-                            </Button>
-                        {/* </Link> */}
-                    </div>
+                        <Button variant="contained" color="primary" disableElevation onClick={this.hendalOrder} >
+                            Order checkOut
+                        </Button>
+                    </div>}
                 </div>
             </>
         );
@@ -100,5 +101,5 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(OrderCheckOut)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderCheckOut)
 

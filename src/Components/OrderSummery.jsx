@@ -58,11 +58,5 @@ class OrderSummery extends React.Component {
         );
     }
 }
-const mapStateToProps = state => {
-    console.log(state);
-    return {
-        orderSummery: [...state.bookInCartReducer.orderSummery],
-    };
 
-}
-export default connect(mapStateToProps)(OrderSummery)
+export default OrderSummery

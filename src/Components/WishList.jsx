@@ -4,7 +4,7 @@ import Toolbar from './ToolBar'
 import { connect } from 'react-redux';
 import UserService from "../Services/userService";
 import BookContainer from './BooksContainer';
-import { wishListData} from '../redux/Action/actionCreater';
+import { wishListData } from '../redux/Action/actionCreater';
 import Footer from './Footer';
 import Emptymessage from './Emptymessage';
 let service = new UserService();
@@ -15,10 +15,10 @@ class WishList extends React.Component {
         this.state = {
             searchBarCartHide: true,
             getAllWishListBook: [],
-            addTocart:"ADD TO Cart",
-            paginationhide:true,
-            message:true,
-            
+            addTocart: "ADD TO Cart",
+            paginationhide: true,
+            message: true,
+
         }
     }
 
@@ -50,7 +50,7 @@ class WishList extends React.Component {
     }
 
 
- 
+
 
     render() {
         return (
@@ -60,16 +60,16 @@ class WishList extends React.Component {
                     <div className="wishListBody">
                         <div className="cartHeading"><span>My WishList</span></div>
                         <div className="wishListBook">
-                            {this.state.getAllWishListBook.filter(row => row.isDeleted === false && row.isUseed === false).length === 0?
-                            <div className="wishListEmptyMessage"><Emptymessage messageEmpty={this.state.message}/></div>:
-                            <BookContainer paginationhide={this.state.paginationhide} getAllWishListBooks={this.getAllWishListBooks}/> }
-                        
+                            {this.state.getAllWishListBook.filter(row => row.isDeleted === false && row.isMoved == false).length === 0 ?
+                                <div className="wishListEmptyMessage"><Emptymessage messageEmpty={this.state.message} /></div> :
+                                <BookContainer paginationhide={this.state.paginationhide} getAllWishListBooks={this.getAllWishListBooks} /> 
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="footerContener">
-                 <Footer /> 
-                 </div>
+                    <Footer />
+                </div>
             </div>
         );
     }

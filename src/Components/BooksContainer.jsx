@@ -57,6 +57,7 @@ class BooksContainer extends React.Component {
                 .then((data) => {
                     console.log(" All wishList removed  books responce", data);
                     this.props.getAllWishListBooks();
+
                 })
                 .catch((err) => {
                     console.log(err);
@@ -76,10 +77,8 @@ class BooksContainer extends React.Component {
                 BookId: arreyObject.bookId,
                 Quantity: 1
             }
+            //to change button color
             this.props.getAllBooks[index].isAdded = true
-            this.setState({
-                bookIdArray: [...this.state.bookIdArray, arreyObject.bookId]
-            });
             service.AddtoCart(data)
                 .then((data) => {
                     console.log(data);
@@ -92,28 +91,31 @@ class BooksContainer extends React.Component {
                 })
         }
         else {//AddWishListToCart
+           if( arreyObject.isDeleted === false && arreyObject.isMoved === false){
             const data = {
                 wishListId: arreyObject.wishListId,
             }
             service.AddWishListToCart(data)
                 .then((data) => {
+                    console.log(data);
                     this.props.getAllCartBooks();
+                    this.props.getAllWishListBooks();
                 })
                 .catch((err) => {
                     console.log(err);
 
                 })
+            }
         }
-
-
 
     }
 
     render() {
         console.log("array bookid", this.state.bookIdArray)
         return (
+            // 
             <React.Fragment>
-                {this.props.getAllBooks.slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).filter(row => row.isDeleted === false).map((row, index) =>
+                {this.props.getAllBooks.filter(row =>  row.isDeleted == false ).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
@@ -172,36 +174,41 @@ class BooksContainer extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("state=in book container", state)
-    return {
-        getAllBooks: [...state.bookReducer.allBooks]
+    console.log("state=in book container", state,window.location.href)
+   
+    if (window.location.href === "http://localhost:3000/home/books") {
+
+
+        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
+            console.log("u r in get all book")
+            return {
+                getAllBooks: [...state.bookReducer.allBooks]
+            }
+        }
+        else if (state.bookReducer.searchedData.length === 0) {
+            console.log("u r in get filter book")
+            return {
+                getAllBooks: [...state.bookReducer.filteredData]
+            }
+
+        }
+        else {
+            console.log("u r in get search book")
+            return {
+                // 
+                getAllBooks: [...state.bookReducer.searchedData],
+                
+            }
+        }
+
     }
-    // if (state.bookReducer.wishListData.length === 0) {
-
-    //     if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
-    //         return {
-    //             getAllBooks: [...state.bookReducer.allBooks]
-    //         }
-    //     }
-    //     else if (state.bookReducer.searchedData.length === 0) {
-    //         return {
-    //             getAllBooks: [...state.bookReducer.filteredData]
-    //         }
-
-    //     }
-    //     else {
-    //         return {
-    //             // 
-    //             getAllBooks: [...state.bookReducer.searchedData]
-    //         }
-    //     }
-
-    // }
-    // else {
-    //     return {
-    //         getAllBooks: [...state.bookReducer.wishListData],
-    //     }
-    // }
+    else if(window.location.href === 'http://localhost:3000/wishlist') {
+        console.log("u r in get wish list book")
+        return {
+           
+            getAllBooks: [...state.bookReducer.wishListData],
+        }
+    }
 };
 
 

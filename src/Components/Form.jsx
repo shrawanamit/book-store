@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import FormControl from '@material-ui/core/FormControl';
  
 export class MyForm extends React.Component {
  
@@ -8,6 +9,7 @@ export class MyForm extends React.Component {
         super(props);
         this.state = {
             email: '',
+            bool:false
         }
     }
    
@@ -24,6 +26,7 @@ export class MyForm extends React.Component {
     render() {
         const { email } = this.state;
         return (
+           
             <ValidatorForm
                 ref="form"
                 onSubmit={this.handleSubmit}
@@ -38,11 +41,13 @@ export class MyForm extends React.Component {
                     variant="outlined"
                     size="small"
                     value={email}
+                    disabled={this.state.bool}
                     validators={['required', 'isEmail']}
                     errorMessages={['this field is required', 'email is not valid']}
                 />
                 <Button type="submit">Submit</Button>
             </ValidatorForm>
+            
         );
     }
 }

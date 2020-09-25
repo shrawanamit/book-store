@@ -107,7 +107,7 @@ class BookInCart extends React.Component {
                                                 </div>
                                             </div>
                                         </div>)}
-                                {this.props.getAllCartBook.filter(row => row.isDeleted === false).length === 0 ? "" : this.state.placeOrder && <div className="cartButton">
+                                {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false ).length === 0 ? "" :  <div className="cartButton">
                                     <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
                                         place order
                                           </Button>
