@@ -98,7 +98,7 @@ class BooksContainer extends React.Component {
             service.AddWishListToCart(data)
                 .then((data) => {
                     console.log(data);
-                    this.props.getAllCartBooks();
+                    this.props.methodData();
                     this.props.getAllWishListBooks();
                 })
                 .catch((err) => {
@@ -115,7 +115,7 @@ class BooksContainer extends React.Component {
         return (
             // 
             <React.Fragment>
-                {(this.props.filterAction ? this.props.getAllFilterBooks :
+                {(this.props.filterAction ? this.props.getAllFilterBooks :this.props.searchBook ?  this.props.searchedData :
                 this.props.getAllBooks.filter(row =>  row.isDeleted == false )).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
                     <div className="container">
                         <div className="bookcell">
@@ -182,6 +182,7 @@ const mapStateToProps = state => {
             return {
                 getAllFilterBooks: [...state.bookReducer.filteredData],
                 getAllBooks: [...state.bookReducer.allBooks],
+                searchedData:[...state.bookReducer.searchedData]
             }
 
     }
@@ -190,6 +191,7 @@ const mapStateToProps = state => {
         return {
            
             getAllBooks: [...state.bookReducer.wishListData.filter(row=>row.isMoved === false)],
+            methodData: state.bookInCartReducer.methodData
         }
     }
 };

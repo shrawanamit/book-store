@@ -62,7 +62,7 @@ class Logout extends React.Component {
                         </div>
                         <div className="btnLogout">
                             {this.props.logOutTrue?"":
-                            <Link to="/wishlist" variant="body2">
+                            <Link to="/home/books/wishlist" variant="body2">
                                 <button className="wishlist" type="button" >WISHLIST</button>
                             </Link>}
                             <button className="Addbag" type="button" onClick={this.handelLogOut}>LOGOUT</button>

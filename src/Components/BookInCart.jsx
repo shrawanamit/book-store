@@ -9,7 +9,8 @@ import UserService from "../Services/userService";
 import { connect } from 'react-redux';
 import Footer from "./Footer";
 import OrderCheckOut from './OrderCheckOut';
-import Emptymessage from './Emptymessage'
+import Emptymessage from './Emptymessage';
+import Noimage from '../assetes/Noimage.jpg';
 
 let service = new UserService();
 
@@ -45,18 +46,7 @@ class BookInCart extends React.Component {
             placeOrder: false,
             handelAddressOpenClose: false,
         })
-        // console.log("cartObject.cartId",cartObject.cartId)
-        // const data = {
-        //     cartId: cartObject.cartId
-        // }
-        // service.Order(data)
-        //     .then((data) => {
-        //         console.log(data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-
-        //     })
+        
     }
 
 
@@ -88,7 +78,7 @@ class BookInCart extends React.Component {
                                         <div className="cartBody">
                                             <div className="DisplayCart">
                                                 <div className="DisplayCartBookImage">
-                                                    <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage} /></div>
+                                                    <div className="cartImage"><img alt="noImage" className="CartBookImage" src={row.bookImage?row.bookImage:Noimage} /></div>
                                                 </div>
                                                 <div className="cartBookDetails">
                                                     <div className="bookname">{row.title}</div>
@@ -107,7 +97,7 @@ class BookInCart extends React.Component {
                                                 </div>
                                             </div>
                                         </div>)}
-                                {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false ).length === 0 ? "" :  <div className="cartButton">
+                                {this.props.getAllCartBook.filter(row => row.isDeleted === false &&  row.isUsed === false ).length === 0 ? "" : this.state. placeOrder && <div className="cartButton">
                                     <Button variant="contained" color="primary" disableElevation onClick={this.handelOrder}>
                                         place order
                                           </Button>

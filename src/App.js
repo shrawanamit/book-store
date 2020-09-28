@@ -7,7 +7,6 @@ import AdminDashBord from "./Components/AdminDashBord"
 import BookInCart from './Components/BookInCart';
 import OrderSummery from './Components/OrderSummery';
 import WishList from './Components/WishList'
-import {MyForm} from './Components/Form'
 import {ProtectedRoute} from './Components/Protected.route';
 
 
@@ -19,12 +18,11 @@ function App() {
       <Router>
         <Route exact path="/" component={Registration} />
         <Route exact path="/Login" component={SignIn} />
-        <ProtectedRoute  exact path="/home/books" component={Dashbord} />
-        <Route exact path="/adminDashboard" component={AdminDashBord} />
-        <Route exact path="/bookInCart" component={BookInCart} />
-        <Route exact path="/wishlist" component={WishList} />
-        <Route exact path="/orderSummery" component={OrderSummery} />
-        <Route exact path="/form" component={MyForm} />
+        <Route  exact path="/home/books" component={Dashbord} />
+        <ProtectedRoute exact path="/home/books/adminDashboard" component={AdminDashBord} />
+        <ProtectedRoute exact path="/home/books/bookInCart" component={BookInCart} />
+        <ProtectedRoute exact path="/home/books/wishlist" component={WishList} />
+        <ProtectedRoute exact path="/home/books/orderSummery" component={OrderSummery} />
         {/* <Route path="*" component={()=>"404 not found"}/> */}
         </Router>
     </div>
