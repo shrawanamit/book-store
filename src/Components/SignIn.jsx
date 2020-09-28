@@ -5,15 +5,15 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import UserService from "../Services/userService";
-import {userInformation} from '../redux/Action/actionCreater';
-import {connect} from 'react-redux';
-import {snackbarDisplay} from '../redux/Action/actionCreater';
+import { userInformation } from '../redux/Action/actionCreater';
+import { connect } from 'react-redux';
+import { snackbarDisplay } from '../redux/Action/actionCreater';
 import auth from './Auth'
 
 let serviceUser = new UserService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-const validPasswordRegex=RegExp(/"^[a-zA-Z0-9]*[@#$&*_+-]{1}[a-zA-Z0-9]*$/);
+// const validPasswordRegex = RegExp(/"^[a-zA-Z0-9]*[@#$&*_+-]{1}[a-zA-Z0-9]*$/);
 const validateForm = (errors) => {
     let valid = true;
     Object.values(errors).forEach(
@@ -22,22 +22,22 @@ const validateForm = (errors) => {
     return valid;
 }
 
- class SignIn extends React.Component {
+class SignIn extends React.Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
 
-            email: null,
-            password: null,
+            email: '',
+            password: '',
             SnackbarOpen: true,
-            snackbar:{
+            snackbar: {
                 SnackbarMessage: 'login Sucessfull',
                 loggedIn: true,
             },
-            errorColor:false,
-            
+            errorColor: false,
+            compliteError:'',
             errors: {
 
                 email: '',
@@ -68,10 +68,9 @@ const validateForm = (errors) => {
                 break;
             case 'password':
                 errors.password =
-                validPasswordRegex.test(value)
-                        ?''
-                        : 'Password must be 8 characters long!'
-                        ;
+                    value.length < 8
+                        ? 'must be 8 characters long!'
+                        : '';
                 break;
             default:
                 break;
@@ -83,38 +82,47 @@ const validateForm = (errors) => {
     handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm(this.state.errors)) {
-            alert('Valid Form')
+            console.log('Valid Form');
         } else {
-            alert('Invalid Form')
+            console.log('Invalid Form');
         }
     }
 
     submitUserSignInForm = () => {
-        
-            const data = {
-                Email: this.state.email,
-                Password: this.state.password,
-            };
-            serviceUser.Login(data)
-            .then((data) => {     
-                localStorage.setItem('userId', data.data.data.userId);    
-                localStorage.setItem('address', data.data.data.address);   
-                localStorage.setItem('phoneNo', data.data.data.phoneNumber);     
-                localStorage.setItem('firstName', data.data.data.firstName);   
-                localStorage.setItem('lastName', data.data.data.lastName);   
-                localStorage.setItem('city', data.data.data.city);  
+
+        if(this.state.email.length === 0 || this.state.password.length === 0 )
+        {
+             this.setState({compliteError:"All field Required"})
+        }
+        else{
+         const data = {
+            Email: this.state.email,
+            Password: this.state.password,
+        };
+        serviceUser.Login(data)
+            .then((data) => {
+                localStorage.setItem('userId', data.data.data.userId);
+                localStorage.setItem('address', data.data.data.address);
+                localStorage.setItem('phoneNo', data.data.data.phoneNumber);
+                localStorage.setItem('firstName', data.data.data.firstName);
+                localStorage.setItem('lastName', data.data.data.lastName);
+                localStorage.setItem('city', data.data.data.city);
                 localStorage.setItem('token', data.data.jsonToken);
                 localStorage.setItem('email', data.data.data.email);
-                if (data.data.data.userRole === "Customer" ) {
+                localStorage.setItem('role', data.data.data.userRole);
+                if (data.data.data.userRole === "Customer") {
                     this.props.userInformation(data.data);
                     this.props.snackbarDisplay(this.state.snackbar);
-                    auth.Login(()=>{
-                        this.props.history.push("/home/books");    
+                    auth.login(() => {
+                        this.props.history.push("/home/books");
                     })
-                    
+
                 }
                 else {
-                    this.props.history.push("/adminDashboard");
+                    auth.login(()=>{
+                        this.props.history.push("/adminDashboard");
+                    })
+                    
                     this.props.snackbarDisplay(this.state.snackbar);
 
                 }
@@ -122,7 +130,8 @@ const validateForm = (errors) => {
             .catch((err) => {
                 console.log(err);
             })
-        };
+        }
+    };
 
     render() {
         const { errors } = this.state;
@@ -161,12 +170,11 @@ const validateForm = (errors) => {
                                 size="small"
                                 helperText="Use EmailID or Mobile Number"
                                 required
-                                // errorText={errors.email}
                                 placeholder="@gmail.com"
                                 onChange={this.handleChange} noValidate />
 
                             {errors.email.length > 0 &&
-                                <span className='error'>{errors.email}</span>} 
+                                <span className='error'>{errors.email}</span>}
                         </div>
                         <div className="textField1">
                             <TextField
@@ -183,7 +191,7 @@ const validateForm = (errors) => {
                             {errors.password.length > 0 &&
                                 <span className='error'>{errors.password}</span>}
                         </div>
-
+                        <spam className="error">{this.state.compliteError}</spam>
                         <div className="buttonContainer">
                             <div className="btn1">
                                 <Link href="/" variant="body2">
@@ -212,13 +220,13 @@ const validateForm = (errors) => {
     }
 }
 const mapDispatchToProps = dispatch => {
-    
+
     return {
         userInformation: (data) => dispatch(userInformation(data)),
         snackbarDisplay: (data) => dispatch(snackbarDisplay(data))
-        
+
     }
 }
 
 
-export default connect(null,mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(SignIn)

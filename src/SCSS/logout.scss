@@ -24,10 +24,8 @@
     height: 86px;
     border-radius: 50%;
 }
-.camera{
-position: absolute;
-right: 35%;
-bottom: 10%;
+.namebody{
+    font-weight: 500;
 }
 .name{
     @include Flex;

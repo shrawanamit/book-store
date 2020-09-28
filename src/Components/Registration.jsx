@@ -19,14 +19,14 @@ export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: null,
-            lastName: null,
-            email: null,
-            password: null,
-            confirmPassword: null,
-            phoneNumber:null,
-            city:null,
-            address:null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPassword:'',
+            phoneNumber:'',
+            city:'',
+            address:'',
             SnackbarOpen: false,
             SnackbarMessage: '',
             errors: {
@@ -36,7 +36,8 @@ export default class Registration extends React.Component {
                 email: '',
                 password: '',
                 confirmPassword: '',
-            }
+            },
+            compliteError:'',
         };
     }
 
@@ -98,43 +99,52 @@ export default class Registration extends React.Component {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
-        if(validateForm(this.state.errors)) {
-          console.info('Valid Form')
-        }else{
-          console.error('Invalid Form')
-        }
+        // event.preventDefault();
+        // if(validateForm(this.state.errors)) {
+        //   console.info('Valid Form')
+        // }else{
+        //   console.error('Invalid Form')
+        // }
+       
       }
 
     
     submitUserSignInForm = () => {
 
-        const user = {
-            FirstName: this.state.firstName,
-            LastName: this.state.lastName,
-            Email:this.state.email,
-            Address:this.state.address,
-            City:this.state.city,
-            PhoneNumber:this.state.phoneNumber,
-            password: this.state.password,
-        };
-        if( this.state.password === this.state.confirmPassword)
+        if(this.state.email.length === 0 || this.state.password.length === 0 || this.state.city.length === 0 || this.state.address.length === 0|| this.state.firstName.length === 0 || this.state.lastName.length === 0 ||this.state.phoneNumber.length < 10 )
         {
-            service.Registration(user)
-            .then((json) => {
-                console.log("responce data==>", json);
-                if (json.status === 200) {
-                    this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        
+             this.setState({compliteError:"All field Required"})
         }
         else{
-            this.setState({ SnackbarOpen: true, SnackbarMessage: 'password not match !!' })
+            const user = {
+                FirstName: this.state.firstName,
+                LastName: this.state.lastName,
+                Email:this.state.email,
+                Address:this.state.address,
+                City:this.state.city,
+                PhoneNumber:this.state.phoneNumber,
+                password: this.state.password,
+            };
+            if( this.state.password === this.state.confirmPassword)
+            {
+                service.Registration(user)
+                .then((json) => {
+                    console.log("responce data==>", json);
+                    if (json.status === 200) {
+                        this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
+            }
+            else{
+                this.setState({ SnackbarOpen: true, SnackbarMessage: 'password not match !!' })
+            }
+
         }
+       
         
     };
 
@@ -307,6 +317,7 @@ export default class Registration extends React.Component {
                                                 <span className='error'>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
+                                            <spam className="error">{this.state.compliteError}</spam>
                                     <div className="button">
                                         <div className="button1">
                                             <Link href="/Login" variant="body2">
@@ -325,14 +336,6 @@ export default class Registration extends React.Component {
                         </div>
 
                     </div>
-
-                    {/* <div className="sideImageBox">
-                        <div className="figureBox">
-                            <div className="image"><img src={logo} class="tempimage" alt="Temperature" />
-                                <figcaption className="figCaption"> One account. All of Fundoo working for you.</figcaption>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         );

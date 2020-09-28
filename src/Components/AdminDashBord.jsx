@@ -63,29 +63,25 @@ class AdminDashBord extends React.Component {
             query: '',
             titleError: '',
             loggedIn: '',
-            bookImage: ''
+            bookImage: '',
+            imageOpen:true
 
         };
     }
 
 
-    addImage = async (e, row) => {
+    addImage = async (e) => {
         await this.setState({ bookImage: e.target.files[0] })
-        console.log("image", this.state.bookImage)
-        const bookId = {
-
-            bookId: row.bookId
+        const reader = new FileReader();
+        reader.readAsDataURL(this.state.bookImage);
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                this.setState({
+                    imageURL: reader.result,
+                });
+            }
         }
-        const data = new FormData()
-        data.append('bookImage', this.state.bookImage);
-
-        service.UpdtaeBookImage(bookId, data).then((json) => {
-            console.log(json);
-            this.getAllBooks()
-        })
-            .catch((err) => {
-                console.log(err);
-            });
+       
     }
     handleChangePage = (event, page) => {
         this.setState({ page });
@@ -115,6 +111,13 @@ class AdminDashBord extends React.Component {
             heading: 'ADD BOOK',
             open: true,
             button: 'ADD',
+            imageOpen:false,
+            title: '',
+            description: '',
+            author: '',
+            quantity: null,
+            price: null,
+            pages: null,
         });
     }
 
@@ -127,63 +130,83 @@ class AdminDashBord extends React.Component {
     };
 
     handelApi = () => {
-        this.setState({ open: false });
+
         if (this.state.title === "") {
             this.setState({
-                titleError: "title is empty"
+                titleError: "enter book details"
             });
         }
 
 
-        else if (this.state.bookId === null && this.state.title != null) {
-            this.setState({
-                titleError: ""
-            });
-            const requestData = {
-                'Title': this.state.title,
-                'Description': this.state.description,
-                'Author': this.state.author,
-                "BooksAvailable": parseInt(this.state.quantity),
-                'Price': parseInt(this.state.price)
-            }
-            service
-                .AddBook(requestData)
-                .then((json) => {
-                    this.getAllBooks();
-                    console.log(json);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-        }
         else {
-            const requestData = {
-                'BookId': parseInt(this.state.bookId),
-                'Title': this.state.title,
-                'Description': this.state.description,
-                'Author': this.state.author,
-                "BooksAvailable": parseInt(this.state.quantity),
-                'Price': parseInt(this.state.price)
-            }
-
-            service
-                .updateBooks(requestData)
-                .then((json) => {
-                    console.log(json)
-                    this.getAllBooks();
-                    this.setState({
-                        title: '',
-                        description: '',
-                        author: '',
-                        quantity: null,
-                        price: null,
-                        pages: null,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
+            if (this.state.bookId === null && this.state.title != null) {
+                this.setState({
+                    titleError: ""
                 });
+                const requestData = {
+                    'Title': this.state.title,
+                    'Description': this.state.description,
+                    'Author': this.state.author,
+                    "BooksAvailable": parseInt(this.state.quantity),
+                    'Price': parseInt(this.state.price)
+                }
+                service
+                    .AddBook(requestData)
+                    .then((json) => {
+                        this.setState({ open: false });
+                        this.getAllBooks();
+                        console.log(json);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+            }
+            else {
+
+                const bookId = {
+
+                    bookId: parseInt(this.state.bookId)
+                }
+                const data = new FormData()
+                data.append('bookImage', this.state.bookImage);
+        
+                service.UpdtaeBookImage(bookId, data).then((json) => {
+                    console.log(json);
+                    this.getAllBooks()
+                })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                const requestData = {
+                    'BookId': parseInt(this.state.bookId),
+                    'Title': this.state.title,
+                    'Description': this.state.description,
+                    'Author': this.state.author,
+                    "BooksAvailable": parseInt(this.state.quantity),
+                    'Price': parseInt(this.state.price)
+                }
+
+                service
+                    .updateBooks(requestData)
+                    .then((json) => {
+                        console.log(json)
+                        this.getAllBooks();
+                        this.setState({ open: false });
+                        this.setState({
+                            title: '',
+                            description: '',
+                            author: '',
+                            quantity: null,
+                            price: null,
+                            pages: null,
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
         }
 
     }
@@ -235,22 +258,23 @@ class AdminDashBord extends React.Component {
         return (
             <div class="tableBody">
                 <ToolBar logOutTrue={this.state.logOut} />
-                <div className="searchBarContainer">
-                    <div className="searchTable">
-                        <SearchIcon fontSize='small' />
-                    </div>
-                    <div className="searchInput">
-                        <InputBase
-                            fullWidth
-                            type="text"
-                            name="query"
-                            size="small"
-                            placeholder='Search book by title'
-                            value={this.state.query}
-                            onChange={this.handleChange} noValidate />
-                    </div>
-                </div>
+
                 <div class="table">
+                    <div className="searchBarContainer">
+                        <div className="searchTable">
+                            <SearchIcon fontSize='small' />
+                        </div>
+                        <div className="searchInput">
+                            <InputBase
+                                fullWidth
+                                type="text"
+                                name="query"
+                                size="small"
+                                placeholder='Search book by title'
+                                value={this.state.query}
+                                onChange={this.handleChange} noValidate />
+                        </div>
+                    </div>
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -261,7 +285,6 @@ class AdminDashBord extends React.Component {
                                     <TableCell align="center">Author</TableCell>
                                     <TableCell align="center">Quantity</TableCell>
                                     <TableCell align="center">Price</TableCell>
-                                    <TableCell align="center">Add Image</TableCell>
                                     <TableCell align="center">Edit</TableCell>
                                     <TableCell align="center">Delete</TableCell>
                                 </TableRow>
@@ -279,14 +302,6 @@ class AdminDashBord extends React.Component {
                                                     <TableCell align="center">{row.author}</TableCell>
                                                     <TableCell align="center">{row.booksAvailable}</TableCell>
                                                     <TableCell align="center">{row.price}</TableCell>
-                                                    <TableCell align="center">
-                                                        <IconButton edge="start" color="inherit" >
-                                                            <input type="file" id="BtnBrowseHidden" name="file" className="image" accept="image/*" onChange={(e) => this.addImage(e, row)} />
-                                                            <label for="BtnBrowseHidden" id="LblBrowse">
-                                                                <ImageOutlinedIcon fontSize="small" color="inherit" />
-                                                            </label>
-                                                        </IconButton>
-                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <IconButton edge="start" color="inherit" >
                                                             <EditOutlinedIcon fontSize="small" color="inherit" onClick={() => this.handleClickOpen(row)} />
@@ -325,7 +340,7 @@ class AdminDashBord extends React.Component {
                         </Tooltip>
 
                     </div>
-                   
+
                 </div>
 
 
@@ -334,9 +349,11 @@ class AdminDashBord extends React.Component {
                     <DialogTitle id="form-dialog-title">{this.state.heading}</DialogTitle>
                     <DialogContent>
                         <div className="updateContainer">
+                            
+                        {this.state.imageOpen &&
                             <div className="addImage">
                                 <div className="imagebody">
-                                    <img src={logo ? logo : this.props.imageURL} alt="upload" className="logoImage" />
+                                    <img src={this.state.imageURL?this.state.imageURL:logo} alt="upload" className="logoImage" />
                                 </div>
                                 <div className="imageInput">
 
@@ -346,7 +363,7 @@ class AdminDashBord extends React.Component {
                                     </label>
 
                                 </div>
-                            </div>
+                            </div>}
                             <div className="textfield">
                                 <div className="textFieldOne">
                                     <TextField
@@ -418,9 +435,10 @@ class AdminDashBord extends React.Component {
                                         onChange={this.handleChange} noValidate />
                                 </div>
                             </div>
-
+                            <spam className='error'>{this.state.titleError}</spam>
                         </div>
                     </DialogContent>
+
                     <DialogActions>
 
                         <Button variant="contained" color="secondary" onClick={this.handelApi} >

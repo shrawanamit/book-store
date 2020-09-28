@@ -19,13 +19,13 @@ function App() {
       <Router>
         <Route exact path="/" component={Registration} />
         <Route exact path="/Login" component={SignIn} />
-        <ProtectedRoute exact path="/home/books" component={Dashbord} />
+        <ProtectedRoute  exact path="/home/books" component={Dashbord} />
         <Route exact path="/adminDashboard" component={AdminDashBord} />
         <Route exact path="/bookInCart" component={BookInCart} />
         <Route exact path="/wishlist" component={WishList} />
         <Route exact path="/orderSummery" component={OrderSummery} />
         <Route exact path="/form" component={MyForm} />
-        <Route path="*" component={()=>"404 not found"}/>
+        {/* <Route path="*" component={()=>"404 not found"}/> */}
         </Router>
     </div>
     

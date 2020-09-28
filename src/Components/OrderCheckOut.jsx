@@ -101,5 +101,5 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderCheckOut)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OrderCheckOut))
 

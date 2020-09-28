@@ -30,20 +30,7 @@ class Logout extends React.Component {
             this.props.history.push("/Login");
         })
     }
-    addImage = (e) => {
-        console.log("image");
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                this.setState({
-                    imageUrl: reader.result,
-                });
-            }
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    }
-
+   
     render() {
         const { anchorEl } = this.state;
 
@@ -67,16 +54,9 @@ class Logout extends React.Component {
                     <div className="logout">
                         <div className="accountimage">
                             <img src={this.state.imageUrl ? this.state.imageUrl : logo} class="displayAccountImage" alt="imag" />
-                            {/* <div className="camera">
-                                <IconButton edge="start" color="inherit" aria-label="menu">
-                                    <input type="file" id="BtnBrowseHidden" name="file" className="image" accept="image/*" onChange={this.addImage} />
-                                    <label for="BtnBrowseHidden" id="LblBrowse">
-                                        <CameraAltOutlinedIcon fontSize="small" color="inherit" />
-                                    </label>
-                                </IconButton>
-                            </div> */}
                         </div>
                         <div className="name">
+                        <div className="namebody">{localStorage.getItem('role') ==='Admin'?'Admin':""}</div>
                         <div className="namebody">{localStorage.getItem('firstName')+' '+localStorage.getItem('lastName')}</div>
                             <div className="email">{localStorage.getItem('email')}</div><br />
                         </div>
