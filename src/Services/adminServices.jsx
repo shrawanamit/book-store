@@ -27,8 +27,8 @@ export default class AdminService {
           authorization: token
         }});
     }
-    UpdtaeBookImage(BookId){
-      return axiosService.Delete(`${apiUrl}api/Book/InsertImage/${BookId}`,{ headers: {
+    UpdtaeBookImage(bookId,data){
+      return axiosService.Put(`${apiUrl}api/Book/InsertImage/${bookId.bookId}`,data,{ headers: {
         authorization: token
       }});
   }

@@ -92,7 +92,7 @@ class ToolBar extends React.Component {
                                 </div>
                             </div>
                     }
-                    <Logout />
+                    <Logout  logOutTrue={ this.props.logOutTrue }/>
                    
                 </div>
             </div>

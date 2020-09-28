@@ -115,7 +115,8 @@ class BooksContainer extends React.Component {
         return (
             // 
             <React.Fragment>
-                {this.props.getAllBooks.filter(row =>  row.isDeleted == false ).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
+                {(this.props.filterAction ? this.props.getAllFilterBooks :
+                this.props.getAllBooks.filter(row =>  row.isDeleted == false )).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">
@@ -178,35 +179,17 @@ const mapStateToProps = state => {
    
     if (window.location.href === "http://localhost:3000/home/books") {
 
-
-        if (state.bookReducer.searchedData.length === 0 && state.bookReducer.filteredData.length === 0) {
-            console.log("u r in get all book")
             return {
-                getAllBooks: [...state.bookReducer.allBooks]
+                getAllFilterBooks: [...state.bookReducer.filteredData],
+                getAllBooks: [...state.bookReducer.allBooks],
             }
-        }
-        else if (state.bookReducer.searchedData.length === 0) {
-            console.log("u r in get filter book")
-            return {
-                getAllBooks: [...state.bookReducer.filteredData]
-            }
-
-        }
-        else {
-            console.log("u r in get search book")
-            return {
-                // 
-                getAllBooks: [...state.bookReducer.searchedData],
-                
-            }
-        }
 
     }
     else if(window.location.href === 'http://localhost:3000/wishlist') {
         console.log("u r in get wish list book")
         return {
            
-            getAllBooks: [...state.bookReducer.wishListData],
+            getAllBooks: [...state.bookReducer.wishListData.filter(row=>row.isMoved === false)],
         }
     }
 };

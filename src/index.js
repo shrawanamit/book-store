@@ -5,9 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
-import combineReducers from './redux/Reducer/combineReducer';
-
-
+import {BrowserRouter} from 'react-router-dom';
 
 function saveToLocalStorage(combineReducers) {
     try {
@@ -20,7 +18,9 @@ function saveToLocalStorage(combineReducers) {
 
 ReactDOM.render(
   <Provider store={store}>
+    <BrowserRouter>
       <App />
+      </BrowserRouter>
   </Provider>, document.getElementById('root'));
 store.subscribe(() => saveToLocalStorage(store.getState()));
 // If you want your app to work offline and load faster, you can change

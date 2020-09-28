@@ -8,10 +8,12 @@ import UserService from "../Services/userService";
 import {userInformation} from '../redux/Action/actionCreater';
 import {connect} from 'react-redux';
 import {snackbarDisplay} from '../redux/Action/actionCreater';
+import auth from './Auth'
 
 let serviceUser = new UserService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+const validPasswordRegex=RegExp(/"^[a-zA-Z0-9]*[@#$&*_+-]{1}[a-zA-Z0-9]*$/);
 const validateForm = (errors) => {
     let valid = true;
     Object.values(errors).forEach(
@@ -34,6 +36,7 @@ const validateForm = (errors) => {
                 SnackbarMessage: 'login Sucessfull',
                 loggedIn: true,
             },
+            errorColor:false,
             
             errors: {
 
@@ -65,9 +68,10 @@ const validateForm = (errors) => {
                 break;
             case 'password':
                 errors.password =
-                    value.length < 8
-                        ? 'Password must be 8 characters long!'
-                        : '';
+                validPasswordRegex.test(value)
+                        ?''
+                        : 'Password must be 8 characters long!'
+                        ;
                 break;
             default:
                 break;
@@ -104,7 +108,10 @@ const validateForm = (errors) => {
                 if (data.data.data.userRole === "Customer" ) {
                     this.props.userInformation(data.data);
                     this.props.snackbarDisplay(this.state.snackbar);
-                    this.props.history.push("/home/books");    
+                    auth.Login(()=>{
+                        this.props.history.push("/home/books");    
+                    })
+                    
                 }
                 else {
                     this.props.history.push("/adminDashboard");
@@ -154,11 +161,12 @@ const validateForm = (errors) => {
                                 size="small"
                                 helperText="Use EmailID or Mobile Number"
                                 required
+                                // errorText={errors.email}
                                 placeholder="@gmail.com"
                                 onChange={this.handleChange} noValidate />
 
                             {errors.email.length > 0 &&
-                                <span className='error'>{errors.email}</span>}
+                                <span className='error'>{errors.email}</span>} 
                         </div>
                         <div className="textField1">
                             <TextField

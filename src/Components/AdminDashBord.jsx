@@ -29,8 +29,11 @@ import logo from '../assetes/bookLogo.png';
 import TablePagination from '@material-ui/core/TablePagination';
 import SearchIcon from '@material-ui/icons/Search';
 import { Redirect } from 'react-router-dom';
-import {displayAllBooks} from '../redux/Action/actionCreater'
-
+import { displayAllBooks } from '../redux/Action/actionCreater';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import Noimage from '../assetes/Noimage.jpg';
+import InputBase from '@material-ui/core/InputBase';
+import Footer from './Footer'
 
 let service = new AdminService();
 
@@ -59,11 +62,31 @@ class AdminDashBord extends React.Component {
             logOut: true,
             query: '',
             titleError: '',
-            loggedIn: ''
+            loggedIn: '',
+            bookImage: ''
 
         };
     }
 
+
+    addImage = async (e, row) => {
+        await this.setState({ bookImage: e.target.files[0] })
+        console.log("image", this.state.bookImage)
+        const bookId = {
+
+            bookId: row.bookId
+        }
+        const data = new FormData()
+        data.append('bookImage', this.state.bookImage);
+
+        service.UpdtaeBookImage(bookId, data).then((json) => {
+            console.log(json);
+            this.getAllBooks()
+        })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
     handleChangePage = (event, page) => {
         this.setState({ page });
     };
@@ -116,17 +139,18 @@ class AdminDashBord extends React.Component {
             this.setState({
                 titleError: ""
             });
-            const requestData={
+            const requestData = {
                 'Title': this.state.title,
                 'Description': this.state.description,
-                'Author':this.state.author,
+                'Author': this.state.author,
                 "BooksAvailable": parseInt(this.state.quantity),
                 'Price': parseInt(this.state.price)
             }
             service
                 .AddBook(requestData)
                 .then((json) => {
-                    console.log(json)
+                    this.getAllBooks();
+                    console.log(json);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -134,11 +158,11 @@ class AdminDashBord extends React.Component {
 
         }
         else {
-            const requestData={
-                'BookId':parseInt(this.state.bookId),
+            const requestData = {
+                'BookId': parseInt(this.state.bookId),
                 'Title': this.state.title,
                 'Description': this.state.description,
-                'Author':this.state.author,
+                'Author': this.state.author,
                 "BooksAvailable": parseInt(this.state.quantity),
                 'Price': parseInt(this.state.price)
             }
@@ -147,6 +171,7 @@ class AdminDashBord extends React.Component {
                 .updateBooks(requestData)
                 .then((json) => {
                     console.log(json)
+                    this.getAllBooks();
                     this.setState({
                         title: '',
                         description: '',
@@ -179,7 +204,7 @@ class AdminDashBord extends React.Component {
                 console.log(" All books ", data);
                 this.setState({ getAllBooks: data.data.data });
                 console.log(" All books arrey ", this.state.getAllBooks);
-                this.props.displayAllBooks(data.data.data );
+                this.props.displayAllBooks(data.data.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -191,40 +216,39 @@ class AdminDashBord extends React.Component {
         console.log("Delete Id", bookId);
         service.DeleteBooks(bookId).then((json) => {
             console.log("responce of deleteed data==>", json);
-           
+            this.getAllBooks();
+
         })
             .catch((err) => {
                 console.log(err);
 
             })
     }
-    stringTruncate =(str, length)=>{
+    stringTruncate = (str, length) => {
         var dots = str.length > length ? '...' : '';
-        return str.substring(0, length)+dots;
-      };
+        return str.substring(0, length) + dots;
+    };
 
     render() {
-        if (this.state.loggedIn === false) {
-            return <Redirect to="/signin" />
-        }
         const searchTitle = this.state.query.toLowerCase();
         const emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.state.getAllBooks.length - this.state.page * this.state.rowsPerPage);
         return (
             <div class="tableBody">
-                {/* <div class="history"><p>Admin DashBord</p></div> */}
                 <ToolBar logOutTrue={this.state.logOut} />
                 <div className="searchBarContainer">
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <SearchIcon />
-                    </IconButton>
-                    <TextField
-                        label="search by title"
-                        type="text"
-                        name="query"
-                        id="outlined-size-small"
-                        size="small"
-                        value={this.state.query}
-                        onChange={this.handleChange} noValidate />
+                    <div className="searchTable">
+                        <SearchIcon fontSize='small' />
+                    </div>
+                    <div className="searchInput">
+                        <InputBase
+                            fullWidth
+                            type="text"
+                            name="query"
+                            size="small"
+                            placeholder='Search book by title'
+                            value={this.state.query}
+                            onChange={this.handleChange} noValidate />
+                    </div>
                 </div>
                 <div class="table">
                     <TableContainer component={Paper}>
@@ -237,6 +261,7 @@ class AdminDashBord extends React.Component {
                                     <TableCell align="center">Author</TableCell>
                                     <TableCell align="center">Quantity</TableCell>
                                     <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">Add Image</TableCell>
                                     <TableCell align="center">Edit</TableCell>
                                     <TableCell align="center">Delete</TableCell>
                                 </TableRow>
@@ -248,12 +273,20 @@ class AdminDashBord extends React.Component {
                                         : this.state.getAllBooks.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)).map((row) => (
                                             <StylesProvider injectFirst>
                                                 <TableRow key={row.bookID}>
-                                                    <TableCell component="th" scope="row" ><img src={row.bookImage} alt ="noImage" className="displayImage" /></TableCell>
+                                                    <TableCell component="th" scope="row" ><img src={row.bookImage ? row.bookImage : Noimage} alt="noImage" className="displayImage" /></TableCell>
                                                     <TableCell align="center">{row.title}</TableCell>
                                                     <TableCell align="center">{this.stringTruncate(row.description, 20)}</TableCell>
                                                     <TableCell align="center">{row.author}</TableCell>
                                                     <TableCell align="center">{row.booksAvailable}</TableCell>
                                                     <TableCell align="center">{row.price}</TableCell>
+                                                    <TableCell align="center">
+                                                        <IconButton edge="start" color="inherit" >
+                                                            <input type="file" id="BtnBrowseHidden" name="file" className="image" accept="image/*" onChange={(e) => this.addImage(e, row)} />
+                                                            <label for="BtnBrowseHidden" id="LblBrowse">
+                                                                <ImageOutlinedIcon fontSize="small" color="inherit" />
+                                                            </label>
+                                                        </IconButton>
+                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <IconButton edge="start" color="inherit" >
                                                             <EditOutlinedIcon fontSize="small" color="inherit" onClick={() => this.handleClickOpen(row)} />
@@ -292,6 +325,7 @@ class AdminDashBord extends React.Component {
                         </Tooltip>
 
                     </div>
+                   
                 </div>
 
 
@@ -305,7 +339,12 @@ class AdminDashBord extends React.Component {
                                     <img src={logo ? logo : this.props.imageURL} alt="upload" className="logoImage" />
                                 </div>
                                 <div className="imageInput">
-                                    <AddImage />
+
+                                    <input type="file" id="BtnBrowseHidden" name="file" className="image" accept="image/*" onChange={(e) => this.addImage(e)} />
+                                    <label for="BtnBrowseHidden" id="LblBrowse">
+                                        <span className="imagetitle">add image</span>
+                                    </label>
+
                                 </div>
                             </div>
                             <div className="textfield">
@@ -389,6 +428,7 @@ class AdminDashBord extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                <Footer />
             </div >
         );
     }
@@ -401,7 +441,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        displayAllBooks : (data) => dispatch(displayAllBooks(data))
+        displayAllBooks: (data) => dispatch(displayAllBooks(data))
     }
 }
 

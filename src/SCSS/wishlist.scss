@@ -19,7 +19,7 @@ $max-width:100%;
 .wishListContainer{
     padding-top: 95px;
     @include flexrow();
-    width: 85%;
+    width: 80%;
     min-height: 200px;
 }
 .wishListBody{
@@ -30,6 +30,7 @@ $max-width:100%;
 .wishListBook{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .footerContener{
     width:  $max-width;
@@ -45,13 +46,10 @@ $max-width:100%;
         padding-bottom: 97px;
     }
     .container {
-        display: flex;
-      justify-content: center;
+        @include flexrow();
     }
     .cartHeading {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+        @include flexrow();
     }
 
 }

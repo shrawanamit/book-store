@@ -22,6 +22,7 @@ class Dashbord extends React.Component {
                 { id: 'priceAscending', type: "price" },
             ],
             inputOption:'',
+            filterAction:false
         }
     }
 
@@ -61,7 +62,8 @@ class Dashbord extends React.Component {
 
     filterOnChange = async(e) => {
         let value = e.target.value;
-       await this.setState({ inputOption: value }, () => { console.log("====",this.state.inputOption); });
+       await this.setState({ inputOption: value ,
+                             filterAction:true   }, () => { console.log("====",this.state.inputOption); });
          const data={
             columnName:this.state.inputOption,
             order:"ascending"
@@ -92,7 +94,7 @@ class Dashbord extends React.Component {
                     </div>
                     <div className="booksBodyContainer">
                         {/* <Route path="/home/books" component={BooksContainer} /> */}
-                         <BooksContainer getAllCartBooks={this.getAllCartBooks}/> 
+                         <BooksContainer getAllCartBooks={this.getAllCartBooks} filterAction={this.state.filterAction}/> 
                     </div>
 
 

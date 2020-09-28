@@ -4,9 +4,11 @@ import "../SCSS/logout.scss";
 import logo from '../assetes/logo.jpg';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import { Link } from "react-router-dom";
+import { Link ,withRouter} from "react-router-dom";
+import auth from './Auth'
 
-export default class Logout extends React.Component {
+
+class Logout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,9 +26,9 @@ export default class Logout extends React.Component {
         this.setState({ anchorEl: null });
     };
     handelLogOut = () => {
-        // auth.logout(() => {
-        //     this.props.history.push("/Signin");
-        // })
+        auth.logout(() => {
+            this.props.history.push("/Login");
+        })
     }
     addImage = (e) => {
         console.log("image");
@@ -79,9 +81,10 @@ export default class Logout extends React.Component {
                             <div className="email">{localStorage.getItem('email')}</div><br />
                         </div>
                         <div className="btnLogout">
+                            {this.props.logOutTrue?"":
                             <Link to="/wishlist" variant="body2">
                                 <button className="wishlist" type="button" >WISHLIST</button>
-                            </Link>
+                            </Link>}
                             <button className="Addbag" type="button" onClick={this.handelLogOut}>LOGOUT</button>
                         </div>
 
@@ -91,3 +94,4 @@ export default class Logout extends React.Component {
         );
     }
 }
+export default withRouter(Logout)

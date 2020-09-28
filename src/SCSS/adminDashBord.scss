@@ -1,3 +1,5 @@
+$base-color: rgb(160, 48, 55);
+$max-width:100%;
 .tableBody{
     padding-top: 65px;
     display: flex;
@@ -8,7 +10,7 @@
 .history{
     width: 90%;
     height: 60px;
-    background-color:  rgb(155, 46, 52);
+    background-color:  $base-color;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,13 +52,13 @@ font-weight: 600 !important;
     right: 22px;
 }
 .MuiFab-secondary{
-    background-color: maroon !important;
+    background-color: $base-color !important;
 }
 .MuiDialogActions-root{
     justify-content: space-around !important;
 }
 .MuiButton-containedSecondary{
-    background-color: maroon !important;
+    background-color: $base-color !important;
 }
 .addImage{
     display: flex;
@@ -85,7 +87,7 @@ font-weight: 600 !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: maroon;
+    background-color: $base-color;
     color: white;
     height: 100%;
 }
@@ -102,4 +104,27 @@ font-weight: 600 !important;
 .displayImage{
     width: 40px;
     height: 40px;
+}
+.searchBarContainer{
+    border: 1px solid lightgray;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    
+}
+.searchTable{
+    display: flex;
+    flex-grow: 1.7;
+    justify-content: center;
+    background-color: lightgray;
+    height: 32px;
+    align-items: center;
+}
+.searchInput{
+    display: flex;
+    flex-grow: 4;
+    padding-left: 5px;
 }

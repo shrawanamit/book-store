@@ -31,11 +31,6 @@ class AddImage extends React.Component {
             <React.Fragment>
                 
                    
-                        <input type="file" id="BtnBrowseHidden" name="file" className="image" accept="image/*" onChange={(e) => this.addImage(e)} />
-                        <label for="BtnBrowseHidden" id="LblBrowse">
-                            <span className="imagetitle">add image</span>
-                        </label>
-                   
                 
             </React.Fragment>
         );
