@@ -9,11 +9,11 @@ import  userService from "../Services/userService";
 let service=new userService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-const validateForm = errors => {
-    let valid = true;
-    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
-    return valid;
-  };
+// const validateForm = errors => {
+//     let valid = true;
+//     Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+//     return valid;
+//   };
 export default class Registration extends React.Component {
 
     constructor(props) {

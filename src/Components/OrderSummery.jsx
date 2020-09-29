@@ -5,7 +5,6 @@ import '../SCSS/orderSummery.scss'
 import Button from '@material-ui/core/Button';
 import Footer from './Footer';
 import Link from '@material-ui/core/Link';
-import {connect} from 'react-redux'
 
 class OrderSummery extends React.Component {
     constructor(props){

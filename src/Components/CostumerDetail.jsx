@@ -11,7 +11,6 @@ import { userInformation } from "../redux/Action/actionCreater";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import { FormatListNumberedRtl } from '@material-ui/icons';
 
 // const nameRegx = "^[A-Z][a-zA-Z]{2,15}$";
 // const pinRegx = "^[1-9]{1}[0-9]{2}\\s{0, 1}[0-9]{3}$";
@@ -87,7 +86,7 @@ class CostumerDetail extends React.Component {
     }
 
     render() {
-        const {errors} = this.state;
+       
         return (
             <React.Fragment>
                 <div className="CostumerDetailContainer">
@@ -231,7 +230,7 @@ class CostumerDetail extends React.Component {
                         </div>
                         <div className="CostumerDetailSideNav ">
                             <div className="editform">
-                            <IconButton edge="start" color="inherit" aria-label="menu" fontSize="small" onClick={this. handleEdit}>
+                            <IconButton edge="start" color="inherit" aria-label="menu" fontSize="small" onClick={this.handleEdit}>
                                  <EditOutlinedIcon  fontSize="small" />
                             </IconButton>
                             </div>

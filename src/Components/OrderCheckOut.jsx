@@ -47,12 +47,12 @@ class OrderCheckOut extends React.Component {
                     this.props.getOrderId(data.data.data);
                     localStorage.setItem('orderId', data.data.data.orderId);
                     this.props.history.push("/home/books/orderSummery");
-                    // <Redirect to="/orderSummery" />
+                    
                 })
                 .catch((err) => {
                     console.log(err);
                 })
-
+                return null;
         })
     };
 

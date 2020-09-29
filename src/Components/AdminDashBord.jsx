@@ -23,14 +23,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-import AddImage from './AddImage';
 import { connect } from 'react-redux';
 import logo from '../assetes/bookLogo.png';
 import TablePagination from '@material-ui/core/TablePagination';
 import SearchIcon from '@material-ui/icons/Search';
-import { Redirect } from 'react-router-dom';
 import { displayAllBooks } from '../redux/Action/actionCreater';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import Noimage from '../assetes/Noimage.jpg';
 import InputBase from '@material-ui/core/InputBase';
 import Footer from './Footer'

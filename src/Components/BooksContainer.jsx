@@ -116,7 +116,7 @@ class BooksContainer extends React.Component {
             // 
             <React.Fragment>
                 {(this.props.filterAction ? this.props.getAllFilterBooks :this.props.searchBook ?  this.props.searchedData :
-                this.props.getAllBooks.filter(row =>  row.isDeleted == false )).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
+                this.props.getAllBooks.filter(row =>  row.isDeleted === false )).slice((this.state.page - 1) * this.state.pageSize, ((this.state.page) * (this.state.pageSize))).map((row, index) =>
                     <div className="container">
                         <div className="bookcell">
                             <div className="imageContainer">

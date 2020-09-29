@@ -60,7 +60,7 @@ class WishList extends React.Component {
                     <div className="wishListBody">
                         <div className="cartHeading"><span>My WishList</span></div>
                         <div className="wishListBook">
-                            {this.state.getAllWishListBook.filter(row => row.isDeleted === false && row.isMoved == false).length === 0 ?
+                            {this.state.getAllWishListBook.filter(row => row.isDeleted === false && row.isMoved === false).length === 0 ?
                                 <div className="wishListEmptyMessage"><Emptymessage messageEmpty={this.state.message} /></div> :
                                 <BookContainer paginationhide={this.state.paginationhide} getAllWishListBooks={this.getAllWishListBooks} /> 
                             }
