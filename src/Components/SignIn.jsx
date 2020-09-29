@@ -8,7 +8,12 @@ import UserService from "../Services/userService";
 import { userInformation } from '../redux/Action/actionCreater';
 import { connect } from 'react-redux';
 import { snackbarDisplay } from '../redux/Action/actionCreater';
-import auth from './Auth'
+import auth from './Auth';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 let serviceUser = new UserService();
 
@@ -38,6 +43,7 @@ class SignIn extends React.Component {
             },
             errorColor: false,
             compliteError:'',
+            showPassword: false,
             errors: {
 
                 email: '',
@@ -48,6 +54,9 @@ class SignIn extends React.Component {
     }
 
 
+    handleClickShowPassword = () => {
+        this.setState(state => ({ showPassword: !state.showPassword }));
+    };
 
 
     handleChange = (event) => {
@@ -179,7 +188,7 @@ class SignIn extends React.Component {
                         <div className="textField1">
                             <TextField
                                 fullWidth
-                                type="password"
+                                type={this.state.showPassword ? 'text' : 'password'}
                                 name="password"
                                 label="password"
                                 id="outlined-size-small"
@@ -187,7 +196,19 @@ class SignIn extends React.Component {
                                 size="small"
                                 helperText="Use 8 or more characters with a mix of letters, numbers & symbols"
                                 required
-                                onChange={this.handleChange} noValidate />
+                                onChange={this.handleChange} noValidate
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="Toggle password visibility"
+                                                onClick={this.handleClickShowPassword}
+                                            >
+                                                {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }} />
                             {errors.password.length > 0 &&
                                 <span className='error'>{errors.password}</span>}
                         </div>
