@@ -44,6 +44,7 @@ $base-color: rgb(160, 48, 55);
     padding-top: 50px;
     @include flexRow();
     width: 100%;
+    min-height: 425px;
 
 }
 .blank{
