@@ -2,52 +2,56 @@
 //   // background-image: url("../assetes/bookstore.jpg");
 // }
 .smainContainer {
-    background-color: #fff;
-    border: 1px solid #dadce0;
-    margin: 100px auto;
-    align-items: center;
-    height: 415px;
-    max-width: 450px;
-    border-radius: 8px;
-    display: block;
-    box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
-   
-  }
-  .fundoofont1{
-    display: flex;
-    justify-content: center;
-    font-size: 25px;
-    font-weight: 500;
-  }
-  .sloginContainer{
-    padding: 30px 40px 36px;
-    display: flex;
-    flex-grow: 1;
-    box-sizing: border-box;
-    overflow: hidden;
-    flex-direction: column;
-    justify-content: center;
-    
-  }
-  .buttonContainer{
-      display:flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding-top: 30px;
-  }
-  .textField1{
-      padding-top: 20px;
-  }
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  margin: 100px auto;
+  align-items: center;
+  height: 415px;
+  max-width: 450px;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
+ 
+}
+.fundoofont1{
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 500;
+}
+.sloginContainer{
+  padding: 30px 40px 36px;
+  display: flex;
+  flex-grow: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+.buttonContainer{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 30px;
+}
+.textField1{
+    padding-top: 20px;
+}
 
-  .error{
-    color: red;
-    font-size: 14px;
+.error{
+  color: red;
+  font-size: 14px;
+}
+@media only screen and (max-width: 500px) {
+  .smainContainer{
+      border:none;
+      margin: 20px auto;
+     
+      
   }
-  @media only screen and (max-width: 500px) {
-    .smainContainer{
-        border:none;
-        margin: 20px auto;
-        
-    }
-   
+  .smainContainer {
+    box-shadow:0px 0px 0px;
+  }
+ 
 }

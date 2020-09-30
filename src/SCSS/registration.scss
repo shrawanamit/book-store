@@ -1,8 +1,4 @@
-// .App{
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
+
 .mainContainer {
     box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
     margin: 37px auto;
@@ -45,13 +41,11 @@
 	color: #DB4437;
 }
 
-.p1{
-    display: flex;
-	font-size: 20px;
-	font-weight: 400;
-    justify-content: flex-start;
-    line-height: 80%;
+.signup{
+   opacity: 0.81;
+   padding-left: 10px;
 }
+
 .text1{
     display: flex;
     flex-direction: row;
@@ -112,6 +106,8 @@ text-align: center;
     .mainContainer{
         border:none;
         margin: 0px auto;
+        box-shadow: 0px 0px 0px;
+        width: 100%;
         
     }
     .sideImageBox{

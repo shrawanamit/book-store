@@ -179,6 +179,7 @@ export default class Registration extends React.Component {
                             <span className="u">o</span>
                             <span className="n">r</span>
                             <span className="d">e</span>
+                            <span className='signup'>(sign up)</span>
                         </div>
 
                         <div className="textFieldBody">
