@@ -164,7 +164,7 @@ class SignIn extends React.Component {
                         <p classNameq="title" align="center">
                             <Typography component="h1" variant="h5">
                                 Sign in
-                                </Typography>
+                            </Typography>
                         </p>
                     </div>
                     <form onSubmit={this.handleSubmit} noValidate>

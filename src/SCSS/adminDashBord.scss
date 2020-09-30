@@ -1,9 +1,23 @@
 $base-color: rgb(160, 48, 55);
 $max-width:100%;
-.tableBody{
-    padding-top: 65px;
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+}
+@mixin flexColumn {
     display: flex;
     flex-direction: column;
+}
+@mixin flexRow {
+    display: flex;
+}
+@mixin flex-row-center {
+    display: flex;
+    justify-content: center; 
+}
+.tableBody{
+    padding-top: 65px;
+    @include flexColumn();
     align-items: center;
     width: 100%;
 }
@@ -11,9 +25,8 @@ $max-width:100%;
     width: 90%;
     height: 60px;
     background-color:  $base-color;
-    display: flex;
+    @include flex-row-center();
     align-items: center;
-    justify-content: center;
 
     p{
         font-size: 30px;
@@ -33,10 +46,7 @@ $max-width:100%;
     width: 90%;
 
 }
-snackebar{
-    background-color: slateblue;
-}
-TableHead{
+.TableHead{
     font-size: 15px;
     font-weight: 500;
 }
@@ -87,8 +97,7 @@ font-weight: 600 !important;
 }
 .imagetitle{
     width: 100%;
-    display: flex;
-    justify-content: center;
+    @include flex-row-center();
     align-items: center;
     background-color: $base-color;
     color: white;
@@ -112,17 +121,15 @@ font-weight: 600 !important;
     border-radius: 4px;
     border: 1px solid lightgray;
     margin-top: 15px;
-    display: flex;
-    justify-content: center;
+   @include flex-row-center();
     align-items: center;
     width: 320px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
     
 }
 .searchTable{
-    display: flex;
+    @include flex-row-center();
     flex-grow: 1.7;
-    justify-content: center;
     background-color: lightgray;
     height: 32px;
     align-items: center;

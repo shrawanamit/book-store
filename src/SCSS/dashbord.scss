@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 $base-color: rgb(160, 48, 55);
 $max-width:100%;
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+}
+@mixin flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+@mixin flexRow {
+    display: flex;
+}
+@mixin flex-row-center {
+    display: flex;
+    justify-content: center; 
+}
 @mixin btn {
     cursor: pointer;
     padding-top: 8px;
@@ -12,20 +27,18 @@ $max-width:100%;
 }
 
 .appBar{
+    @include flexRow();
     width: $max-width;
     height: 65px;
     position: fixed;
     top: 0px;
     background-color:$base-color ;
-    display: flex;
-    flex-direction: row;
     z-index: 100;
 }
 .heading{
     font-size: 22px;
     color: mintcream;
-    display: flex;
-    justify-content: center;
+    @include flex-row-center();
     align-items: center;
     flex-grow: 1;
     justify-content: flex-end;
@@ -35,7 +48,7 @@ $max-width:100%;
 }
 .searchBarContener{
     flex-grow: 4;
-    display: flex;
+    @include flexRow();
     justify-content: flex-start;
     align-items: center;
 
@@ -44,7 +57,7 @@ $max-width:100%;
 .searchBody{
     width: 65%;
     height: 50%;
-    display: flex;
+    @include flexRow();
     justify-content: flex-start;
     align-items: center;
     background-color :mintcream;
@@ -62,12 +75,12 @@ $max-width:100%;
 }
 .cartlogoutContainer{
     flex-grow: 1;
-    display: flex;
+    @include flexRow();
     justify-content: space-around;
     color: mintcream;
 }
 .cartContainer{
-    display: flex;
+    @include flexRow();
     justify-content: flex-start;
     align-items: center;
     .cart{
@@ -76,19 +89,17 @@ $max-width:100%;
 
 }
 .body{
-    display: flex;
-    justify-content: center;
+   @include flex-row-center();
     padding-top: 65px;
     flex-direction: column;
     align-items: center;
 }
 .bookscount{
     width: 72%;
-    display: flex;
+    @include flexRow();
     justify-content: space-between;
     padding-top: 2.5%;
     padding-bottom: 1%;
-    // margin-right: 10px;
 }
 .noOfBooks{
     font-size: small;
@@ -102,16 +113,14 @@ $max-width:100%;
 }
 .booksBodyContainer{
     width: 75%;
-    display: flex;
-    flex-direction: row;
+    @include flexRow();
     flex-wrap: wrap;
     justify-content: flex-start;
     min-height: 510px;
 }
 
 .container{
-    display: flex;
-    flex-direction: row;
+    @include flexRow();
     position: relative;
     .bookDetailsContainer{
         display: none;
@@ -119,7 +128,7 @@ $max-width:100%;
     
 }
 .bookDetailsContainer{
-    flex-direction: column;
+   @include flexColumn();
     justify-content: flex-start;
     width:  275px;
     min-height: 100px;
@@ -136,12 +145,12 @@ $max-width:100%;
     overflow: auto;
 }
 .bookDetailsheading{
-    display: flex;
+   @include flexRow();
     font-size: 20px;
     font-weight: 500;
 }
 .bookDetails{
-    display: flex;
+    @include flexRow();
     font-size: 12px;
     padding-top: 10px;
     text-align: left;
@@ -152,23 +161,15 @@ $max-width:100%;
     width: 248px;
     height: 310px;
     border: 1px groove rgb(235, 235, 235);
-    display: flex;
-    flex-direction: column;
+    @include flexColumn();
     border-radius: 3px;
     margin: 15px;
-    position: relative;
-
-   
-    
+    position: relative; 
 }
 .bookcell{
     &:hover {
         
         box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
-
-        // .bookDetailsContainer{
-        //     display: block;
-        // }
     }
 }
 .container{
@@ -217,8 +218,7 @@ $max-width:100%;
   width: $max-width;
   height: 56%;
   background-color: rgb(241, 241, 241);
-  display: flex;
-  justify-content: center;
+ @include flex-row-center();
   align-items: center;
 }
 .imageUserBook{
@@ -226,26 +226,22 @@ $max-width:100%;
     height: 130px;
 }
 .bookNameContainer{
-    display: flex;
-    flex-direction: column;
+    @include flexColumn();
     justify-content: flex-start;
 }
 .bookDiscription{
     padding:17px;
-    display: flex;
-    flex-direction: column;
+    @include flexColumn();
 }
 .buttonCotainer{
-    display: flex;
-    flex-direction: row;
+   @include flexRow();
     justify-content: space-between;
 
 }
 .bookname{
     font-size: 15px;
-    display: flex;
+    @include flexRow();
     font-weight: 500;
-    // font-family: revert;
     font-family: 'Roboto' ;
 
 }
@@ -256,14 +252,14 @@ input[type="button"]{
     border: 0;
  }
 .Auther{
-    display: flex;
+    @include flexRow();
     font-size: 11px;
     color: lightslategrey;
     font-family: revert;
 }
 
 .price{
-    display: flex;
+    @include flexRow();
     padding-top: 4px;
     padding-bottom: 12px;
     font-size: 13px;
@@ -310,12 +306,10 @@ input[type="button"]{
     height: 20px;
     padding: 8px;
     box-shadow: 2px 2px 2px 2px lightgrey;
-    display: flex;
-    justify-content: center;
+   @include flex-row-center();
 }
 .pagination{
-    display: flex;
-    justify-content: center;
+    @include flex-row-center();
     width: inherit;
     margin: 40px;
 }
@@ -323,10 +317,7 @@ input[type="button"]{
     background-color:$base-color !important;
 }
 @media only screen and (max-width: 1002px) {
-    // .bookscount{
-    //     width: 533px;
-    //     padding-left: 0px;
-    // }
+   
 }
 @media only screen and (max-width: 500px) {
     .bookscount{
@@ -337,8 +328,7 @@ input[type="button"]{
     }
     .searchBarContener {
         flex-grow: 2;
-        display: flex;
-        justify-content: center;
+        @include flex-row-center();
         align-items: center;
        
     }
@@ -347,16 +337,14 @@ input[type="button"]{
            display: none;
        }
        .searchBody{
-           display: flex;
-           justify-content: center;
+        @include flex-row-center();
            border-radius: 50%;
            background-color: $base-color;
            color: rgb(255, 255, 255);
        }
     }
     .booksBodyContainer{
-        display: flex;
-        justify-content: center;
+        @include flex-row-center();
         min-height: 480px;
     }
    

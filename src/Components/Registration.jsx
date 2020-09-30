@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import  userService from "../Services/userService";
-let service=new userService();
+import userService from "../Services/userService";
+let service = new userService();
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 // const validateForm = errors => {
@@ -23,10 +23,10 @@ export default class Registration extends React.Component {
             lastName: '',
             email: '',
             password: '',
-            confirmPassword:'',
-            phoneNumber:'',
-            city:'',
-            address:'',
+            confirmPassword: '',
+            phoneNumber: '',
+            city: '',
+            address: '',
             SnackbarOpen: false,
             SnackbarMessage: '',
             errors: {
@@ -36,8 +36,11 @@ export default class Registration extends React.Component {
                 email: '',
                 password: '',
                 confirmPassword: '',
+                phoneNumber: '',
+                city: '',
+                address: '',
             },
-            compliteError:'',
+            compliteError: '',
         };
     }
 
@@ -69,6 +72,20 @@ export default class Registration extends React.Component {
                         : '';
                 formIsValid = false;
                 break;
+            case 'city':
+                errors.city =
+                    value.length < 3
+                        ? 'must be 3 characters long!'
+                        : '';
+                formIsValid = false;
+                break;
+            case 'address':
+                errors.address =
+                    value.length < 3
+                        ? 'must be 5 characters long!'
+                        : '';
+                formIsValid = false;
+                break;
             case 'email':
                 errors.email =
                     validEmailRegex.test(value)
@@ -90,6 +107,13 @@ export default class Registration extends React.Component {
                         : '';
                 formIsValid = false;
                 break;
+            case 'phoneNumber':
+                errors.phoneNumber =
+                    value.length < 10
+                        ? 'must be 10 characters long!'
+                        : '';
+                formIsValid = false;
+                break;
             default:
                 break;
         }
@@ -105,47 +129,43 @@ export default class Registration extends React.Component {
         // }else{
         //   console.error('Invalid Form')
         // }
-       
-      }
 
-    
+    }
+
+
     submitUserSignInForm = () => {
 
-        if(this.state.email.length === 0 || this.state.password.length === 0 || this.state.city.length === 0 || this.state.address.length === 0|| this.state.firstName.length === 0 || this.state.lastName.length === 0 ||this.state.phoneNumber.length < 10 )
-        {
-             this.setState({compliteError:"All field Required"})
+        if (this.state.email.length === 0 || this.state.password.length === 0 || this.state.city.length === 0 || this.state.address.length === 0 || this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.phoneNumber.length < 10) {
+            this.setState({ compliteError: "All field Required" })
+            return null;
         }
-        else{
+        else {
             const user = {
                 FirstName: this.state.firstName,
                 LastName: this.state.lastName,
-                Email:this.state.email,
-                Address:this.state.address,
-                City:this.state.city,
-                PhoneNumber:this.state.phoneNumber,
+                Email: this.state.email,
+                Address: this.state.address,
+                City: this.state.city,
+                PhoneNumber: this.state.phoneNumber,
                 password: this.state.password,
             };
-            if( this.state.password === this.state.confirmPassword)
-            {
+            if (this.state.password === this.state.confirmPassword) {
                 service.Registration(user)
-                .then((json) => {
-                    console.log("responce data==>", json);
-                    if (json.status === 200) {
-                        this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            
+                    .then((json) => {
+                        console.log("responce data==>", json);
+                        if (json.status === 200) {
+                            this.setState({ SnackbarOpen: true, SnackbarMessage: 'Registration Sucessfull !!' })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
             }
-            else{
+            else {
                 this.setState({ SnackbarOpen: true, SnackbarMessage: 'password not match !!' })
             }
-
         }
-       
-        
     };
 
 
@@ -153,20 +173,18 @@ export default class Registration extends React.Component {
     render() {
         const { errors } = this.state;
         return (
-
-           
             <div className="mainContainer ">
-                 <Snackbar
-                anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-                open={this.state.SnackbarOpen}
-                autoHideDuration={3000}
-                onClose={this.SnackbarClose}
-                message={<span id="message-id">{this.state.SnackbarMessage}</span>}
-                action={[
-                    <IconButton key="close" aria-label="close"
-                        color="inherit" onClick={this.SnackbarClose}>x</IconButton>
-                ]}
-            />
+                <Snackbar
+                    anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+                    open={this.state.SnackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={this.SnackbarClose}
+                    message={<span id="message-id">{this.state.SnackbarMessage}</span>}
+                    action={[
+                        <IconButton key="close" aria-label="close"
+                            color="inherit" onClick={this.SnackbarClose}>x</IconButton>
+                    ]}
+                />
                 <div className="bodyContainer">
                     <div className="registrationContainer">
                         <div className="fundoofont" >
@@ -205,6 +223,7 @@ export default class Registration extends React.Component {
                                         <div className="textRow2">
                                             <TextField
                                                 fullWidth
+                                                type="text"
                                                 name="lastName"
                                                 label="Last name"
                                                 id="outlined-size-small"
@@ -247,8 +266,10 @@ export default class Registration extends React.Component {
                                                 size="small"
                                                 required
                                                 defaultValue={this.state.city}
-                                                onChange={this.handleChange}
-                                            />
+                                                onChange={this.handleChange} />
+                                            {errors.city.length > 0 &&
+                                                <span className='error'>{errors.city}</span>}
+
                                         </div>
                                         <div className="textRow2">
                                             <TextField
@@ -260,11 +281,11 @@ export default class Registration extends React.Component {
                                                 variant="outlined"
                                                 size="small"
                                                 required
-                                                defaultValue={this.state.PhoneNumber}
+                                                defaultValue={this.state.phoneNumber}
                                                 onChange={this.handleChange}
                                             />
-                                            {errors.confirmPassword.length > 0 &&
-                                                <span className='error'>{errors.confirmPassword}</span>}
+                                            {errors.phoneNumber.length > 0 &&
+                                                <span className='error'>{errors.phoneNumber}</span>}
                                         </div>
                                     </div>
                                     <div className="textColumn2">
@@ -282,6 +303,8 @@ export default class Registration extends React.Component {
                                             text-align="right"
                                             defaultValue={this.state.address}
                                             onChange={this.handleChange} noValidate />
+                                        {errors.address.length > 0 &&
+                                            <span className='error'>{errors.address}</span>}
                                     </div>
                                     <div className="text3">
                                         <div className="textRow1">
@@ -318,7 +341,7 @@ export default class Registration extends React.Component {
                                                 <span className='error'>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
-                                            <spam className="error">{this.state.compliteError}</spam>
+                                    <spam className="error">{this.state.compliteError}</spam>
                                     <div className="button">
                                         <div className="button1">
                                             <Link href="/Login" variant="body2">
