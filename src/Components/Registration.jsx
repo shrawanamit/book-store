@@ -49,7 +49,7 @@ export default class Registration extends React.Component {
     }
 
     handleChange = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         const { name, value } = event.target;
         let errors = this.state.errors;
         this.setState({

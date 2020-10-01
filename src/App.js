@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/" component={Registration} />
         <Route exact path="/Login" component={SignIn} />
         <Route  exact path="/home/books" component={Dashbord} />
-        <ProtectedRoute exact path="/home/books/adminDashboard" component={AdminDashBord} />
+        <Route exact path="/adminDashboard" component={AdminDashBord} />
         <ProtectedRoute exact path="/home/books/bookInCart" component={BookInCart} />
         <ProtectedRoute exact path="/home/books/wishlist" component={WishList} />
         <ProtectedRoute exact path="/home/books/orderSummery" component={OrderSummery} />

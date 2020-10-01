@@ -42,8 +42,9 @@ $max-width:100%;
     
 }
 .table{
-    padding-top:5px;
+    padding-top:20px;
     width: 90%;
+    min-height: 575px;
 
 }
 .TableHead{
@@ -58,8 +59,8 @@ font-weight: 600 !important;
 }
 .addNote{
     position: fixed;
-    bottom: 50px;
-    right: 22px;
+    bottom: 80px;
+    right: 50px;
 }
 .MuiFab-secondary{
     background-color: $base-color !important;

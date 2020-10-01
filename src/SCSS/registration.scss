@@ -19,7 +19,7 @@ $quater-px:25px;
     min-height: 540px;
     width: 480px;
     border-radius: 8px;
-    display: flex;
+    @include flex-center();
   }
   .bodyContainer{
     padding: 25px;
