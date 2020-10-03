@@ -19,7 +19,7 @@ export default class Emptymessage extends React.Component {
                     <Link href="/home/books" variant="body2" underline="none">
                         <Button variant="contained" color="primary" disableElevation className="continueShopping">
                             continue Shoping
-            </Button>
+                        </Button>
                     </Link>
                 </div>
             </div>

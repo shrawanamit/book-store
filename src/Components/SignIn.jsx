@@ -161,9 +161,9 @@ class SignIn extends React.Component {
                         <span className="d">e</span>
                     </div>
                     <div>
-                        <p classNameq="title" align="center">
+                        <p className="title" align="center">
                             <Typography component="h1" variant="h5">
-                                Sign in
+                                SignIn
                             </Typography>
                         </p>
                     </div>
@@ -227,7 +227,7 @@ class SignIn extends React.Component {
                                     className="btn"
                                     type="submit">
                                     Sign in
-                            </Button>
+                                </Button>
                             </div>
                         </div>
 

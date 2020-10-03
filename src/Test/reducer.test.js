@@ -1,7 +1,7 @@
 import * as types from '../redux/Action/actionType';
 import reducer from '../redux/Reducer/reducer'
 
-describe('todos reducer', () => {
+describe('book reducer', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual(
             {
@@ -27,18 +27,18 @@ describe('todos reducer', () => {
             }
         )
     })
-    it('should handle Display image', () => {
-        expect(
-            reducer([], {
-                type: types.DISPLAY_IMAGE,
-                imageURL: 'amit.jpg'
-            })
-        ).toEqual(
-            {
-                imageURL: 'amit.jpg'
-            }
-        )
-    })
+    // it('should handle Display image', () => {
+    //     expect(
+    //         reducer([], {
+    //             type: types.DISPLAY_IMAGE,
+    //             imageURL: amit.jpg
+    //         })
+    //     ).toEqual(
+    //         {
+    //             imageURL: amit.jpg
+    //         }
+    //     )
+    // })
     it('should handle Display all search book', () => {
         expect(
             reducer([], {
